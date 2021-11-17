@@ -21,16 +21,16 @@ class DataCrypter extends Controller
     public $access_time=31556926;  //seconds
 
     public $method="aes-128-cbc";
-    public $key="34e66";
-    public $secret="1a27a1";
+    public $key="c453f$";
+    public $secret="5r?n81";
 
     public $methodd="aes-256-cbc";
-    public $keyy="ffa7282";
-    public $secrett="49b5044200";
+    public $keyy="3e5!?s44b";
+    public $secrett="as$$??!0";
 
     public $methoddd="aes-128-cfb8";
-    public $keyyy="a61994";
-    public $secrettt="f3eef7";
+    public $keyyy="??$43.,";
+    public $secrettt="4fdhf5$";
 
     public function crypter(Request $request){ // Test Request Method
         $data=$request->data;
@@ -41,6 +41,12 @@ class DataCrypter extends Controller
         }else{
             return $this->crypt_router($data,$time,$mode);
         }
+    }
+    public static function md5R($string,$repeatVal=4){
+        for ($i=0;$i<$repeatVal;$i++){
+            $string=md5($string);
+        }
+        return $string;
     }
     private function KEI1_mt_encode_data($string, $access_time = "")
     {
@@ -73,6 +79,7 @@ class DataCrypter extends Controller
         if ($type == "") {
             $string = explode($this->explode_key, $string);
         }
+
         if ($string[count($string) - 1] <= time()) {
             $string[count($string) - 1] = "false";
             return false;
@@ -86,6 +93,7 @@ class DataCrypter extends Controller
         return $response;
     }
     public function crypt_router($string,$time=false,$mode="encode",$access_time="empty"){
+
         /**
          * Bu fonksiyon içerisindeki komut satırına alınmış satırları sırasını değiştirerek
          * Algoritmada değişiklik yapın sonrasında else bloğunda tam tersine çevirin
@@ -158,11 +166,14 @@ class DataCrypter extends Controller
             //$crypt=$this->KEI1_decode($crypt,'off',$this->method,$this->keyyy,$this->secret);
             //$crypt=$this->KEI1_decode($crypt,'off',$this->method,$this->keyy,$this->secret);
             $crypt=$this->KEI1_decode($crypt,'off',$this->method,$this->key,$this->secret);
+
             if($time==true){
                 $crypt=$this->KEI1_mt_decode_data($crypt);
             }
+
         }
         return $crypt;
+
     }
     private function KEI1_encode($string,$method="",$key="",$secret=""){
         if($method=="") { $method=$this->methodd; }
@@ -172,12 +183,16 @@ class DataCrypter extends Controller
         $key = hash('sha256', $key);
         $iv = substr(hash('sha256', $secret), 0, 16);
         if ($string != "" && gettype($string) == "string") {
+            //$string = $string . '@DehaSoft@' . strtotime('+' . env('ACCESS_TIME') . ' seconds');
+
             $output = openssl_encrypt($string, $method, $key, 0, $iv);
+
         } else if (count($string) > 0 && gettype($string) == "array") {
             //array_push($string,strtotime('+' . env('ACCESS_TIME') . ' seconds'));
             $string = json_encode($string);
             $output = openssl_encrypt($string, $method, $key, 0, $iv);
         }
+
         return base64_encode($output);
     }
     private function KEI1_decode($string,$type="off",$method="",$key="",$secret="")
@@ -188,16 +203,21 @@ class DataCrypter extends Controller
         $key = hash('sha256', $key);
         $iv = substr(hash('sha256', $secret), 0, 16);
         $string = base64_decode($string);
+
         $string = openssl_decrypt($string, $method, $key, 0, $iv);
+
         if ($type != "off") {
             $string = json_decode($string);
         }
+        $string=($string);
         return $string;
     }
 
     public static function timeHasPassed($time="2021-10-08 18:12:32"){
         $now=Carbon::now();
+
         $time=Carbon::parse($time);
+
         $saniye=$now->diffInSeconds($time, false);
         $dakika=$now->diffInMinutes($time, false);
         $saat=$now->diffInHours($time, false);
@@ -206,7 +226,9 @@ class DataCrypter extends Controller
         $yil=$now->diffInYears($time, false);
         $hafta=$gun>-7 ? 0 : ( $gun>-13 ? 1 : ( $gun>-20 ? 2 : 3 ) );
         $sure=$yil!= 0 ? $yil." yıl" : ($ay!=0 ? $ay." ay" : ( $hafta!=0 ? $hafta." hafta" : ( $gun!=0 ? $gun." gün" : ( $saat!=0 ? $saat." saat" : ( $dakika!=0 ? $dakika." dakika" : $saniye." saniye" ) ) ) ) );
+
         return str_replace("-","",$sure)." önce";
+
     }
 
 }

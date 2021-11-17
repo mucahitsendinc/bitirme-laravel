@@ -6,7 +6,9 @@ use App\Http\Controllers\CustomController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\User;
+use App\Models\UserIp;
 use Illuminate\Support\Facades\Mail;
+use App\Http\Controllers\DataCrypter;
 class UserController extends Controller
 {
 
@@ -27,7 +29,6 @@ class UserController extends Controller
             return response()->json(['error'=>true,'message'=>'Kullanıcı adı veya şifre hatalı'],400);
         }
         return response()->json(['error'=>true,'message'=>'Kullanıcı adı veya şifre hatalı'],400);
-
     }
 
     public function register(Request $request){
@@ -64,15 +65,22 @@ class UserController extends Controller
         }
 
         try{
-            $token=md5(uniqid());
-            $save=User::insert([
+            $token=DataCrypter::md5R(uniqid());
+            $save=User::insertGetId([
                 'name'=>$request->name,
                 'surname'=>$request->surname,
                 'email'=>$request->email,
-                'password'=>$request->password,
+                'password'=>DataCrypter::md5R($request->password),
                 'code'=>$token
             ]);
+
             if($save){
+                UserIp::insert([
+                    'user_id'=>$save,
+                    'register_ip'=>$request->ip(),
+                    'last_login_ip'=>$request->ip(),
+                    'last_request_ip'=>$request->ip()
+                ]);
                 $data=[
                     'email'=>$request->email,
                     'sender'=>env('MAIL_FROM_ADDRESS'),
@@ -113,15 +121,27 @@ class UserController extends Controller
             return response()->json(['error'=>true,'message'=>'Bu işlem için gerekli bilgiler eksik.'],400);
         }
         try {
-            $update=User::where('code',$request->token)->update([
-                'code'=>md5(uniqid()),
+            $token=DataCrypter::md5R(uniqid(),5);
+            $user=User::where('code',$request->token)->first();
+            $update=User::where('id',$user->id)->update([
+                'code'=>$token,
                 'status'=>0
             ]);
             if($update){
+
+                UserIp::where('user_id',$user->id)->update([
+                    'last_request_ip'=>$request->ip(),
+                    'last_request_date'=>date('Y-m-d H:i:s'),
+                ]);
                 return response()->json([
                     'error'=>false,
                     'message'=>'Doğrulama işleminiz başarı ile tamamlandı.',
                 ],200);
+            }else if($user){
+                UserIp::where('user_id',$user->id)->update([
+                    'last_unsuccessful_request_ip'=>$request->ip(),
+                    'last_unsuccessful_request_date'=>date('Y-m-d H:i:s')
+                ]);
             }
         }catch (\Exception $ex){
             return response()->json([

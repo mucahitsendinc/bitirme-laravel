@@ -14,7 +14,7 @@ use App\Http\Controllers\UserController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::middleware(['verifyrequest'])->group(function(){
+Route::middleware(['verifyrequest','strange'])->group(function(){
     Route::post('register',[UserController::class,'register']);
     Route::post('register-complete',[UserController::class,'email_verify']);
     Route::post('login',[UserController::class,'login']);
