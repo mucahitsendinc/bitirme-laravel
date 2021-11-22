@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\User;
 use App\Models\UserIp;
+use App\Models\UserToken;
 use Illuminate\Support\Facades\Mail;
 use App\Http\Controllers\DataCrypter;
 class UserController extends Controller
@@ -21,16 +22,37 @@ class UserController extends Controller
             return response()->json(['error'=>true,'message'=>'Kullanıcı adı veya şifre hatalı'],400);
         }
         try {
-            $get=User::where('email',$request->email)->where('password',$request->password)->first();
+            $get=User::where('email',$request->email)->where('password',DataCrypter::md5R($request->password))->first();
             if($get){
-                dd($get);
+                $crypt=new DataCrypter;
+                $data=[
+                  'id'=>$get->id,
+                  'email'=>$request->email,
+                  'time'=>date('Y-m-d H:i:s')
+                ];
+                $token=$crypt->crypt_router(strval(json_encode($data)),true,'encode',3600);
+                $save=UserToken::where('user_id',$get->id)->update([
+                    'prefix'=>md5(env('APP_NAME')),
+                    'token'=>$token
+                ]);
+                if($save){
+                    return response()->json(['error'=>false,'message'=>'Giriş işlemi başarı ile gerçekleşti.','token'=>$token,'tokenType'=>md5(env('APP_NAME'))],200);
+                }else{
+                    $insert=UserToken::insert([
+                        'user_id'=>$get->id,
+                        'prefix'=>md5(env('APP_NAME')),
+                        'token'=>$token
+                    ]);
+                    if($insert){
+                        return response()->json(['error'=>false,'message'=>'Giriş işlemi başarı ile gerçekleşti.','token'=>$token,'tokenType'=>md5(env('APP_NAME'))],200);
+                    }
+                }
             }
         }catch (\Exception $ex){
-            return response()->json(['error'=>true,'message'=>'Kullanıcı adı veya şifre hatalı'],400);
+            return response()->json(['error'=>true,'message'=>'Kullanıcı adı veya şifre hatalı','exception'=>$ex],400);
         }
         return response()->json(['error'=>true,'message'=>'Kullanıcı adı veya şifre hatalı'],400);
     }
-
     public function register(Request $request){
         /**
          * Validasyon işlemi ,

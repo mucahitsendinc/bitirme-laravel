@@ -20,9 +20,12 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->string('code');
             $table->string('password');
-            $table->integer('status')->default($value=-1);
+            $table->unsignedBigInteger('image_id')->default(1);
+            $table->unsignedBigInteger('status_id')->nullable()->default(1);
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->foreign('status_id')->references('id')->on('user_statuses');
+            $table->foreign('image_id')->references('id')->on('user_images');
         });
     }
 
