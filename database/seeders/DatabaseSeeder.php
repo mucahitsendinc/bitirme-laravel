@@ -15,17 +15,18 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
         \App\Models\UserStatus::insert([
-            ['id'=>1,'name' => 'Onaysız','admin'=>0,'seller'=>0, 'customer' => 0],
-            ['id'=>2, 'name' => 'Müşteri', 'admin' => 0, 'seller' => 0, 'customer' => 1],
-            ['id' => 3, 'name' => 'Satıcı','admin'=>0,'seller'=>1,'customer'=>1 ],
-            ['id' => 4, 'name' => 'Yönetici', 'admin' => 1, 'seller' => 1, 'customer' => 1],
+            ['id'=>1,'name' => 'Ziyaretçi','admin'=>0,'seller'=>0, 'customer' => 0],
+            ['id'=>2,'name' => 'Onaysız','admin'=>0,'seller'=>0, 'customer' => 0],
+            ['id'=>3, 'name' => 'Müşteri', 'admin' => 0, 'seller' => 0, 'customer' => 1],
+            ['id' => 4, 'name' => 'Satıcı','admin'=>0,'seller'=>1,'customer'=>1 ],
+            ['id' => 5, 'name' => 'Yönetici', 'admin' => 1, 'seller' => 1, 'customer' => 1],
         ]);
 
         \App\Models\UserImage::insert([
             ['id' => 1, 'name' => 'test_image', 'type' => 'url', 'path' => 'https://png.pngtree.com/png-vector/20191129/ourmid/pngtree-office-checklist-icon-business-checklist-survey-test-icon-png-image_2047566.jpg']
         ]);
         \App\Models\User::insert([
-            ['id' => 1, 'image_id' => 1, 'name' => 'ETicaret', 'surname'=>'Admin', 'code' => DataCrypter::md5R(uniqid()), 'status_id' => 4, 'email' => 'mucahit@dehasoft.com.tr', 'password' => DataCrypter::md5R('123456789')]
+            ['id' => 1, 'image_id' => 1, 'name' => 'ETicaret', 'surname'=>'Admin', 'code' => DataCrypter::md5R(uniqid()), 'status_id' => 5, 'email' => 'mucahit@dehasoft.com.tr', 'password' => DataCrypter::md5R('123456789')]
         ]);
         \App\Models\ProductImage::insert([
             ['id' => 1, 'user_id'=>1,'name' => 'test_image', 'type' => 'url', 'path' => 'https://png.pngtree.com/png-vector/20191129/ourmid/pngtree-office-checklist-icon-business-checklist-survey-test-icon-png-image_2047566.jpg']

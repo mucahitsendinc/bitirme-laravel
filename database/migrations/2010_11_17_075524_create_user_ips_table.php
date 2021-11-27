@@ -15,19 +15,17 @@ class CreateUserIpsTable extends Migration
     {
         Schema::create('user_ips', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
-            $table->string('register_ip');
+            $table->string('register_ip')->nullable();
             $table->timestamp('register_date')->default(DB::raw('CURRENT_TIMESTAMP'));
-            $table->string('last_login_ip');
-            $table->string('last_unsuccessful_login_ip')->nullable(true);
-            $table->timestamp('last_unsuccessful_login_date')->nullable(true);
-            $table->string('last_request_ip');
+            $table->string('last_login_ip')->nullable();
+            $table->string('last_unsuccessful_login_ip')->nullable();
+            $table->timestamp('last_unsuccessful_login_date')->nullable();
+            $table->string('last_request_ip')->nullable();
             $table->timestamp('last_request_date')->default(DB::raw('CURRENT_TIMESTAMP'));
-            $table->string('last_unsuccesful_request_ip')->nullable(true);
-            $table->timestamp('last_unsuccesful_request_date')->nullable(true);
+            $table->string('last_unsuccesful_request_ip')->nullable();
+            $table->timestamp('last_unsuccesful_request_date')->nullable();
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP'));
-            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
