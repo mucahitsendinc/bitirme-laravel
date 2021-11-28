@@ -18,16 +18,14 @@ class CreateUsersTable extends Migration
             $table->string('name')->nullable();
             $table->string('surname')->nullable();
             $table->string('email')->nullable();
-            $table->string('code')->nullable();
+            $table->longText('code')->nullable();
             $table->string('password')->nullable();
             $table->unsignedBigInteger('image_id')->nullable();
-            $table->unsignedBigInteger('status_id')->default(1);
-            $table->unsignedBigInteger('user_ip')->nullable();
+            $table->unsignedBigInteger('status_id')->default(2);
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->foreign('status_id')->references('id')->on('user_statuses');
             $table->foreign('image_id')->references('id')->on('user_images');
-            $table->foreign('user_ip')->references('id')->on('user_ips');
         });
     }
 

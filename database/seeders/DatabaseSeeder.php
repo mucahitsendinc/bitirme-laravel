@@ -25,9 +25,14 @@ class DatabaseSeeder extends Seeder
         \App\Models\UserImage::insert([
             ['id' => 1, 'name' => 'test_image', 'type' => 'url', 'path' => 'https://png.pngtree.com/png-vector/20191129/ourmid/pngtree-office-checklist-icon-business-checklist-survey-test-icon-png-image_2047566.jpg']
         ]);
+
         \App\Models\User::insert([
             ['id' => 1, 'image_id' => 1, 'name' => 'ETicaret', 'surname'=>'Admin', 'code' => DataCrypter::md5R(uniqid()), 'status_id' => 5, 'email' => 'mucahit@dehasoft.com.tr', 'password' => DataCrypter::md5R('123456789')]
         ]);
+        \App\Models\UserIp::insert([
+            ['id' => 1, 'user_id' => 1, 'register_ip' => 'admin ']
+        ]);
+
         \App\Models\ProductImage::insert([
             ['id' => 1, 'user_id'=>1,'name' => 'test_image', 'type' => 'url', 'path' => 'https://png.pngtree.com/png-vector/20191129/ourmid/pngtree-office-checklist-icon-business-checklist-survey-test-icon-png-image_2047566.jpg']
         ]);

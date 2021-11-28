@@ -13,6 +13,19 @@ use App\Http\Controllers\DataCrypter;
 class UserController extends Controller
 {
 
+    /**
+     * Dakika cinsinden eposta tekrarlama süresi
+     */
+    public $email_repeat_time=5;
+
+    /**
+     * Gönderilecek token için karmaşıklık değeri
+     */
+    public $forgot_prefix= "b6b717a2ebee";
+
+    /**
+     * Kullanıcı giriş
+     */
     public function login(Request $request){
         $validation = Validator::make($request->all(),[
             'email' => 'required|email|min:5|max:35',
@@ -26,9 +39,9 @@ class UserController extends Controller
             if($get){
                 $crypt=new DataCrypter;
                 $data=[
-                  'id'=>$get->id,
-                  'email'=>$request->email,
-                  'time'=>date('Y-m-d H:i:s')
+                    'id'=>$get->id,
+                    'email'=>$request->email,
+                    'time'=>date('Y-m-d H:i:s')
                 ];
                 $token=$crypt->crypt_router(strval(json_encode($data)),true,'encode',3600);
                 $save=UserToken::where('user_id',$get->id)->update([
@@ -53,6 +66,10 @@ class UserController extends Controller
         }
         return response()->json(['error'=>true,'message'=>'Kullanıcı adı veya şifre hatalı'],400);
     }
+
+    /**
+     * Kullanıcı kayıt
+     */
     public function register(Request $request){
         /**
          * Validasyon işlemi ,
@@ -103,23 +120,18 @@ class UserController extends Controller
                     'last_login_ip'=>$request->ip(),
                     'last_request_ip'=>$request->ip()
                 ]);
-                $data=[
-                    'email'=>$request->email,
-                    'sender'=>env('MAIL_FROM_ADDRESS'),
-                ];
-                Mail::send('emails.verify', [
-                    'token'=>$token,
-                    'name'=>$request->name,
-                    'surname'=>$request->surname
-                ], function ($message) use($data) {
-                    $message->from($data['sender'], 'Kayıt işlemi tamamlama - Dehasoft E-Ticaret');
-                    $message->subject("Kayıt işlemi tamamlama - Dehasoft E-Ticaret");
-                    $message->to($data['email']);
-                });
-                return response()->json([
-                    'error'=>false,
-                    'message'=>'Kayıt başarı ile oluşturuldu. Hesabınızı aktif hale getirebilmek için eposta adresinize onaylama bağlantısı gönderildi.',
-                ],200);
+                if($this->send_email_verify_code($request->email,$token,$request->name,$request->surname)){
+                    return response()->json([
+                        'error' => false,
+                        'message' => 'Kayıt başarı ile oluşturuldu. Hesabınızı aktif hale getirebilmek için eposta adresinize onaylama bağlantısı gönderildi.',
+                    ], 201);
+                }else{
+                    return response()->json([
+                        'error' => false,
+                        'message' => 'Kayıt başarı ile oluşturuldu. Aktivasyon eposta adresinize gönderilemedi, giriş yaparak tekrar doğrulama kodu talep ediniz.',
+                    ], 204);
+                }
+                
             }
         }catch (\Exception $ex){
             return response()->json([
@@ -135,6 +147,10 @@ class UserController extends Controller
         ],400);
 
     }
+
+    /**
+     * Kullanıcı eposta adresini doğrulama
+     */
     public function email_verify(Request $request){
         $validation = Validator::make($request->all(),[
             'token' => 'required|min:31|max:33'
@@ -147,7 +163,7 @@ class UserController extends Controller
             $user=User::where('code',$request->token)->first();
             $update=User::where('id',$user->id)->update([
                 'code'=>$token,
-                'status'=>0
+                'status_id'=>3
             ]);
             if($update){
 
@@ -159,6 +175,7 @@ class UserController extends Controller
                     'error'=>false,
                     'message'=>'Doğrulama işleminiz başarı ile tamamlandı.',
                 ],200);
+                
             }else if($user){
                 UserIp::where('user_id',$user->id)->update([
                     'last_unsuccessful_request_ip'=>$request->ip(),
@@ -179,4 +196,197 @@ class UserController extends Controller
         ],400);
 
     }
+
+    /**
+     * Kullanıcı yeni eposta doğrulama kodu
+     */
+    public function new_email_verify_code(Request $request){
+        $tokenEmail= $request->get('email')??'';
+        $validation = Validator::make($request->all(),[
+            'email' => 'required|email|min:5|max:45'
+        ]);
+        if($validation->fails() && $tokenEmail==$request->email){
+            return response()->json(['error'=>true,'message'=>'Bu işlem için gerekli bilgiler eksik.'],400);
+        }
+        try {
+            $user=User::where('email',$request->email)->first();
+            if($user){
+                $lastUpdate=(string)$user->updated_at;
+                $expire=strtotime($lastUpdate)+(60*$this->email_repeat_time);
+                
+                if(time()<$expire){
+                    return response()->json([
+                        'error'=>true,
+                        'message'=> 'Yeni bir eposta için ' . $this->email_repeat_time . ' dakika sonra tekrar talep gönderebilirsiniz.',
+                        'time'=>$expire-time()
+                    ],400);
+                }
+                $token=DataCrypter::md5R(uniqid());
+                $update=User::where('id',$user->id)->update([
+                    'code'=>$token
+                ]);
+                if($update){
+                    if($this->send_email_verify_code($request->email,$token,$user->name,$user->surname)){
+                        return response()->json([
+                            'error'=>false,
+                            'message'=>'Yeni doğrulama kodu eposta adresinize gönderildi.',
+                        ],200);
+                    }else{
+                        return response()->json([
+                            'error'=>false,
+                            'message'=>'Yeni doğrulama kodu eposta adresinize gönderilemedi, giriş yaparak tekrar doğrulama kodu talep ediniz.',
+                        ],204);
+                    }
+                }
+            }else{
+                return response()->json([
+                    'error'=>true,
+                    'message'=>'Bu eposta adresi ile kayıtlı bir hesap bulunamadı.',
+                ],400);
+            }
+        }catch (\Exception $ex){
+            return response()->json([
+                'error'=>true,
+                'message'=>'Beklenmedik bir hata oluştu.',
+                'exception'=>$ex
+            ],403);
+        }
+
+        return response()->json([
+            'error'=>true,
+            'message'=>'Beklenmedik bir hata oluştu.'
+        ],400);
+
+    }
+
+    /**
+     * Kullanıcı eposta adresi doğrulama kodunu gönder
+     */
+    public function send_email_verify_code($email,$token,$name="",$surname=""){
+        try {
+            $data = [
+                'email' => $email,
+                'sender' => env('MAIL_FROM_ADDRESS'),
+            ];
+            Mail::send('emails.verify', [
+                'token' => $token,
+                'name' => $name,
+                'surname' => $surname
+            ], function ($message) use ($data) {
+                $message->from($data['sender'], 'Kayıt işlemi tamamlama - Dehasoft E-Ticaret');
+                $message->subject("Kayıt işlemi tamamlama - Dehasoft E-Ticaret");
+                $message->to($data['email']);
+            });
+            return true;
+        } catch (\Throwable $th) {
+            return false;
+        }
+    }
+
+    /**
+     * Kullanıcı çıkış
+     */
+    public function logout(Request $request){
+        $validation = Validator::make($request->all(), [
+            'token' => 'required|min:25',
+            'tokenType' => 'required|min:25',
+        ]);
+        if($validation->fails()){
+            return response()->json(['error'=>true,'message'=>'Bu işlem için gerekli bilgiler eksik.'],400);
+        }
+        try {
+            $user=UserToken::where('token',$request->token)->where('prefix',$request->tokenType)->first();
+            if($user){
+                UserIp::where('user_id',$user->id)->update([
+                    'last_logout_ip'=>$request->ip(),
+                    'last_logout_date'=>date('Y-m-d H:i:s')
+                ]);
+                $update=UserToken::where('id',$user->id)->update([
+                    'token'=>null,
+                    'prefix'=>null
+                ]);
+                if($update){
+                    return response()->json([
+                        'error'=>false,
+                        'message'=>'Başarı ile çıkış yapıldı.',
+                    ],200);
+                }
+            }else{
+                UserIp::where('user_id', $user->id)->update([
+                    'last_unsuccessful_logout_ip' => $request->ip(),
+                    'last_unsuccessful_logout_date' => date('Y-m-d H:i:s')
+                ]);
+                return response()->json([
+                    'error' => true,
+                    'message' => 'Çıkış yapılamadı.'
+                ], 400);
+            }
+        }catch(\Exception $ex){
+            return response()->json([
+                'error'=>true,
+                'message'=>'Çıkış yapılamadı.',
+                'exception'=>$ex
+            ],403);
+        }
+    }
+
+    /**
+     * Kullanıcı şifremi unuttum
+     */
+    public function forgot_password(Request $request){
+        $validation = Validator::make($request->all(), [
+            'email' => 'required|email|min:5|max:45'
+        ]);
+        if($validation->fails()){
+            return response()->json(['error'=>true,'message'=>'Bu işlem için gerekli bilgiler eksik.'],400);
+        }
+        if(isset($request->returnUrl) && !strstr($request->returnUrl, env('APP_FRONT_URL'))){
+            return response()->json(['error'=>true,'message'=>'Geçersiz işlem.'],400);
+        }
+        try {
+            $user=User::where('email',$request->email)->first();
+            if($user){
+                $lastUpdate=(string)$user->updated_at;
+                $expire=strtotime($lastUpdate)+(60*$this->email_repeat_time);
+                if(time()<$expire){
+                    return response()->json([
+                        'error'=>true,
+                        'message'=> 'Yeni bir eposta için '.$this->email_repeat_time.' dakika sonra tekrar talep gönderebilirsiniz.',
+                        'time'=>$expire-time()
+                    ],400);
+                }
+                $crypt=new DataCrypter;
+                $token= DataCrypter::md5R($this->forgot_prefix.uniqid());
+                $update=User::where('id',$user->id)->update([
+                    'code'=> $token
+                ]);
+                if($update){
+                    if($this->send_email_verify_code($request->email, $token,$user->name,$user->surname)){
+                        return response()->json([
+                            'error'=>false,
+                            'message'=>'Eposta adresinize parola sıfırlama bağlantısı gönderildi.',
+                        ],200);
+                    }else{
+                        return response()->json([
+                            'error'=>false,
+                            'message'=>'Yeni doğrulama kodu eposta adresinize gönderilemedi, lütfen daha sonra tekrar talep ediniz.',
+                        ],204);
+                    }
+                }
+            }else{
+                return response()->json([
+                    'error'=>true,
+                    'message'=>'Bu eposta adresi ile kayıtlı bir hesap bulunamadı.',
+                ],400);
+            }
+        }catch (\Exception $ex){
+            return response()->json([
+                'error'=>true,
+                'message'=>'Beklenmedik bir hata oluştu.',
+                'exception'=>$ex
+            ],403);
+        }
+    }
+
+
 }

@@ -15,7 +15,26 @@ use App\Http\Controllers\UserController;
 |
 */
 Route::middleware(['verifyrequest','strange'])->group(function(){
-    Route::post('register',[UserController::class,'register']);
-    Route::post('register-complete',[UserController::class,'email_verify']);
-    Route::post('login',[UserController::class,'login']);
+
+    /**
+     * Oturum açılmadan atılan yabancı istekler
+     */
+
+    Route::middleware(['strange'])->group(function(){
+        Route::post('register', [UserController::class, 'register']);
+        Route::post('activate-account', [UserController::class, 'email_verify']);
+        Route::post('login', [UserController::class, 'login']);
+        Route::post('logout', [UserController::class, 'logout']);
+        Route::post('forgot-password', [UserController::class, 'forgot_password']);
+    });
+
+    /**
+     * Oturum açılmış kullanıcı istekleri
+     */
+    Route::middleware(['auth'])->group(function(){
+        Route::post('resend-activation-code', [UserController::class, 'new_email_verify_code']);
+    });
+
+
+
 });

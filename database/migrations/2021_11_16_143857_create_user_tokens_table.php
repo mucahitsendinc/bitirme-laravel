@@ -16,8 +16,8 @@ class CreateUserTokensTable extends Migration
         Schema::create('user_tokens', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id')->unique();
-            $table->string('prefix')->default('bearer');
-            $table->longText('token');
+            $table->string('prefix')->default('bearer')->nullable();
+            $table->longText('token')->nullable();
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->foreign('user_id')->references('id')->on('users');
