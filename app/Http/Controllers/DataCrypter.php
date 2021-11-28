@@ -17,7 +17,7 @@ class DataCrypter extends Controller
      *
      */
 
-    public $explode_key="@MucahitSendinc@";
+    public $explode_key="@Dehasoft@";
     public $access_time=31556926;  //seconds
 
     public $method="aes-128-cbc";
@@ -43,10 +43,14 @@ class DataCrypter extends Controller
         }
     }
     public static function md5R($string,$repeatVal=4){
+        $string=base64_encode($string);
         for ($i=0;$i<$repeatVal;$i++){
-            $string=md5($string);
+            $string=md5(base64_encode($string));
         }
-        return $string;
+        return base64_encode($string);
+    }
+    public static function uniqidR(){
+        return self::md5R(time(). md5(self::md5R(base64_encode(bcrypt(uniqid(rand(), true))))));
     }
     private function KEI1_mt_encode_data($string, $access_time = "")
     {

@@ -14,5 +14,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
+    return view('document');
     return redirect('https://e-ticaret.dehasoft.com.tr');
 });

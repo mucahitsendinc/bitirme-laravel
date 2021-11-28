@@ -26,6 +26,7 @@ Route::middleware(['verifyrequest','strange'])->group(function(){
         Route::post('login', [UserController::class, 'login']);
         Route::post('logout', [UserController::class, 'logout']);
         Route::post('forgot-password', [UserController::class, 'forgot_password']);
+        Route::post('reset-password', [UserController::class, 'reset_password']);
     });
 
     /**

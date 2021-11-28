@@ -10,6 +10,8 @@ use App\Models\UserIp;
 use App\Models\UserToken;
 use Illuminate\Support\Facades\Mail;
 use App\Http\Controllers\DataCrypter;
+use Illuminate\Hashing\BcryptHasher;
+
 class UserController extends Controller
 {
 
@@ -104,7 +106,7 @@ class UserController extends Controller
         }
 
         try{
-            $token=DataCrypter::md5R(uniqid());
+            $token= DataCrypter::uniqidR();
             $save=User::insertGetId([
                 'name'=>$request->name,
                 'surname'=>$request->surname,
@@ -159,7 +161,7 @@ class UserController extends Controller
             return response()->json(['error'=>true,'message'=>'Bu işlem için gerekli bilgiler eksik.'],400);
         }
         try {
-            $token=DataCrypter::md5R(uniqid(),5);
+            $token=DataCrypter::md5R(DataCrypter::uniqidR(),5);
             $user=User::where('code',$request->token)->first();
             $update=User::where('id',$user->id)->update([
                 'code'=>$token,
@@ -221,7 +223,7 @@ class UserController extends Controller
                         'time'=>$expire-time()
                     ],400);
                 }
-                $token=DataCrypter::md5R(uniqid());
+                $token=DataCrypter::md5R(DataCrypter::uniqidR());
                 $update=User::where('id',$user->id)->update([
                     'code'=>$token
                 ]);
@@ -356,7 +358,7 @@ class UserController extends Controller
                     ],400);
                 }
                 $crypt=new DataCrypter;
-                $token= DataCrypter::md5R($this->forgot_prefix.uniqid());
+                $token= DataCrypter::md5R($this->forgot_prefix. DataCrypter::uniqidR());
                 $update=User::where('id',$user->id)->update([
                     'code'=> $token
                 ]);
@@ -377,6 +379,49 @@ class UserController extends Controller
                 return response()->json([
                     'error'=>true,
                     'message'=>'Bu eposta adresi ile kayıtlı bir hesap bulunamadı.',
+                ],400);
+            }
+        }catch (\Exception $ex){
+            return response()->json([
+                'error'=>true,
+                'message'=>'Beklenmedik bir hata oluştu.',
+                'exception'=>$ex
+            ],403);
+        }
+    }
+
+    /**
+     * Kullanıcı şifre güncelleme
+     */
+    public function reset_password(Request $request){
+        $validation = Validator::make($request->all(), [
+            'token' => 'required|min:25',
+            'password' => 'required|min:5|max:55',
+            'passwordConfirmation' => 'required|min:5|max:55',
+        ]);
+        if($validation->fails()){
+            return response()->json(['error'=>true,'message'=>'Bu işlem için gerekli bilgiler eksik.'],400);
+        }
+        if($request->password!=$request->passwordConfirmation){
+            return response()->json(['error'=>true,'message'=>'Şifreler uyuşmuyor.'],400);
+        }
+        try {
+            $user=User::where('code',$request->token)->first();
+            if($user){
+                $update=User::where('id',$user->id)->update([
+                    'password'=> DataCrypter::md5R($request->password),
+                    'code'=> DataCrypter::uniqidR()
+                ]);
+                if($update){
+                    return response()->json([
+                        'error'=>false,
+                        'message'=>'Şifreniz başarıyla değiştirildi.',
+                    ],200);
+                }
+            }else{
+                return response()->json([
+                    'error'=>true,
+                    'message'=>'Geçersiz işlem.',
                 ],400);
             }
         }catch (\Exception $ex){
