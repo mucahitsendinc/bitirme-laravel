@@ -8,4 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class User extends Model
 {
     use HasFactory;
+
+    public function getStatus()
+    {
+        return $this->hasOne('App\Models\UserStatus', 'id', 'status_id');
+    }
+
 }
+
+

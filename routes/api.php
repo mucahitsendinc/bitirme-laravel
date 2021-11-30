@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\SellerController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
@@ -36,6 +37,12 @@ Route::middleware(['verifyrequest','strange'])->group(function(){
         Route::post('resend-activation-code', [UserController::class, 'new_email_verify_code']);
     });
 
+    /**
+     * Satıcı itekleri
+     */
+    Route::middleware(['seller'])->group(function () {
+        Route::post('create-product', [SellerController::class, 'create_product']);
+    });
 
 
 });

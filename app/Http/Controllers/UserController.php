@@ -388,6 +388,9 @@ class UserController extends Controller
                 'exception'=>$ex
             ],403);
         }
+
+        
+
     }
 
     /**
@@ -408,6 +411,15 @@ class UserController extends Controller
         try {
             $user=User::where('code',$request->token)->first();
             if($user){
+                $lastUpdate=strtotime((string)$user->updated_at);
+                $expire=($lastUpdate)+(60*$this->email_repeat_time);
+                if($expire<time()){
+                    dd('');
+                    return response()->json([
+                        'error'=>true,
+                        'message'=> 'Kullandığınız tokenin geçerlilik süresi dolmuştur. Lütfen yeni bir parola sıfırlama talebinde bulununuz.',
+                    ],400);
+                }
                 $update=User::where('id',$user->id)->update([
                     'password'=> DataCrypter::md5R($request->password),
                     'code'=> DataCrypter::uniqidR()
@@ -421,7 +433,7 @@ class UserController extends Controller
             }else{
                 return response()->json([
                     'error'=>true,
-                    'message'=>'Geçersiz işlem.',
+                    'message'=>'Token geçersiz veya süresi dolmuş işlem.',
                 ],400);
             }
         }catch (\Exception $ex){
@@ -432,6 +444,5 @@ class UserController extends Controller
             ],403);
         }
     }
-
-
+    
 }

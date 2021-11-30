@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class UserToken extends Model
 {
     use HasFactory;
+
+    public function getUser(){
+        return $this->hasOne('App\Models\User', 'id', 'user_id');
+    }
+    
 }
