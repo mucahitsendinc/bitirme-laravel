@@ -23,19 +23,18 @@ class VerifyAuthenticate
             if ($token != '') {
                 $plodes = explode(' ', $token);
                 if (count($plodes) == 2) {
-                    $user = UserToken::where('prefix', $plodes[0])->where('token', $plodes[1]);
+                    $user = UserToken::where('prefix', $plodes[0])->where('token', $plodes[1])->first();
                     $crypt = new DataCrypter;
                     $decrypt= json_decode(($crypt->crypt_router($plodes[1], true, 'decode'))[0]);
                     if($decrypt!=false){
-                        if ($user) {
+                        if ($user->getUser) {
                             $request->attributes->add(['email' => $decrypt->email,'token_time'=>$decrypt->time,'user_id'=>$decrypt->id, 'user' => $user->getUser]);
                             return $next($request);
                         }
                     }
-                    
                 }
             }
-        } catch (\Throwable $th) {
+        } catch (\Exception $ex) {
             return response()->json(['error' => true,'message'=>'Bu işlem için oturum açmanız gerekmektedir.'], 401);
         }
         return response()->json(['error' => true, 'message' => 'Bu işlem için oturum açmanız gerekmektedir.'], 401);

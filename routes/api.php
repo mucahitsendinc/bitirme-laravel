@@ -15,7 +15,7 @@ use App\Http\Controllers\UserController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::middleware(['verifyrequest','strange'])->group(function(){
+Route::middleware(['verifyrequest'])->group(function(){
 
     /**
      * Oturum açılmadan atılan yabancı istekler
@@ -33,16 +33,21 @@ Route::middleware(['verifyrequest','strange'])->group(function(){
     /**
      * Oturum açılmış kullanıcı istekleri
      */
+
     Route::middleware(['auth'])->group(function(){
         Route::post('resend-activation-code', [UserController::class, 'new_email_verify_code']);
-    });
 
-    /**
-     * Satıcı itekleri
-     */
-    Route::middleware(['seller'])->group(function () {
-        Route::post('create-product', [SellerController::class, 'create_product']);
-    });
 
+        /**
+         * Satıcı,Yönetici itekleri
+         */ 
+
+        Route::prefix('/seller')->middleware(['seller'])->group(function () {
+            Route::post('create-product', [SellerController::class, 'create_product']);
+            Route::post('create-category', [SellerController::class, 'create_category']);
+            Route::post('create-discount', [SellerController::class, 'create_discount']);
+        });
+
+    });
 
 });

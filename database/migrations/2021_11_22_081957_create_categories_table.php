@@ -15,11 +15,11 @@ class CreateCategoriesTable extends Migration
     {
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('parent_id')->nullable($value=true)->default(null);
-            $table->unsignedBigInteger('icon_id');
-            $table->unsignedBigInteger('image_id');
+            $table->unsignedBigInteger('parent_id')->nullable()->default(null);
+            $table->unsignedBigInteger('icon_id')->nullable();
+            $table->unsignedBigInteger('image_id')->nullable();
             $table->string('name');
-            $table->string('slug');
+            $table->string('slug')->unique();
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->foreign('parent_id')->references('id')->on('categories');

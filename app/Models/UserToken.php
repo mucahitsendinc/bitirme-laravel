@@ -12,5 +12,6 @@ class UserToken extends Model
     public function getUser(){
         return $this->hasOne('App\Models\User', 'id', 'user_id');
     }
+
     
 }

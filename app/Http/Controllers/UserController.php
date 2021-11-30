@@ -155,7 +155,7 @@ class UserController extends Controller
      */
     public function email_verify(Request $request){
         $validation = Validator::make($request->all(),[
-            'token' => 'required|min:31|max:33'
+            'token' => 'required|min:31'
         ]);
         if($validation->fails()){
             return response()->json(['error'=>true,'message'=>'Bu işlem için gerekli bilgiler eksik.'],400);
