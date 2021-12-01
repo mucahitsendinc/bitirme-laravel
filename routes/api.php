@@ -39,7 +39,7 @@ Route::middleware(['verifyrequest'])->group(function(){
 
 
         /**
-         * Satıcı,Yönetici itekleri
+         * Satıcı,Yönetici itekleri için
          */ 
 
         Route::prefix('/seller')->middleware(['seller'])->group(function () {
