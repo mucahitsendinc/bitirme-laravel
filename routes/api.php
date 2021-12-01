@@ -4,6 +4,8 @@ use App\Http\Controllers\SellerController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\AddressController;
+use App\Http\Controllers\CardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,13 +38,39 @@ Route::middleware(['verifyrequest'])->group(function(){
 
     Route::middleware(['auth'])->group(function(){
         Route::post('resend-activation-code', [UserController::class, 'new_email_verify_code']);
+        
+        Route::prefix('/user')->group(function(){
 
+            /**
+             * Adres işlemleri
+             */
+            Route::prefix('/address')->group(function(){
+                Route::post('/add', [AddressController::class, 'create_address']);
+                Route::post('/update', [AddressController::class, 'update_address']);
+                Route::post('/delete', [AddressController::class, 'delete_address']);
+                Route::get('/get', [AddressController::class, 'get']);
+            });
+
+            /**
+             * Kart işlemleri
+             */
+            Route::prefix('/card')->group(function(){
+                Route::post('/add', [CardController::class, 'create_card']);
+                Route::post('/update', [CardController::class, 'update_card']);
+                Route::post('/delete', [CardController::class, 'delete_card']);
+                Route::get('/get', [CardController::class, 'get']);
+            });
+
+        });
 
         /**
          * Satıcı,Yönetici itekleri için
          */ 
-
         Route::prefix('/seller')->middleware(['seller'])->group(function () {
+
+            /**
+             * Oluşturma işlemleri
+             */
             Route::post('create-product', [SellerController::class, 'create_product']);
             Route::post('create-category', [SellerController::class, 'create_category']);
             Route::post('create-discount', [SellerController::class, 'create_discount']);

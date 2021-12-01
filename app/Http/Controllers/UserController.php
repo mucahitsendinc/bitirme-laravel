@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Models\User;
 use App\Models\UserIp;
 use App\Models\UserToken;
+use App\Models\UserCard;
 use Illuminate\Support\Facades\Mail;
 use App\Http\Controllers\DataCrypter;
 use Illuminate\Hashing\BcryptHasher;
@@ -444,5 +445,4 @@ class UserController extends Controller
             ],403);
         }
     }
-    
 }

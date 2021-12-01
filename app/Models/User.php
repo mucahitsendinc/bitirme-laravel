@@ -13,6 +13,12 @@ class User extends Model
     {
         return $this->hasOne('App\Models\UserStatus', 'id', 'status_id');
     }
+    public function getAddress(){
+        return $this->hasMany('App\Models\UserAddress', 'user_id', 'id');
+    }
+    public function getCard(){
+        return $this->hasMany('App\Models\UserCard', 'user_id', 'id');
+    }
 
 }
 

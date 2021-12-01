@@ -16,10 +16,10 @@ class CreateUserCardsTable extends Migration
         Schema::create('user_cards', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->string('card_number');
-            $table->string('card_name');
-            $table->string('card_expiry');
-            $table->string('card_cvc');
+            $table->text('card_number')->unique();
+            $table->text('card_name');
+            $table->text('card_expire');
+            $table->text('card_cvv');
             $table->timestamp('last_used_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP'));

@@ -17,8 +17,7 @@ class CreateUserAddressesTable extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->string('name');
-            $table->string('address_line1');
-            $table->string('address_line2');
+            $table->string('address');
             $table->string('city');
             $table->string('country');
             $table->string('street');
