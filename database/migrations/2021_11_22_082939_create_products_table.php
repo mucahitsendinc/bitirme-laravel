@@ -23,6 +23,7 @@ class CreateProductsTable extends Migration
             $table->float('price');
             $table->unsignedBigInteger('discount_id')->nullable();
             $table->bigInteger('stock')->default(1);
+            $table->integer('active')->default(1);
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->foreign('category_id')->references('id')->on('categories');

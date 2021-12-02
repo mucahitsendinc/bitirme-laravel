@@ -15,7 +15,12 @@ class Product extends Model
         return $this->hasOne('App\Models\Category', 'id', 'category_id');
     }
 
-    
+    public function getImage(){
+        return $this->hasMany('App\Models\ProductImage', 'id', 'image_id');
+    }
 
+    public function getDiscount(){
+        return $this->hasMany('App\Models\Discount', 'id', 'discount_id');
+    }
 
 }

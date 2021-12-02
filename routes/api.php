@@ -1,11 +1,14 @@
 <?php
 
-use App\Http\Controllers\SellerController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\CardController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\DiscountController;
+use App\Http\Controllers\SellerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,6 +33,8 @@ Route::middleware(['verifyrequest'])->group(function(){
         Route::post('logout', [UserController::class, 'logout']);
         Route::post('forgot-password', [UserController::class, 'forgot_password']);
         Route::post('reset-password', [UserController::class, 'reset_password']);
+
+        Route::get('products',[ProductController::class, 'get']);
     });
 
     /**
@@ -45,9 +50,9 @@ Route::middleware(['verifyrequest'])->group(function(){
              * Adres işlemleri
              */
             Route::prefix('/address')->group(function(){
-                Route::post('/add', [AddressController::class, 'create_address']);
-                Route::post('/update', [AddressController::class, 'update_address']);
-                Route::post('/delete', [AddressController::class, 'delete_address']);
+                Route::post('/add', [AddressController::class, 'create']);
+                Route::post('/update', [AddressController::class, 'update']);
+                Route::post('/delete', [AddressController::class, 'delete']);
                 Route::get('/get', [AddressController::class, 'get']);
             });
 
@@ -55,9 +60,9 @@ Route::middleware(['verifyrequest'])->group(function(){
              * Kart işlemleri
              */
             Route::prefix('/card')->group(function(){
-                Route::post('/add', [CardController::class, 'create_card']);
-                Route::post('/update', [CardController::class, 'update_card']);
-                Route::post('/delete', [CardController::class, 'delete_card']);
+                Route::post('/add', [CardController::class, 'create']);
+                Route::post('/update', [CardController::class, 'update']);
+                Route::post('/delete', [CardController::class, 'delete']);
                 Route::get('/get', [CardController::class, 'get']);
             });
 
@@ -69,11 +74,31 @@ Route::middleware(['verifyrequest'])->group(function(){
         Route::prefix('/seller')->middleware(['seller'])->group(function () {
 
             /**
-             * Oluşturma işlemleri
+             * Ürün işlemleri
              */
-            Route::post('create-product', [SellerController::class, 'create_product']);
-            Route::post('create-category', [SellerController::class, 'create_category']);
-            Route::post('create-discount', [SellerController::class, 'create_discount']);
+            Route::prefix('/product')->group(function(){
+                Route::post('/add', [ProductController::class, 'create']);
+                Route::post('/update', [ProductController::class, 'update']);
+                Route::post('/delete', [ProductController::class, 'delete']);
+            });
+
+            /**
+             * Kategori işemleri
+             */
+            Route::prefix('/category')->group(function(){
+                Route::post('/add', [CategoryController::class, 'create']);
+                Route::post('/update', [CategoryController::class, 'update']);
+                Route::post('/delete', [CategoryController::class, 'delete']);
+            });
+
+            /**
+             * İndirim işlemleri
+             */
+            Route::prefix('/discount')->group(function(){
+                Route::post('/add', [DiscountController::class, 'create']);
+                Route::post('/update', [DiscountController::class, 'update']);
+                Route::post('/delete', [DiscountController::class, 'delete']);
+            });
         });
 
     });

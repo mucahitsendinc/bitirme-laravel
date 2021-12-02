@@ -11,10 +11,13 @@ use App\Http\Controllers\DataCrypter;
 class CardController extends Controller
 {
 
+    /**
+     * Kullanıcı kartlarını listele
+     */
     public function get(Request $request){
         try {
             $user = $request->get('user');
-            $cards = User::where('user_id', $user->id)->getCard;
+            $cards = $user->getCard->toArray();
             return response()->json([
                 'error' => false,
                 'message' => 'Kullanıcı kartları başarı ile sorgulandı.',
@@ -44,7 +47,7 @@ class CardController extends Controller
     /**
      * Kullanıcı kart güncelleme
      */
-    public function create_card(Request $request){
+    public function create(Request $request){
         $validation = Validator::make($request->all(), [
             'card_number' => 'required|min:16|max:16',
             'card_name' => 'required|min:2|max:45',
@@ -117,7 +120,7 @@ class CardController extends Controller
     /**
      * Kullanıcı kart silme
      */
-    public function delete_card(Request $request){
+    public function delete(Request $request){
         $validation = Validator::make($request->all(), [
             'card_id' => 'required|numeric'
         ]);
@@ -159,7 +162,7 @@ class CardController extends Controller
     /**
      * Kullanıcı kart güncelleme
      */
-    public function update_card(Request $request){
+    public function update(Request $request){
         $validation=Validator::make($request->all(),[
             'card_id'=>'required|numeric',
             'card_number'=>'required|min:16|max:16',

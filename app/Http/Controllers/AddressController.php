@@ -10,6 +10,9 @@ use App\Models\User;
 class AddressController extends Controller
 {
 
+    /**
+     * Kullanıcı adreslerini listele
+     */
     public function get(Request $request){
         try {
             $user = $request->get('user');
@@ -47,7 +50,7 @@ class AddressController extends Controller
     /**
      * Kullanıcı adres güncelleme
      */
-    public function create_address(Request $request){
+    public function create(Request $request){
         $validation = Validator::make($request->all(), [
             'name' => 'required|min:2|max:45',
             'address' => 'required|min:8|max:255',
@@ -135,7 +138,7 @@ class AddressController extends Controller
     /**
      * Kullanıcı adres silme
      */
-    public function delete_address(Request $request){
+    public function delete(Request $request){
         $validation = Validator::make($request->all(), [
             'address_id' => 'required|numeric'
         ]);
@@ -177,7 +180,7 @@ class AddressController extends Controller
     /*
     * Kullanıcı adres güncelleme
     */
-    public function update_address(Request $request){
+    public function update(Request $request){
         $validation = Validator::make($request->all(), [
             'address_id' => 'required|numeric',
             'name' => 'required|min:2|max:45',
