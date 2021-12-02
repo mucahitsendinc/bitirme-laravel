@@ -18,8 +18,10 @@ class CreateUserImagesTable extends Migration
             $table->string('name')->nullable();
             $table->string('type')->default('url');
             $table->longText('path');
+            $table->unsignedBigInteger('user_id');
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

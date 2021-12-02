@@ -20,8 +20,8 @@ class CreateUserCartsTable extends Migration
             $table->bigInteger('quantity');
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP'));
-            $table->foreign('session_id')->references('id')->on('shopping_sessions');
-            $table->foreign('product_id')->references('id')->on('products');
+            $table->foreign('session_id')->references('id')->on('shopping_sessions')->onDelete('cascade');
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
         });
     }
 

@@ -22,30 +22,49 @@ class DatabaseSeeder extends Seeder
             ['id' => 5, 'name' => 'Yönetici', 'admin' => 1, 'seller' => 1, 'customer' => 1],
         ]);
 
-        \App\Models\UserImage::insert([
-            ['id' => 1, 'name' => 'test_image', 'type' => 'url', 'path' => 'https://png.pngtree.com/png-vector/20191129/ourmid/pngtree-office-checklist-icon-business-checklist-survey-test-icon-png-image_2047566.jpg']
+        \App\Models\User::insert([
+            [
+                'id' => 1,
+                'name' => 'ETicaret',
+                'surname' => 'Admin',
+                'code' => DataCrypter::md5R(uniqid()),
+                'status_id' => 5,
+                'email' => 'mucahit@dehasoft.com.tr',
+                'password' => DataCrypter::md5R('123456789')
+            ]
         ]);
 
-        \App\Models\User::insert([
-            ['id' => 1, 'image_id' => 1, 'name' => 'ETicaret', 'surname'=>'Admin', 'code' => DataCrypter::md5R(uniqid()), 'status_id' => 5, 'email' => 'mucahit@dehasoft.com.tr', 'password' => DataCrypter::md5R('123456789')]
+        \App\Models\UserImage::insert([
+            [
+                'id' => 1,
+                'name' => 'test_image',
+                'type' => 'url',
+                'user_id'=>1,
+                'path' => 'https://png.pngtree.com/png-vector/20191129/ourmid/pngtree-office-checklist-icon-business-checklist-survey-test-icon-png-image_2047566.jpg'
+            ]
         ]);
+
         \App\Models\UserIp::insert([
             ['id' => 1, 'user_id' => 1, 'register_ip' => 'admin ']
         ]);
 
-        \App\Models\ProductImage::insert([
-            ['id' => 1, 'user_id'=>1,'name' => 'test_image', 'type' => 'url', 'path' => 'https://png.pngtree.com/png-vector/20191129/ourmid/pngtree-office-checklist-icon-business-checklist-survey-test-icon-png-image_2047566.jpg']
-        ]);
-
         \App\Models\Icon::insert([
-            ['id' => 1,'user_id' => 1, 'name' => 'test_icon', 'type' => 'base64', 'path' => 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAABmJLR0QA/wD/AP+gvaeTAAACnklEQVRoge2ay2pUQRCGPy8wM94dNU7cmaiYZzDErSF5A80DCC4UxfEZXAiCoLiMD2EkInjbSMSdxszoLgMqGq9gMGFc9CnoHE7m0l2n+yTkh4I6F6rqn6qu6e7TsIViYZuirSowBowCI8AwMADsTp7/AT4BH4G3wEvgKbCkGIMzysAUMAusAu0+ZQV4BFxIbAVHBbgGtHoItldpAVcT20EwiSkPLQJp+QBM5EmgDNzOkUBapoFd2iQGgTcBSYjMATUtEkOYdIcmIdJMYvDCALAQkYQ9bpwzUyFOOa0nr3Fs0fc9HS8D14FjidSTez427/ZLYtLTYTsJPI26gt3xXklU0Bncgxm2awp2m2SU2PYMZ5dQ6BJkz+N2KNgdBi52e6mM3rQjq7RuKNlepMvAn1Jy1MYM7Dq6g92W852IzCo6yltm7MDtOq4Cn9Gp4xBYBQ4D32HtYD/LxiEBJtYxubCJnAkfizdGRdlp3RxRdLDeErqt6APgtCh2Rk4qOwmBU6LYRA4pOpDOkjeqothE9gRwrI19omRNUTYkbCK/o0Xhjp+i2ES+RgjEF99EsYk0IgTiiwVRbCLvIgTii3lRbCIvIgTii+dZNw9i9mI1Z6hpaNr+B+wXw3ZGloAnPf4SRcBj4IdcpP9HpsPG4oUHnR6WMMvIopdWi9RSN52RZeBWJ6YFwU3gb7eXNLaDusHHdoM+dhwnCkzkXK8kBPc8HeYhd/olASZ9cwUIXuQVphk54QjwvgAkmsBRVxKCocRQTBLHfUkIapjvEzHKyTsTaZQI/zE010/V4+Rbag0cWqwrysAVdKczi8BlIp2AKGGOX8zgtgRYAR5idtadWyvoHqo5wNpDNScw7Xtv8vwX8AVTOvOYRdEzrKn4FjYT/gNeSWt2b9vWyAAAAABJRU5ErkJggg==']
+            [
+                'id' => 1,
+                'name' => 'test_icon',
+                'type' => 'base64',
+                'path' => 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAABmJLR0QA/wD/AP+gvaeTAAACnklEQVRoge2ay2pUQRCGPy8wM94dNU7cmaiYZzDErSF5A80DCC4UxfEZXAiCoLiMD2EkInjbSMSdxszoLgMqGq9gMGFc9CnoHE7m0l2n+yTkh4I6F6rqn6qu6e7TsIViYZuirSowBowCI8AwMADsTp7/AT4BH4G3wEvgKbCkGIMzysAUMAusAu0+ZQV4BFxIbAVHBbgGtHoItldpAVcT20EwiSkPLQJp+QBM5EmgDNzOkUBapoFd2iQGgTcBSYjMATUtEkOYdIcmIdJMYvDCALAQkYQ9bpwzUyFOOa0nr3Fs0fc9HS8D14FjidSTez427/ZLYtLTYTsJPI26gt3xXklU0Bncgxm2awp2m2SU2PYMZ5dQ6BJkz+N2KNgdBi52e6mM3rQjq7RuKNlepMvAn1Jy1MYM7Dq6g92W852IzCo6yltm7MDtOq4Cn9Gp4xBYBQ4D32HtYD/LxiEBJtYxubCJnAkfizdGRdlp3RxRdLDeErqt6APgtCh2Rk4qOwmBU6LYRA4pOpDOkjeqothE9gRwrI19omRNUTYkbCK/o0Xhjp+i2ES+RgjEF99EsYk0IgTiiwVRbCLvIgTii3lRbCIvIgTii+dZNw9i9mI1Z6hpaNr+B+wXw3ZGloAnPf4SRcBj4IdcpP9HpsPG4oUHnR6WMMvIopdWi9RSN52RZeBWJ6YFwU3gb7eXNLaDusHHdoM+dhwnCkzkXK8kBPc8HeYhd/olASZ9cwUIXuQVphk54QjwvgAkmsBRVxKCocRQTBLHfUkIapjvEzHKyTsTaZQI/zE010/V4+Rbag0cWqwrysAVdKczi8BlIp2AKGGOX8zgtgRYAR5idtadWyvoHqo5wNpDNScw7Xtv8vwX8AVTOvOYRdEzrKn4FjYT/gNeSWt2b9vWyAAAAABJRU5ErkJggg=='
+            ]
         ]);
 
         \App\Models\Image::insert([
-            ['id' => 1, 'name' => 'test_image', 'type' => 'url', 'path' => 'https://png.pngtree.com/png-vector/20191129/ourmid/pngtree-office-checklist-icon-business-checklist-survey-test-icon-png-image_2047566.jpg']
+            [
+                'id' => 1,
+                'name' => 'test_image',
+                'type' => 'url',
+                'path' => 'https://png.pngtree.com/png-vector/20191129/ourmid/pngtree-office-checklist-icon-business-checklist-survey-test-icon-png-image_2047566.jpg'
+            ]
         ]);
-
-        
 
         \App\Models\Category::insert([
             ['id' => 1, 'image_id' => 1, 'icon_id' => 1, 'slug' => 'kisisel-bakim', 'name' => 'Kişisel Bakım', 'parent_id' => null],
@@ -59,13 +78,95 @@ class DatabaseSeeder extends Seeder
         ]);
 
         \App\Models\Product::insert([
-            ['id' => 1, 'stock' => 55, 'price' => 12.34, 'description' => 'lorem ipsum sit dollar felan nokta test test aciklama test içerik açıklaması e ticaret dehasoft test açıklama metni lorem ipsum ', 'name' => 'Çark', 'slug' => 'cark', 'image_id' => 1, 'category_id' => 8],
-            ['id' => 2, 'stock' => 55, 'price' => 5255.3686, 'description' => 'lorem ipsum sit dollar felan nokta test test aciklama test içerik açıklaması e ticaret dehasoft test açıklama metni lorem ipsum ', 'name' => 'Kırmızı Çark', 'slug' => 'kirmizi-cark', 'image_id' => 1, 'category_id' => 8],
-            ['id' => 3, 'stock' => 55, 'price' => 945193.00, 'description' => 'lorem ipsum sit dollar felan nokta test test aciklama test içerik açıklaması e ticaret dehasoft test açıklama metni lorem ipsum ', 'name' => 'Sarı Çark', 'slug' => 'sari-cark', 'image_id' => 1, 'category_id' => 8],
-            ['id' => 4, 'stock' => 55, 'price' => 33.00, 'description' => 'lorem ipsum sit dollar felan nokta test test aciklama test içerik açıklaması e ticaret dehasoft test açıklama metni lorem ipsum ', 'name' => 'Mavi Çark', 'slug' => 'mavi-cark', 'image_id' => 1, 'category_id' => 8],
-            ['id' => 5, 'stock' => 55, 'price' => 85.99, 'description' => 'lorem ipsum sit dollar felan nokta test test aciklama test içerik açıklaması e ticaret dehasoft test açıklama metni lorem ipsum ', 'name' => 'Yeşil Çark', 'slug' => 'yesil-cark', 'image_id' => 1, 'category_id' => 8],
-            ['id' => 6, 'stock' => 55, 'price' => 99.99, 'description' => 'lorem ipsum sit dollar felan nokta test test aciklama test içerik açıklaması e ticaret dehasoft test açıklama metni lorem ipsum ', 'name' => 'Turuncu Çark', 'slug' => 'turuncu-cark', 'image_id' => 1, 'category_id' => 8],
+            ['id' => 1, 'stock' => 55, 'price' => 12.34, 'description' => 'lorem ipsum sit dollar felan nokta test test aciklama test içerik açıklaması e ticaret dehasoft test açıklama metni lorem ipsum ', 'name' => 'Çark', 'slug' => 'cark', 'category_id' => 8],
+            ['id' => 2, 'stock' => 55, 'price' => 5255.3686, 'description' => 'lorem ipsum sit dollar felan nokta test test aciklama test içerik açıklaması e ticaret dehasoft test açıklama metni lorem ipsum ', 'name' => 'Kırmızı Çark', 'slug' => 'kirmizi-cark',  'category_id' => 8],
+            ['id' => 3, 'stock' => 55, 'price' => 945193.00, 'description' => 'lorem ipsum sit dollar felan nokta test test aciklama test içerik açıklaması e ticaret dehasoft test açıklama metni lorem ipsum ', 'name' => 'Sarı Çark', 'slug' => 'sari-cark',  'category_id' => 8],
+            ['id' => 4, 'stock' => 55, 'price' => 33.00, 'description' => 'lorem ipsum sit dollar felan nokta test test aciklama test içerik açıklaması e ticaret dehasoft test açıklama metni lorem ipsum ', 'name' => 'Mavi Çark', 'slug' => 'mavi-cark',  'category_id' => 8],
+            ['id' => 5, 'stock' => 55, 'price' => 85.99, 'description' => 'lorem ipsum sit dollar felan nokta test test aciklama test içerik açıklaması e ticaret dehasoft test açıklama metni lorem ipsum ', 'name' => 'Yeşil Çark', 'slug' => 'yesil-cark',  'category_id' => 8],
+            ['id' => 6, 'stock' => 55, 'price' => 99.99, 'description' => 'lorem ipsum sit dollar felan nokta test test aciklama test içerik açıklaması e ticaret dehasoft test açıklama metni lorem ipsum ', 'name' => 'Turuncu Çark', 'slug' => 'turuncu-cark', 'category_id' => 8],
         ]);
-      
+
+        \App\Models\ProductImage::insert([
+            [
+                'id' => 1,
+                'product_id'=>1,
+                'name' => 'test_image',
+                'type' => 'url',
+                'path' => 'https://png.pngtree.com/png-vector/20191129/ourmid/pngtree-office-checklist-icon-business-checklist-survey-test-icon-png-image_2047566.jpg'
+            ]
+        ]);
+
+        \App\Models\Discount::insert([
+            [
+                'id' => 1,
+                'name' => 'test_discount',
+                'description' => 'test discount description',
+                'percent'=>10,
+                'start_date' => '2021-02-02 22:34:00',
+                'end_date' => '2021-12-12 22:34:00',
+                'coupon' => 'TEST-COUPON',
+                'max_uses'=>10,
+                'max_discount_amount'=>100,
+                'max_discount_amount_user'=>200,
+                'min_order_amount'=>100
+            ], [
+                'id' => 2,
+                'name' => 'test_discount2',
+                'description' => 'test discount description2',
+                'percent' => 20,
+                'start_date' => '2021-02-02 22:34:00',
+                'end_date' => '2021-12-12 22:34:00',
+                'coupon' => 'TEST-COUPON2',
+                'max_uses' => 10,
+                'max_discount_amount' => 100,
+                'max_discount_amount_user' => 200,
+                'min_order_amount' => 100
+            ], [
+                'id' => 3,
+                'name' => 'test_discount3',
+                'description' => 'test discount description3',
+                'percent' => 30,
+                'start_date' => '2021-02-02 22:34:00',
+                'end_date' => '2021-12-12 22:34:00',
+                'coupon' => 'TEST-COUPON3',
+                'max_uses' => 30,
+                'max_discount_amount' => 300,
+                'max_discount_amount_user' => 300,
+                'min_order_amount' => 300
+            ]
+        ]);
+        
+        \App\Models\ProductOffer::insert([
+            [
+                'id' => 1,
+                'product_id' => 1,
+                'discount_id' => 1
+            ], [
+                'id' => 2,
+                'product_id' => 2,
+                'discount_id' => 2
+            ], [
+                'id'=>3,
+                'product_id' => 1,
+                'discount_id' => 3
+            ]
+        ]);
+
+        \App\Models\CategoryOffer::insert([
+            [
+                'id' => 1,
+                'category_id' => 1,
+                'discount_id' => 1
+            ], [
+                'id' => 2,
+                'category_id' => 2,
+                'discount_id' => 2
+            ], [
+                'id' => 3,
+                'category_id' => 3,
+                'discount_id' => 3
+            ]
+        ]);
+
     }
 }

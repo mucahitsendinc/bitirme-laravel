@@ -18,8 +18,8 @@ class CreateDiscountsTable extends Migration
             $table->string('name');
             $table->text('description')->nullable();
             $table->integer('percent');
-            $table->date('start_date');
-            $table->date('end_date');
+            $table->timestamp('start_date')->nullable();
+            $table->timestamp('end_date')->nullable();
             $table->string('coupon')->nullable()->unique();
             $table->integer('max_uses')->nullable();
             $table->integer('uses')->default(0);

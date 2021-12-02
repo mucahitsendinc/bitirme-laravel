@@ -12,21 +12,22 @@ class ProductController extends Controller
      * Ürünleri listele
      */
     public function get(Request $request){
-        $products = Product::all();
+        $products = Product::with('getDiscounts')->get();
         $response=[];
         
         foreach ($products as $key => $value) {
             $discountPrice = 0;
             $discounts=[];
-            foreach ($value->getDiscount->toArray() as $discount) {
-                $newdiscount=$value->price*$discount['percent']/100;
-                $discountPrice+=$newdiscount;
+            $list=$value->getDiscounts;
+            for ($i=0; $i < count($list); $i++) { 
+                $current= $list[$i]->getDiscount;
+                $newdiscount=$value->price*$current->percent/100;
+                $discountPrice+= $newdiscount;
                 array_push($discounts,[
-                    'id'=>$discount['id'],
-                    'name'=>$discount['name'],
-                    'description' => $discount['description'],
-                    'percent'=>$discount['percent'],
-                    'price'=>$newdiscount
+                    'id'=>$current->id,
+                    'discount'=>$current->percent,
+                    'name'=>$current->name,
+                    'description'=>$current->description,
                 ]);
             }
             array_push($response,[
@@ -53,6 +54,9 @@ class ProductController extends Controller
         ],200);
     }
 
+    /**
+     * Ürün oluştur
+     */
     public function create(Request $request){
         $validation = Validator::make($request->all(), [
             'name' => 'required',
@@ -88,8 +92,6 @@ class ProductController extends Controller
             $product->price = $price;
             $product->stock = floor(intval($request->stock)) ?? 0;
             $product->category_id = $request->category_id;
-            $product->image_id = $request->image ?? null;
-            $product->discount_id = $request->discount ?? null;
             $product->slug = $slug;
             $product->save();
             return response()->json([
@@ -112,7 +114,6 @@ class ProductController extends Controller
             'description' => 'required|min:3',
             'price' => 'required',
             'category' => 'required',
-            'image' => 'required',
         ]);
         if ($validation->fails()) {
             $messages = [
@@ -120,7 +121,6 @@ class ProductController extends Controller
                 'description' => ($validation->getMessageBag())->messages()['description'] ?? 'success',
                 'price' => ($validation->getMessageBag())->messages()['price'] ?? 'success',
                 'category' => ($validation->getMessageBag())->messages()['category_id'] ?? 'success',
-                'image' => ($validation->getMessageBag())->messages()['image'] ?? 'success',
                 'product_id' => ($validation->getMessageBag())->messages()['product_id'] ?? 'success',
             ];
             return response()->json([
@@ -144,8 +144,6 @@ class ProductController extends Controller
             $product->price = $price;
             $product->stock = floor(intval($request->stock??0));
             $product->category_id = $request->category_id;
-            $product->image_id = $request->image ?? null;
-            $product->discount_id = $request->discount ??null;
             $product->slug = $slug;
             $product->save();
             return response()->json([
@@ -167,5 +165,42 @@ class ProductController extends Controller
             return response()->json(['error' => true, 'message' => 'Ürün güncellenirken bir hata oluştu.', 'exception' => $ex], 401);
         }
         return response()->json(['error' => true, 'message' => 'Ürün bulunamadı.'], 401);
+    }
+
+    /**
+    * Ürün sil
+    */
+    public function delete(Request $request){
+        $validation = Validator::make($request->all(), [
+            'product_id' => 'required|numeric'
+        ]);
+        if ($validation->fails()) {
+            $messages = [
+                'product_id' => ($validation->getMessageBag())->messages()['product_id'] ?? 'success',
+            ];
+            return response()->json([
+                'error' => true,
+                'message' => 'Bu işlem için gerekli bilgiler eksik.',
+                'validation' => array_filter($messages, function ($e) {
+                    if ($e != 'success') {
+                        return true;
+                    }
+                })
+            ], 401);
+        }
+        try {
+            $product = Product::find($request->product_id);
+            if($product){
+                $product->delete();
+                return response()->json([
+                    'error' => false,
+                    'message' => 'Ürün başarıyla silindi.'
+                ], 200);
+            }
+            return response()->json(['error' => true, 'message' => 'Ürün bulunamadı.'], 400);
+        } catch (\Exception $ex) {
+            return response()->json(['error' => true, 'message' => 'Ürün silinirken bir hata oluştu.', 'exception' => $ex], 403);
+        }
+        return response()->json(['error' => true, 'message' => 'Ürün bulunamadı.'], 400);
     }
 }

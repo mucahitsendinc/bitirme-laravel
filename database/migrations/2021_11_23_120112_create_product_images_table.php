@@ -18,10 +18,10 @@ class CreateProductImagesTable extends Migration
             $table->string('name')->nullable();
             $table->string('type')->default('url');
             $table->longText('path');
-            $table->unsignedBigInteger('user_id')->default(1);
+            $table->unsignedBigInteger('product_id');
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP'));
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
         });
     }
 

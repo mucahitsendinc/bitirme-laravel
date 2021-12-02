@@ -16,11 +16,11 @@ class Product extends Model
     }
 
     public function getImage(){
-        return $this->hasMany('App\Models\ProductImage', 'id', 'image_id');
+        return $this->hasMany('App\Models\ProductImage', 'product_id', 'id');
     }
 
-    public function getDiscount(){
-        return $this->hasMany('App\Models\Discount', 'id', 'discount_id');
+    public function getDiscounts(){
+        return $this->hasMany('App\Models\ProductOffer', 'product_id', 'id');
     }
 
 }

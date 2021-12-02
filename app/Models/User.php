@@ -9,8 +9,7 @@ class User extends Model
 {
     use HasFactory;
 
-    public function getStatus()
-    {
+    public function getStatus(){
         return $this->hasOne('App\Models\UserStatus', 'id', 'status_id');
     }
     public function getAddress(){
@@ -18,6 +17,10 @@ class User extends Model
     }
     public function getCard(){
         return $this->hasMany('App\Models\UserCard', 'user_id', 'id');
+    }
+
+    public function getImage(){
+        return $this->hasOne('App\Models\UserImage', 'user_id', 'id');
     }
 
 }

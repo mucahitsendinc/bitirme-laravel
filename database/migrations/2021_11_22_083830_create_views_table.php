@@ -15,8 +15,8 @@ class CreateViewsTable extends Migration
     {
         Schema::create('views', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('product_id')->nullable()->default(null);
-            $table->unsignedBigInteger('user_id')->nullable()->default(null);
+            $table->unsignedBigInteger('product_id')->nullable();
+            $table->unsignedBigInteger('user_id')->nullable();
             $table->string('url');
             $table->string('ip');
             $table->integer('count')->default(1);
