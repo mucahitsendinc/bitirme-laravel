@@ -22,9 +22,9 @@ class CreateCategoriesTable extends Migration
             $table->string('slug')->unique();
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP'));
-            $table->foreign('parent_id')->references('id')->on('categories');
-            $table->foreign('image_id')->references('id')->on('images');
-            $table->foreign('icon_id')->references('id')->on('icons');
+            $table->foreign('parent_id')->references('id')->on('categories')->onDelete('set null');
+            $table->foreign('image_id')->references('id')->on('images')->onDelete('set null');
+            $table->foreign('icon_id')->references('id')->on('icons')->onDelete('set null');
         });
     }
     /**

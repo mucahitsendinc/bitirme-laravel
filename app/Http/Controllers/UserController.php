@@ -204,6 +204,12 @@ class UserController extends Controller
      * Kullanıcı yeni eposta doğrulama kodu
      */
     public function new_email_verify_code(Request $request){
+        if($request->get('user')->getStatus->name!='Onaysız'){
+            return response()->json([
+                'error'=>true,
+                'message'=>'Hesabınız aktif olduğu için onay kodu gönderilmedi.'
+            ],202);
+        }
         $tokenEmail= $request->get('email')??'';
         $validation = Validator::make($request->all(),[
             'email' => 'required|email|min:5|max:45'

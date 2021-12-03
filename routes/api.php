@@ -44,7 +44,7 @@ Route::middleware(['verifyrequest'])->group(function(){
     Route::middleware(['auth'])->group(function(){
         Route::post('resend-activation-code', [UserController::class, 'new_email_verify_code']);
         
-        Route::prefix('/user')->group(function(){
+        Route::prefix('/user')->middleware(['active'])->group(function(){
 
             /**
              * Adres işlemleri

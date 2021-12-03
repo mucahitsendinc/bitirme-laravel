@@ -67,5 +67,6 @@ class Kernel extends HttpKernel
         'strange'=>\App\Http\Middleware\Strange::class,
         'auth' => \App\Http\Middleware\VerifyAuthenticate::class,
         'seller' => \App\Http\Middleware\Seller::class,
+        'active' => \App\Http\Middleware\ActiveAccount::class,
     ];
 }
