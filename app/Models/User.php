@@ -23,6 +23,10 @@ class User extends Model
         return $this->hasOne('App\Models\UserImage', 'user_id', 'id');
     }
 
+    public function  getShoping(){
+        return $this->hasOne('App\Models\ShoppingSession', 'user_id', 'id');
+    }
+
 }
 
 

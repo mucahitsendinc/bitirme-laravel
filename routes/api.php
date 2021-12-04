@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\CardController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\DiscountController;
@@ -64,6 +65,15 @@ Route::middleware(['verifyrequest'])->group(function(){
                 Route::post('/update', [CardController::class, 'update']);
                 Route::post('/delete', [CardController::class, 'delete']);
                 Route::get('/get', [CardController::class, 'get']);
+            });
+
+            Route::prefix('/cart')->group(function(){
+                Route::post('/add', [CartController::class, 'add']);
+                Route::post('/update', [CartController::class, 'update']);
+                Route::post('/delete', [CartController::class, 'delete']);
+                Route::post('/increment', [CartController::class, 'increment']);
+                Route::post('/decrement', [CartController::class, 'decrement']);
+                Route::get('/get', [CartController::class, 'get']);
             });
 
         });

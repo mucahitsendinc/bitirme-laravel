@@ -17,7 +17,7 @@ class ActiveAccount
     public function handle(Request $request, Closure $next)
     {
         $statusName= $request->get('user')->getStatus;
-        if($statusName->id>2){
+        if(intval($statusName->id)<3){
             return response()->json([
                 'error'=>true,
                 'message'=>'Bu işlem için hesabınızı aktifleştirmeniz gerekmektedir'
