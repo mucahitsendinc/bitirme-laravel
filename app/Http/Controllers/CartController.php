@@ -21,8 +21,8 @@ class CartController extends Controller
             $total=0;
             foreach ($cart->getCart as $key => $value) {
                 $product = $value->getProduct;
-                $type= $product->getFirstImage['type'];
-                $path= $product->getFirstImage['path'];
+                $type= $product->getFirstImage['type']??'url';
+                $path= $product->getFirstImage['path']??'';
                 $price= $product->price * $value->quantity;
                 $total+= $price;
                 $discountPrice = 0;
@@ -33,7 +33,19 @@ class CartController extends Controller
                     $newdiscount = $value->quantity * $product->price * $current->percent / 100;
                     $discountPrice += $newdiscount;
                     array_push($discounts, [
-                        'id' => $current->id,
+                        'id' => "product-".$current->id,
+                        'discount' => $current->percent,
+                        'name' => $current->name,
+                        'description' => $current->description,
+                    ]);
+                }
+                $list = $value->getCategory->getDiscounts;
+                for ($i = 0; $i < count($list); $i++) {
+                    $current = $list[$i]->getDiscount;
+                    $newdiscount = $value->price * $current->percent / 100;
+                    $discountPrice += $newdiscount;
+                    array_push($discounts, [
+                        'id' => "category-" . $current->id,
                         'discount' => $current->percent,
                         'name' => $current->name,
                         'description' => $current->description,
@@ -104,6 +116,12 @@ class CartController extends Controller
                     return response()->json([
                         'error'=>true,
                         'message'=>'Ürün bulunamadı',
+                    ],400);
+                }
+                if($value->quantity>$product->stock){
+                    return response()->json([
+                        'error'=>true,
+                        'message'=>'Ürün stokta yeteri kadar olmadığı için işlem iptal edildi.',
                     ],400);
                 }
                 array_push($productList,['product_id'=>$product->id,'quantity'=>$value->quantity]);
@@ -178,6 +196,12 @@ class CartController extends Controller
                     return response()->json([
                         'error'=>true,
                         'message'=>'Ürün bulunamadı',
+                    ],400);
+                }
+                if($value->quantity>$product->stock){
+                    return response()->json([
+                        'error'=>true,
+                        'message'=>'Ürün stokta yeteri kadar olmadığı için işlem iptal edildi.',
                     ],400);
                 }
                 $key=array_search($value->product_id,array_column($productList,'product_id'));
@@ -289,7 +313,15 @@ class CartController extends Controller
                     'message'=>'Ürün bulunamadı',
                 ],400);
             }
+            
             $newQuantity= $checkProduct->quantity + ($request->quantity ?? 1);
+            $stockCheck = Product::find($request->product_id);
+            if ($newQuantity > $stockCheck->stock) {
+                return response()->json([
+                    'error' => true,
+                    'message' => 'Ürün stokta yeteri kadar olmadığı için işlem iptal edildi.',
+                ], 400);
+            }
             $checkProduct->quantity= $newQuantity;
             $checkProduct->save();
             

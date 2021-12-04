@@ -36,6 +36,8 @@ Route::middleware(['verifyrequest'])->group(function(){
         Route::post('reset-password', [UserController::class, 'reset_password']);
 
         Route::get('products',[ProductController::class, 'get']);
+        Route::get('products/{id}',[ProductController::class, 'detail']);
+        Route::get('discover',[ProductController::class, 'discover']);
     });
 
     /**
