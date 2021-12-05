@@ -14,6 +14,13 @@
   <link rel="stylesheet" type="text/css" href="{{asset('assets/vendor/magnific-popup/magnific-popup.min.css')}}" />
   <link rel="stylesheet" type="text/css" href="{{asset('assets/vendor/highlight.js/styles/github.css')}}" />
   <link rel="stylesheet" type="text/css" href="{{asset('assets/css/stylesheet.css')}}" />
+  <style>
+    section {
+      margin-top: 100px;
+      padding-top: 100px;
+      border-top: 1px solid #ddd;
+    }
+  </style>
 </head>
 
 <body class="box" data-spy="scroll" data-target=".idocs-navigation" data-offset="125">
@@ -74,12 +81,25 @@
             </ul>
           </li>
 
-          <li class="nav-item"><a class="nav-link active" href="#idocs_users">Üyelik</a>
+          <li class="nav-item"><a class="nav-link " href="#idocs_users">Üyelik</a>
             <ul class="nav flex-column">
               <li class="nav-item"><a class="nav-link" href="#idocs_register">Kayıt işlemi</a></li>
               <li class="nav-item"><a class="nav-link" href="#idocs_login">Giriş işlemi</a></li>
               <li class="nav-item"><a class="nav-link" href="#idocs_logout">Çıkış işlemi</a></li>
               <li class="nav-item"><a class="nav-link" href="#idocs_password">Parola işlemleri</a></li>
+              <li class="nav-item"><a class="nav-link" href="#idocs_active_account">Hesap Doğrulama</a></li>
+              <li class="nav-item"><a class="nav-link" href="#idocs_re_active_account">Doğrulama Kodu Tekrarlama</a></li>
+            </ul>
+          </li>
+
+          <li class="nav-item"><a class="nav-link " href="#idocs_product">Ürün</a>
+            <ul class="nav flex-column">
+              <li class="nav-item"><a class="nav-link" href="#idocs_p_list">Listeleme</a></li>
+              <li class="nav-item"><a class="nav-link" href="#idocs_p_detail">Detay</a></li>
+              <li class="nav-item"><a class="nav-link" href="#idocs_p_discover">Keşfet</a></li>
+              <li class="nav-item"><a class="nav-link" href="#idocs_p_add">Ekle</a></li>
+              <li class="nav-item"><a class="nav-link" href="#idocs_p_update">Düzenle</a></li>
+              <li class="nav-item"><a class="nav-link" href="#idocs_p_delete">Sil</a></li>
             </ul>
           </li>
 
@@ -141,11 +161,14 @@
             <h2>Kayıt işlemi</h2>
             <button class="btn btn-primary">POST</button><strong style="margin:10px;font-size:22px;">/api/register</strong>
             <br><br>
-            Gönderilecek parametreler:
+            Gönderilecek parametreler ( "*" : zorunlu alan ) :
             <ul>
-              <li>email</li>
-              <li>surname</li>
-              <li>password</li>
+              <li><strong>email</strong> (*) : Geçerli eposta formatında string</li>
+              <li><strong>surname</strong> (*) : string</li>
+              <li><strong>password</strong> (*) : string</li>
+            </ul>
+            <h5>Header parametreler :</h5>
+            <ul>
             </ul>
           </section>
 
@@ -155,10 +178,13 @@
             <h2>Giriş işlemi</h2>
             <button class="btn btn-primary">POST</button><strong style="margin:10px;font-size:22px;">/api/login</strong>
             <br><br>
-            Gönderilecek parametreler:
+            Gönderilecek parametreler ( "*" : zorunlu alan ) :
             <ul>
-              <li>email</li>
-              <li>password</li>
+              <li><strong>email</strong> (*) : Geçerli eposta formatında string</li>
+              <li><strong>password</strong> (*) : string</li>
+            </ul>
+            <h5>Header parametreler :</h5>
+            <ul>
             </ul>
           </section>
 
@@ -168,10 +194,13 @@
             <h2>Çıkış işlemi</h2>
             <button class="btn btn-primary">POST</button><strong style="margin:10px;font-size:22px;">/api/logout</strong>
             <br><br>
-            Gönderilecek parametreler:
+            Gönderilecek parametreler ( "*" : zorunlu alan ) :
             <ul>
-              <li>token</li>
-              <li>tokenType</li>
+              <li><strong>token</strong> (*) : string</li>
+              <li><strong>tokenType</strong> (*) : string</li>
+            </ul>
+            <h5>Header parametreler :</h5>
+            <ul>
             </ul>
           </section>
 
@@ -182,12 +211,171 @@
             <button class="btn btn-primary">POST</button><strong style="margin:10px;font-size:22px;">/api/forgot-password</strong>
             <br><br>
             <h4>Şifremi unuttum işlemi</h4>
-            Gönderilecek parametreler:
+            Gönderilecek parametreler ( "*" : zorunlu alan ) :
             <ul>
-              <li>email</li>
-              <li>password</li>
+              <li><strong>email</strong> (*) : Geçerli eposta formatında string</li>
+              <li><strong>password</strong> (*) : string</li>
+            </ul>
+            <h5>Header parametreler :</h5>
+            <ul>
             </ul>
           </section>
+
+          <section id="idocs_active_account">
+            <h2>Hesap Doğrulama</h2>
+            <button class="btn btn-primary">POST</button><strong style="margin:10px;font-size:22px;">/api/active-account</strong>
+            <br><br>
+            <h4>Hesabın aktif hale getirilmesi için eposta aracılığı ile gelen tokenin iletilmesi gerekmektedir</h4>
+            Gönderilecek parametreler ( "*" : zorunlu alan ) :
+            <ul>
+              <li><strong>token</strong> (*) : String</li>
+            </ul>
+            <h5>Header parametreler :</h5>
+            <ul>
+            </ul>
+          </section>
+
+          <section id="idocs_re_active_account">
+            <h2>Doğrulama Kodu Tekrarlama</h2>
+            <button class="btn btn-primary">POST</button><strong style="margin:10px;font-size:22px;">/api/resend-activation-code</strong>
+            <br><br>
+            <h4>Kodun tekrar gönderilebilmesi için oturum açılması gerekiyor.</h4>
+            </h4>
+            Gönderilecek parametreler ( "*" : zorunlu alan ) :
+            <ul>
+              <li><strong>email</strong> (*) : Geçerli olması ve kayıtlı olması gereken string.</li>
+            </ul>
+            <h5>Header parametreler :</h5>
+            <ul>
+              <li><strong>Authorization</strong> (*) : Login sonrası tokenType ve token aralarında boşluk olacak şekilde</li>
+            </ul>
+          </section>
+
+
+          <section id="idocs_product">
+            <h1>Ürün İşlemleri</h1>
+            <p class="lead">Ürün işlemleri için aşağıdaki adımları takip edin.</p>
+          </section>
+
+          <section id="idocs_p_list">
+            <h2>Ürün Listeleme</h2>
+            <button class="btn btn-warning">GET</button><strong style="margin:10px;font-size:22px;">/api/products</strong>
+            <br><br>
+            <h4>Üyelik işlemi gerektirmeden listeleme yapılabilir.</h4>
+            </h4>
+            Gönderilecek parametreler ( "*" : zorunlu alan ) :
+            <ul>
+              <li><strong>start</strong> : varsayılan 1 , 1 numaralı üründen listelemeye başlar, integer.</li>
+              <li><strong>end</strong> : varsayılan 20 , 20 numaralı ürüne kadar listeler</li>
+              <li><strong>allSearch</strong> : Tüm alanlarda arama , gereken string.</li>
+              <li><strong>name</strong> : Ürün adı alanlarda arama , gereken string.</li>
+              <li><strong>price</strong> : Ürün fiyatı alanlarda arama , gereken integer.</li>
+              <li><strong>slug</strong> : Ürün link alanlarda arama , gereken string.</li>
+              <li><strong>description</strong> : Ürün açıklama alanlarda arama , gereken string.</li>
+              <li><strong>stock</strong> : Ürün stok sayı alanlarda arama , gereken integer.</li>
+            </ul>
+            <h5>Header parametreler :</h5>
+            <ul>
+              <li><strong>Authorization</strong> : Bu işlem kullanıcı hesabı var ise keşfet algoritmasında benzer ürün getirmesine olanak sağlamak adına ürünü kullanıcı görüntülenmesi olarak işleyecektir. Login sonrası tokenType ve token aralarında boşluk olacak şekilde</li>
+            </ul>
+          </section>
+
+          <section id="idocs_p_detail">
+            <h2>Ürün Detay</h2>
+            <button class="btn btn-warning">GET</button><strong style="margin:10px;font-size:22px;">/api/products/{id-or-slug}</strong>
+            <br><br>
+
+            <h4>products/ 'dan sonrası ürün id numarası veya ürün link adresi gönderilir.</h4>
+            </h4>
+            Gönderilecek parametreler ( "*" : zorunlu alan ) :
+            <ul>
+            </ul>
+            <h5>Header parametreler :</h5>
+            <ul>
+              <li><strong>Authorization</strong> : Bu işlem kullanıcı hesabı var ise keşfet algoritmasında benzer ürün getirmesine olanak sağlamak adına ürünü kullanıcı görüntülenmesi olarak işleyecektir. Login sonrası tokenType ve token aralarında boşluk olacak şekilde</li>
+            </ul>
+          </section>
+
+          <section id="idocs_p_discover">
+            <h2>Ürün Keşfet</h2>
+            <button class="btn btn-warning">GET</button><strong style="margin:10px;font-size:22px;">/api/discover</strong>
+            <br><br>
+            <h4>Rastgele ürün listeler. Üyelik gerektirmez.</h4>
+            </h4>
+            Gönderilecek parametreler ( "*" : zorunlu alan ) :
+            <ul>
+              <li><strong>count</strong> : varsayılan 20 , 20 adet ürün getirir, integer.</li>
+              <li><strong>allSearch</strong> : Tüm alanlarda arama , gereken string.</li>
+              <li><strong>name</strong> : Ürün adı alanlarda arama , gereken string.</li>
+              <li><strong>price</strong> : Ürün fiyatı alanlarda arama , gereken integer.</li>
+              <li><strong>slug</strong> : Ürün link alanlarda arama , gereken string.</li>
+              <li><strong>description</strong> : Ürün açıklama alanlarda arama , gereken string.</li>
+              <li><strong>stock</strong> : Ürün stok sayı alanlarda arama , gereken integer.</li>
+            </ul>
+            <h5>Header parametreler :</h5>
+
+            <ul>
+              <li><strong>Authorization</strong> : Bu işlem kullanıcı hesabı var ise keşfet algoritmasında benzer ürün getirmesine olanak sağlamak adına ürünü kullanıcı görüntülenmesi olarak işleyecektir. Login sonrası tokenType ve token aralarında boşluk olacak şekilde</li>
+            </ul>
+          </section>
+
+          <section id="idocs_p_add">
+            <h2>Ürün Ekle</h2>
+            <button class="btn btn-primary">POST</button><strong style="margin:10px;font-size:22px;">/api/seller/product/add</strong>
+            <br><br>
+            <h4><strong>Yönetici</strong> veya <strong>Satıcı</strong> üyeliği gerektirir.</h4>
+            </h4>
+            Gönderilecek parametreler ( "*" : zorunlu alan ) :
+            <ul>
+              <li><strong>name</strong> (*) : string.</li>
+              <li><strong>description</strong> (*) : string.</li>
+              <li><strong>price</strong> (*) : double.</li>
+              <li><strong>category_id</strong> (*) : integer.</li>
+              <li><strong>stock</strong> : stok sayısı, varsayılan 0 ,integer.</li>
+            </ul>
+            <h5>Header parametreler :</h5>
+            <ul>
+              <li><strong>Authorization</strong> (*) : Login sonrası tokenType ve token aralarında boşluk olacak şekilde</li>
+            </ul>
+          </section>
+
+          <section id="idocs_p_update">
+            <h2>Ürün Güncelle</h2>
+            <button class="btn btn-primary">POST</button><strong style="margin:10px;font-size:22px;">/api/seller/product/update</strong>
+            <br><br>
+            <h4><strong>Yönetici</strong> veya <strong>Satıcı</strong> üyeliği gerektirir.</h4>
+            </h4>
+            Gönderilecek parametreler ( "*" : zorunlu alan ) :
+            <ul>
+              <li><strong>name</strong> (*) : string.</li>
+              <li><strong>description</strong> (*) : string.</li>
+              <li><strong>price</strong> (*) : double.</li>
+              <li><strong>category_id</strong> (*) : integer.</li>
+              <li><strong>stock</strong> : stok sayısı, varsayılan 0 ,integer.</li>
+            </ul>
+            <h5>Header parametreler :</h5>
+            <ul>
+              <li><strong>Authorization</strong> (*) : Login sonrası tokenType ve token aralarında boşluk olacak şekilde</li>
+            </ul>
+          </section>
+
+          <section id="idocs_p_delete">
+            <h2>Ürün Sil</h2>
+            <button class="btn btn-primary">POST</button><strong style="margin:10px;font-size:22px;">/api/seller/product/delete</strong>
+            <br><br>
+            <h4><strong>Yönetici</strong> veya <strong>Satıcı</strong> üyeliği gerektirir.</h4>
+            </h4>
+            Gönderilecek parametreler ( "*" : zorunlu alan ) :
+            <ul>
+              <li><strong>product_id</strong> (*) : integer.</li>
+            </ul>
+            <h5>Header parametreler :</h5>
+            <ul>
+              <li><strong>Authorization</strong> (*) : Login sonrası tokenType ve token aralarında boşluk olacak şekilde</li>
+            </ul>
+          </section>
+
+
 
           <hr class="divider">
           <section id="idocs_faq">

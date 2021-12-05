@@ -27,7 +27,7 @@ class ProductController extends Controller
             ->where('active', 1)
                 ->where('stock', '>', 0)
                 ->where('id', '>=', $request->start ?? 1)
-                ->where('id', '<=', $request->end ?? 2)
+                ->where('id', '<=', $request->end ?? 20)
                 ->where(function ($query) use ($request) {
                     $query->where('name', 'like', '%' . ($request->name ?? '') . '%')
                         ->orWhere('description', 'like', '%' . ($request->description ?? '') . '%')
