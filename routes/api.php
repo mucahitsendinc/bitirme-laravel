@@ -9,6 +9,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\DiscountController;
+use App\Http\Controllers\OfferController;
 use App\Http\Controllers\SellerController;
 
 /*
@@ -45,6 +46,7 @@ Route::middleware(['verifyrequest'])->group(function(){
      */
 
     Route::middleware(['auth'])->group(function(){
+
         Route::post('resend-activation-code', [UserController::class, 'new_email_verify_code']);
         
         Route::prefix('/user')->middleware(['active'])->group(function(){
@@ -110,6 +112,31 @@ Route::middleware(['verifyrequest'])->group(function(){
                 Route::post('/add', [DiscountController::class, 'create']);
                 Route::post('/update', [DiscountController::class, 'update']);
                 Route::post('/delete', [DiscountController::class, 'delete']);
+            });
+
+            /**
+             * Kampanya işlemleri
+            */
+            Route::prefix('/offer')->group(function(){
+                
+                Route::prefix('/user')->group(function(){
+                    Route::post('/add', [OfferController::class, 'create_user_offer']);
+                    Route::post('/update', [OfferController::class, 'update_user_offer']);
+                    Route::post('/delete', [OfferController::class, 'delete_user_offer']);
+                });
+
+                Route::prefix('/product')->group(function () {
+                    Route::post('/add', [OfferController::class, 'create_product_offer']);
+                    Route::post('/update', [OfferController::class, 'update_product_offer']);
+                    Route::post('/delete', [OfferController::class, 'delete_product_offer']);
+                });
+
+                Route::prefix('/category')->group(function () {
+                    Route::post('/add', [OfferController::class, 'create_category_offer']);
+                    Route::post('/update', [OfferController::class, 'update_category_offer']);
+                    Route::post('/delete', [OfferController::class, 'delete_category_offer']);
+                });
+                
             });
         });
 

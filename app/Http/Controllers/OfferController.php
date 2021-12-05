@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\ProductOffer;
 use App\Models\CategoryOffer;
+use App\Models\UserOffer;
 use Illuminate\Support\Facades\Validator;
 
 class OfferController extends Controller
@@ -73,6 +74,41 @@ class OfferController extends Controller
             $category_offer->discount_id = $request->discount_id;
             $category_offer->save();
             return response()->json(['success' => 'Seçili kategoride kampanya başarı ile uygulandı.']);
+        } catch (\Exception $ex) {
+            return response()->json(['error' => true, 'message' => 'Teknik bir hata oluştu.','exception'=>$ex], 403);
+        }
+        return response()->json(['error' => true, 'message' => 'Teknik bir hata oluştu.'], 400);
+    }
+
+    /**
+     * Kullanıcı kampanya tanımla
+     */
+    public function create_user_offer(Request $request){
+        $validation=Validator::make($request->all(),[
+            'user_id'=>'required|numeric',
+            'discount_id'=>'required|numeric',
+        ]);
+        if($validation->fails()){
+            $messages=[
+                'user_id'=>($validation->getMessageBag())->messages()['user_id'] ?? 'success',
+                'discount_id'=>($validation->getMessageBag())->messages()['discount_id'] ?? 'success'
+            ];
+            return response()->json([
+                'error' => true,
+                'message' => 'Bu işlem için gerekli bilgiler eksik.',
+                'validation' => array_filter($messages, function ($e) {
+                    if ($e != 'success') {
+                        return true;
+                    }
+                })
+            ], 400);
+        }
+        try {
+            $user_offer = new UserOffer();
+            $user_offer->user_id = $request->user_id;
+            $user_offer->discount_id = $request->discount_id;
+            $user_offer->save();
+            return response()->json(['success' => 'Seçili kullanıcıya kampanya başarı ile uygulandı.']);
         } catch (\Exception $ex) {
             return response()->json(['error' => true, 'message' => 'Teknik bir hata oluştu.','exception'=>$ex], 403);
         }
@@ -154,6 +190,43 @@ class OfferController extends Controller
     }
 
     /**
+     * Kullanıcı kampanya güncelle
+     */
+    public function update_user_offer(Request $request){
+        $validation=Validator::make($request->all(),[
+            'user_id'=>'required|numeric',
+            'discount_id'=>'required|numeric',
+            'offer_id'=>'required|numeric'
+        ]);
+        if($validation->fails()){
+            $messages=[
+                'user_id'=>($validation->getMessageBag())->messages()['user_id'] ?? 'success',
+                'discount_id'=>($validation->getMessageBag())->messages()['discount_id'] ?? 'success',
+                'offer_id'=>($validation->getMessageBag())->messages()['offer_id'] ?? 'success'
+            ];
+            return response()->json([
+                'error' => true,
+                'message' => 'Bu işlem için gerekli bilgiler eksik.',
+                'validation' => array_filter($messages, function ($e) {
+                    if ($e != 'success') {
+                        return true;
+                    }
+                })
+            ], 400);
+        }
+        try {
+            $user_offer = UserOffer::where('id', $request->offer_id)->first();
+            $user_offer->discount_id = $request->discount_id;
+            $user_offer->user_id = $request->user_id;
+            $user_offer->save();
+            return response()->json(['success' => 'Seçili kullanıcıya kampanya başarı ile güncellenerek uygulandı.']);
+        } catch (\Exception $ex) {
+            return response()->json(['error' => true, 'message' => 'Teknik bir hata oluştu.','exception'=>$ex], 403);
+        }
+        return response()->json(['error' => true, 'message' => 'Teknik bir hata oluştu.'], 400);
+    }
+    
+    /**
      * Ürün kampanya sil
      */
     public function delete_product_offer(Request $request){
@@ -215,6 +288,40 @@ class OfferController extends Controller
                 return response()->json(['success' => 'Seçili kategoriden kampanya başarı ile kaldırıldı.']);
             }
             return response()->json(['error' => true, 'message' => 'Seçili kategoride kampanya bulunamadı.'], 400);
+        } catch (\Exception $ex) {
+            return response()->json(['error' => true, 'message' => 'Teknik bir hata oluştu.','exception'=>$ex], 403);
+        }
+        return response()->json(['error' => true, 'message' => 'Teknik bir hata oluştu.'], 400);
+    }
+
+    /**
+     * Ürün kampanya sil
+    */
+    public function delete_user_offer(Request $request){
+        $validation=Validator::make($request->all(),[
+            'offer_id'=>'required|numeric',
+        ]);
+        if($validation->fails()){
+            $messages=[
+                'offer_id'=>($validation->getMessageBag())->messages()['offer_id'] ?? 'success',
+            ];
+            return response()->json([
+                'error' => true,
+                'message' => 'Bu işlem için gerekli bilgiler eksik.',
+                'validation' => array_filter($messages, function ($e) {
+                    if ($e != 'success') {
+                        return true;
+                    }
+                })
+            ], 400);
+        }
+        try {
+            $user_offer = UserOffer::where('id',$request->offer_id)->first();
+            if($user_offer){
+                $user_offer->delete();
+                return response()->json(['success' => 'Seçili kullanıcıdan kampanya başarı ile kaldırıldı.']);
+            }
+            return response()->json(['error' => true, 'message' => 'Seçili kullanıcıda kampanya bulunamadı.'], 400);
         } catch (\Exception $ex) {
             return response()->json(['error' => true, 'message' => 'Teknik bir hata oluştu.','exception'=>$ex], 403);
         }
