@@ -7,6 +7,7 @@ use App\Models\Strange;
 
 class StrangeController extends Controller
 {
+    
     public static function check_attack($request){
         $url=$request->url();
         $ip=$request->ip();

@@ -12,7 +12,28 @@ class CartController extends Controller
 {
 
     /**
-     * Sepeti getir
+     * @OA\GET(
+     * path="/api/user/cart/get",
+     * summary="Sepeti Getir",
+     * description="Kullanıcının sepetini listeler.",
+     * operationId="userCartGet",
+     * tags={"Kullanıcı Sepet"},
+     * security={{"deha_token":{}}},
+     * @OA\RequestBody(
+     *    required=true,
+     *    description="Sepeti getirir.",
+     *    @OA\JsonContent(
+     *       required={},
+     *    ),
+     * ),
+     * @OA\Response(
+     *    response=200,
+     *    description="Kullanıcı sepeti başarı ile sorgulandı.",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="Kullanıcı sepeti başarı ile listelendi"),
+     *        )
+     *     )
+     * )
      */
     public function get(Request $request){
         try {
@@ -84,7 +105,35 @@ class CartController extends Controller
     }
 
     /**
-     * Sepete ekle
+     * @OA\POST(
+     * path="/api/user/cart/add",
+     * summary="Sepete Ekle",
+     * description="Kullanıcının sepetine ekleme yapar.",
+     * operationId="userCartAdd",
+     * tags={"Kullanıcı Sepet"},
+     * security={{"deha_token":{}}},
+     * @OA\RequestBody(
+     *    required=true,
+     *    description="Sepeti getirir.",
+     *    @OA\JsonContent(
+     *       required={"products"},
+     *          @OA\Property(property="products", type="array", 
+     *              @OA\Items(type="object", format="object", 
+     *                      @OA\Property(property="product_id", type="integer", example="1"),
+     *                      @OA\Property(property="quantity", type="integer", example="1"),
+     *                  ),
+     *              ),
+     *              
+     *    ),
+     * ),
+     * @OA\Response(
+     *    response=200,
+     *    description="Kullanıcı sepetine ürün eklendi.",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="Kullanıcı sepetine ürün eklendi."),
+     *        )
+     *     )
+     * )
      */
     public function add(Request $request){
         $validation=Validator::make($request->all(),[
@@ -106,11 +155,12 @@ class CartController extends Controller
         }
         
         try {
-            $products = (json_decode($request->products))->products;
+            $products = $request->products;
             $user_id= $request->get('user')->id;
             $total=0;
             $productList=[];
             foreach ($products as $key => $value) {
+                $value=(object)$value;
                 $product=Product::find($value->product_id);
                 if(!$product){
                     return response()->json([
@@ -167,6 +217,37 @@ class CartController extends Controller
         }
     }
 
+    /**
+     * @OA\POST(
+     * path="/api/user/cart/update",
+     * summary="Sepeti Güncelleyerek Ekle",
+     * description="Kullanıcının sepetine ekleme yapar, önceden sepette olanları yok eder.",
+     * operationId="userCartUpdate",
+     * tags={"Kullanıcı Sepet"},
+     * security={{"deha_token":{}}},
+     * @OA\RequestBody(
+     *    required=true,
+     *    description="Sepeti Günceller.",
+     *    @OA\JsonContent(
+     *       required={"products"},
+     *          @OA\Property(property="products", type="array", 
+     *              @OA\Items(type="object", format="object", 
+     *                      @OA\Property(property="product_id", type="integer", example="1"),
+     *                      @OA\Property(property="quantity", type="integer", example="1"),
+     *                  ),
+     *              ),
+     *              
+     *    ),
+     * ),
+     * @OA\Response(
+     *    response=200,
+     *    description="Ürün sepete eklendi.",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="Ürün sepete eklendi."),
+     *        )
+     *     )
+     * )
+     */
     public function update(Request $request){
         $validation=Validator::make($request->all(),[
             'products'=>'required'
@@ -251,10 +332,31 @@ class CartController extends Controller
             'message'=>'Teknik bir hata oluştu',
         ],400);
     }
-    
+
     /**
-     * Sepet silme
-    */
+     * @OA\POST(
+     * path="/api/user/cart/delete",
+     * summary="Sepeti Sil",
+     * description="Kullanıcının sepetini tamamen siler.",
+     * operationId="userCartDelete",
+     * tags={"Kullanıcı Sepet"},
+     * security={{"deha_token":{}}},
+     * @OA\RequestBody(
+     *    required=true,
+     *    description="Sepeti Siler.",
+     *    @OA\JsonContent(
+     *       required={},
+     *    ),
+     * ),
+     * @OA\Response(
+     *    response=200,
+     *    description="Ürün sepete eklendi.",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="Ürün sepete eklendi."),
+     *        )
+     *     )
+     * )
+     */
     public function delete(Request $request){
         try {
             $user_id= $request->get('user')->id;
@@ -277,7 +379,30 @@ class CartController extends Controller
     }
 
     /**
-     * Sepet ürün artır
+     * @OA\POST(
+     * path="/api/user/cart/increment",
+     * summary="Sepetteki Ürünü Arttır",
+     * description="Kullanıcının sepetinde bulunan ürünü arttırır.",
+     * operationId="userCartIncrement",
+     * tags={"Kullanıcı Sepet"},
+     * security={{"deha_token":{}}},
+     * @OA\RequestBody(
+     *    required=true,
+     *    description="Sepetteki ürünü arttırır.",
+     *    @OA\JsonContent(
+     *       required={"product_id"},
+     *          @OA\Property(property="product_id", type="integer", example="1" , description="Ürün Id"),
+     *          @OA\Property(property="quantity", type="integer", example="1" , description="Ürün Adeti"),
+     *    ),
+     * ),
+     * @OA\Response(
+     *    response=200,
+     *    description="Ürün arttırıldı.",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="Ürün arttırıldı."),
+     *        )
+     *     )
+     * )
      */
     public function increment(Request $request){
         $validation=Validator::make($request->all(),[
@@ -346,7 +471,30 @@ class CartController extends Controller
     }
 
     /**
-     * Sepet ürün azalt
+     * @OA\POST(
+     * path="/api/user/cart/decrement",
+     * summary="Sepetteki Ürünü Azalt",
+     * description="Kullanıcının sepetinde bulunan ürünü azaltır.Quantity gönderilmezse 1 adet azaltılır.",
+     * operationId="userCartIncrement",
+     * tags={"Kullanıcı Sepet"},
+     * security={{"deha_token":{}}},
+     * @OA\RequestBody(
+     *    required=true,
+     *    description="Sepetteki ürünü azaltır.",
+     *    @OA\JsonContent(
+     *       required={"product_id"},
+     *          @OA\Property(property="product_id", type="integer", example="1" , description="Ürün Id"),
+     *          @OA\Property(property="quantity", type="integer", example="1" , description="Ürün Adeti"),
+     *    ),
+     * ),
+     * @OA\Response(
+     *    response=200,
+     *    description="Ürün sepete azaltıldı.",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="Ürün sepetten azaltıldı."),
+     *        )
+     *     )
+     * )
      */
     public function decrement(Request $request){
         $validation=Validator::make($request->all(),[
@@ -415,7 +563,29 @@ class CartController extends Controller
     }
 
     /**
-     * Sepet ürün çıkar
+     * @OA\POST(
+     * path="/api/user/cart/extraction",
+     * summary="Sepetteki Ürünü Çıkart",
+     * description="Kullanıcının sepetinde bulunan ürünü tamamen çıkartır.",
+     * operationId="userCartExtraction",
+     * tags={"Kullanıcı Sepet"},
+     * security={{"deha_token":{}}},
+     * @OA\RequestBody(
+     *    required=true,
+     *    description="Sepetteki ürünü kaldırır.",
+     *    @OA\JsonContent(
+     *       required={"product_id"},
+     *          @OA\Property(property="product_id", type="integer", example="1" , description="Ürün Id")
+     *    ),
+     * ),
+     * @OA\Response(
+     *    response=200,
+     *    description="Ürün sepetten kaldırıldı.",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="Ürün sepetten kaldırıldı."),
+     *        )
+     *     )
+     * )
      */
     public function extraction(Request $request){
         $validation=Validator::make($request->all(),[

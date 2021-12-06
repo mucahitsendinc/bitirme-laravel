@@ -12,7 +12,68 @@ class ProductController extends Controller
 {
 
     /**
-     * Ürünleri listele
+     * @OA\GET(
+     * path="/api/products",
+     * summary="Ürünleri Listele",
+     * description="Tüm ürünleri belirlediğiniz koşula göre getirir.",
+     * operationId="products",
+     * tags={"Ürünler"},
+     * @OA\Parameter(
+     *    required=false,
+     *    in="query",
+     *    name="start",
+     *    description="Başlangıç",
+     * ),
+     * @OA\Parameter(
+     *    required=false,
+     *    in="query",
+     *    name="end",
+     *    description="Bitiş",
+     * ),
+     * @OA\Parameter(
+     *    required=false,
+     *    in="query",
+     *    name="name",
+     *    description="Ürün ismi",
+     * ),
+     * @OA\Parameter(
+     *    required=false,
+     *    in="query",
+     *    name="description",
+     *    description="Ürün açıklaması",
+     * ),
+     * @OA\Parameter(
+     *    required=false,
+     *    in="query",
+     *    name="price",
+     *    description="Ürün Fiyatı",
+     * ),
+     * @OA\Parameter(
+     *    required=false,
+     *    in="query",
+     *    name="stock",
+     *    description="Ürün Sayısı",
+     * ),
+     * @OA\Parameter(
+     *    required=false,
+     *    in="query",
+     *    name="slug",
+     *    description="Ürün Linki",
+     * ),
+     * @OA\Parameter(
+     *    required=false,
+     *    in="query",
+     *    name="allSearch",
+     *    description="Tüm alanlarda arama",
+     * ),
+     * @OA\Response(
+     *    response=200,
+     *    description="Ürün listelendi.",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="Ürün listelendi."),
+     *        )
+     *     )
+     * )
      */
     public function get(Request $request){
         try{
@@ -93,7 +154,26 @@ class ProductController extends Controller
     }
 
     /**
-     * Ürünü getir
+     * @OA\GET(
+     * path="/api/products/{product_id}",
+     * summary="Ürün Detayı",
+     * description="Ürün detayını getir.",
+     * operationId="productDetail",
+     * tags={"Ürünler"},
+     * @OA\Parameter(
+     *    required=true,
+     *    in="path",
+     *    name="product_id",
+     *    description="Ürün ID",
+     * ),
+     * @OA\Response(
+     *    response=200,
+     *    description="Ürün listelendi.",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="Ürün listelendi."),
+     *        )
+     *     )
+     * )
      */
     public function detail($product_id,Request $request){
         try {
@@ -197,9 +277,59 @@ class ProductController extends Controller
             'message' => 'Ürün sorgulanırken bir hata oluştu.'
         ], 400);
     }
+
     /**
-     * Ürün keşfet
-    */
+     * @OA\GET(
+     * path="/api/discover",
+     * summary="Ürün Keşfet",
+     * description="Rastgele ürünleri getir.",
+     * operationId="productDiscover",
+     * tags={"Ürünler"},
+     * @OA\Parameter(
+     *    required=false,
+     *    in="query",
+     *    name="name",
+     *    description="Ürün ismi",
+     * ),
+     * @OA\Parameter(
+     *    required=false,
+     *    in="query",
+     *    name="description",
+     *    description="Ürün açıklaması",
+     * ),
+     * @OA\Parameter(
+     *    required=false,
+     *    in="query",
+     *    name="price",
+     *    description="Ürün Fiyatı",
+     * ),
+     * @OA\Parameter(
+     *    required=false,
+     *    in="query",
+     *    name="stock",
+     *    description="Ürün Sayısı",
+     * ),
+     * @OA\Parameter(
+     *    required=false,
+     *    in="query",
+     *    name="slug",
+     *    description="Ürün Linki",
+     * ),
+     * @OA\Parameter(
+     *    required=false,
+     *    in="query",
+     *    name="allSearch",
+     *    description="Tüm alanlarda arama",
+     * ),
+     * @OA\Response(
+     *    response=200,
+     *    description="Ürünler listelendi.",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="Ürünler listelendi."),
+     *        )
+     *     )
+     * )
+     */
     public function discover(Request $request){
         if (isset($request->allSearch)) {
             $request->name = $request->allSearch;
@@ -270,7 +400,32 @@ class ProductController extends Controller
     }
 
     /**
-     * Ürün oluştur
+     * @OA\POST(
+     * path="/api/seller/product/add",
+     * summary="Ürün Ekle",
+     * description="Yeni ürün oluştur.",
+     * operationId="productAdd",
+     * tags={"Ürünler"},
+     * security={{"deha_token":{}}},
+     * @OA\RequestBody(
+     *    required=true,
+     *    description="Yeni bir ürün oluşturur.",
+     *    @OA\JsonContent(
+     *       required={"name","description","price","category_id"},
+     *          @OA\Property(property="name", type="string", example="Ürün Adı"),
+     *          @OA\Property(property="description", type="string", example="Ürün Açıklaması"),
+     *          @OA\Property(property="price", type="integer", example="Ürün Fiyatı"),
+     *          @OA\Property(property="category_id", type="integer", example="Kategori ID"),
+     *    ),
+     * ),
+     * @OA\Response(
+     *    response=200,
+     *    description="Ürün oluşturuldu.",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="Ürün oluşturuldu."),
+     *        )
+     *     )
+     * )
      */
     public function create(Request $request){
         $validation = Validator::make($request->all(), [
@@ -320,7 +475,33 @@ class ProductController extends Controller
     }
 
     /**
-     * Ürünü güncelle
+     * @OA\POST(
+     * path="/api/seller/product/update",
+     * summary="Ürün Güncelle",
+     * description="Var olan bir ürünü günceller.",
+     * operationId="productUpdate",
+     * tags={"Ürünler"},
+     * security={{"deha_token":{}}},
+     * @OA\RequestBody(
+     *    required=true,
+     *    description="Var olan bir ürünü günceller.",
+     *    @OA\JsonContent(
+     *       required={"product_id","name","description","price","category_id"},
+     *          @OA\Property(property="product_id", type="integer", example="Ürün ID"),
+     *          @OA\Property(property="name", type="string", example="Ürün Adı"),
+     *          @OA\Property(property="description", type="string", example="Ürün Açıklaması"),
+     *          @OA\Property(property="price", type="integer", example="Ürün Fiyatı"),
+     *          @OA\Property(property="category_id", type="integer", example="Kategori ID"),
+     *    ),
+     * ),
+     * @OA\Response(
+     *    response=200,
+     *    description="Ürün güncellendi.",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="Ürün güncellendi."),
+     *        )
+     *     )
+     * )
      */
     public function update(Request $request){
         $validation = Validator::make($request->all(), [
@@ -328,14 +509,14 @@ class ProductController extends Controller
             'name' => 'required|min:3|max:255',
             'description' => 'required|min:3',
             'price' => 'required',
-            'category' => 'required',
+            'category_id' => 'required',
         ]);
         if ($validation->fails()) {
             $messages = [
                 'name' => ($validation->getMessageBag())->messages()['name'] ?? 'success',
                 'description' => ($validation->getMessageBag())->messages()['description'] ?? 'success',
                 'price' => ($validation->getMessageBag())->messages()['price'] ?? 'success',
-                'category' => ($validation->getMessageBag())->messages()['category_id'] ?? 'success',
+                'category_id' => ($validation->getMessageBag())->messages()['category_id'] ?? 'success',
                 'product_id' => ($validation->getMessageBag())->messages()['product_id'] ?? 'success',
             ];
             return response()->json([
@@ -383,8 +564,30 @@ class ProductController extends Controller
     }
 
     /**
-    * Ürün sil
-    */
+     * @OA\POST(
+     * path="/api/seller/product/delete",
+     * summary="Ürün Sil",
+     * description="Var olan bir ürünü siler.",
+     * operationId="productDelete",
+     * tags={"Ürünler"},
+     * security={{"deha_token":{}}},
+     * @OA\RequestBody(
+     *    required=true,
+     *    description="Var olan bir ürünü siler.",
+     *    @OA\JsonContent(
+     *       required={"product_id"},
+     *          @OA\Property(property="product_id", type="integer", example="Ürün ID"),
+     *    ),
+     * ),
+     * @OA\Response(
+     *    response=200,
+     *    description="Ürün siler.",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="Ürün silindi."),
+     *        )
+     *     )
+     * )
+     */
     public function delete(Request $request){
         $validation = Validator::make($request->all(), [
             'product_id' => 'required|numeric'

@@ -12,7 +12,28 @@ class CardController extends Controller
 {
 
     /**
-     * Kullanıcı kartlarını listele
+     * @OA\GET(
+     * path="/api/user/card/get",
+     * summary="Kartları getir",
+     * description="Kullanıcının kayıtlı kartlarını listeler.",
+     * operationId="userCardGet",
+     * tags={"Kullanıcı Kart"},
+     * security={{"deha_token":{}}},
+     * @OA\RequestBody(
+     *    required=true,
+     *    description="Kartları listeler.",
+     *    @OA\JsonContent(
+     *       required={},
+     *    ),
+     * ),
+     * @OA\Response(
+     *    response=200,
+     *    description="Kullanıcı kartları başarı ile sorgulandı",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="Kullanıcı kartları başarı ile sorgulandı"),
+     *        )
+     *     )
+     * )
      */
     public function get(Request $request){
         try {
@@ -45,7 +66,32 @@ class CardController extends Controller
     }
 
     /**
-     * Kullanıcı kart güncelleme
+     * @OA\POST(
+     * path="/api/user/card/create",
+     * summary="Kart Oluştur",
+     * description="Kullanıcı kart kaydeder.",
+     * operationId="userCardCreate",
+     * tags={"Kullanıcı Kart"},
+     * security={{"deha_token":{}}},
+     * @OA\RequestBody(
+     *    required=true,
+     *    description="Kartları oluşturur.",
+     *    @OA\JsonContent(
+     *       required={"card_number","card_expire","card_cvv","card_name"},
+     *          @OA\Property(property="card_number", type="string", example="1234567890123456"),
+     *          @OA\Property(property="card_expire", type="string", example="12/20"),
+     *          @OA\Property(property="card_cvv", type="string", example="123"),
+     *          @OA\Property(property="card_name", type="string", example="Banka Kartım"),
+     *    ),
+     * ),
+     * @OA\Response(
+     *    response=200,
+     *    description="Kullanıcı kartı başarı ile oluşturuldu",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="Kullanıcı kartı başarı ile oluşturuldu"),
+     *        )
+     *     )
+     * )
      */
     public function create(Request $request){
         $validation = Validator::make($request->all(), [
@@ -118,7 +164,29 @@ class CardController extends Controller
     }
 
     /**
-     * Kullanıcı kart silme
+     * @OA\POST(
+     * path="/api/user/card/delete",
+     * summary="Kart Sil",
+     * description="Kullanıcının kayıtlı kartı siler.",
+     * operationId="userCardDelete",
+     * tags={"Kullanıcı Kart"},
+     * security={{"deha_token":{}}},
+     * @OA\RequestBody(
+     *    required=true,
+     *    description="Kartı siler.",
+     *    @OA\JsonContent(
+     *       required={"card_id"},
+     *          @OA\Property(property="card_id", type="integer", example="1"),
+     *    ),
+     * ),
+     * @OA\Response(
+     *    response=200,
+     *    description="Kullanıcı kartı başarı ile güncellendi",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="Kullanıcı kartı başarı ile güncellendi"),
+     *        )
+     *     )
+     * )
      */
     public function delete(Request $request){
         $validation = Validator::make($request->all(), [
@@ -160,7 +228,28 @@ class CardController extends Controller
     }
 
     /**
-     * Kullanıcı kart güncelleme
+     * @OA\POST(
+     * path="/api/user/card/update",
+     * summary="Kart Güncelle",
+     * description="Kullanıcının kayıtlı kartı günceller.",
+     * operationId="userCardUpdate",
+     * tags={"Kullanıcı Kart"},
+     * security={{"deha_token":{}}},
+     * @OA\RequestBody(
+     *    required=true,
+     *    description="Kartları günceller.",
+     *    @OA\JsonContent(
+     *       required={},
+     *    ),
+     * ),
+     * @OA\Response(
+     *    response=200,
+     *    description="Kullanıcı kartı başarı ile güncellendi",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="Kullanıcı kartı başarı ile güncellendi"),
+     *        )
+     *     )
+     * )
      */
     public function update(Request $request){
         $validation=Validator::make($request->all(),[

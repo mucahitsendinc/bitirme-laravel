@@ -77,6 +77,7 @@ Route::middleware(['verifyrequest'])->group(function(){
                 Route::post('/delete', [CartController::class, 'delete']);
                 Route::post('/increment', [CartController::class, 'increment']);
                 Route::post('/decrement', [CartController::class, 'decrement']);
+                Route::post('/extraction', [CartController::class, 'extraction']);
                 Route::get('/get', [CartController::class, 'get']);
             });
 

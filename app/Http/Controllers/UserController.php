@@ -27,8 +27,30 @@ class UserController extends Controller
     public $forgot_prefix= "b6b717a2ebee";
 
     /**
-     * Kullanıcı giriş
-     */
+     * @OA\Post(
+     * path="/api/login",
+     * summary="Giriş Yap",
+     * description="Kullanıcı girişi, eposta ve parola ile",
+     * operationId="authLogin",
+     * tags={"Üyelik"},
+     * @OA\RequestBody(
+     *    required=true,
+     *    description="Kullanıcı bilgilerini girin",
+     *    @OA\JsonContent(
+     *       required={"email","password"},
+     *       @OA\Property(property="email", type="string", format="email", example="mucahit@dehasoft.com.tr"),
+     *       @OA\Property(property="password", type="string", format="password", example="123456789"),
+     *    ),
+     * ),
+     * @OA\Response(
+     *    response=200,
+     *    description="Başarılı giriş yapıldı",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="Giriş yapıldı"),
+     *        )
+     *     )
+     * )
+    */
     public function login(Request $request){
         $validation = Validator::make($request->all(),[
             'email' => 'required|email|min:5|max:35',
@@ -72,6 +94,33 @@ class UserController extends Controller
 
     /**
      * Kullanıcı kayıt
+     */
+    /**
+     * @OA\Post(
+     * path="/api/register",
+     * summary="Kayıt Ol",
+     * description="Kullanıcı kaydı",
+     * operationId="authRegister",
+     * tags={"Üyelik"},
+     * @OA\RequestBody(
+     *    required=true,
+     *    description="Kullanıcı bilgilerini girin",
+     *    @OA\JsonContent(
+     *       required={"name","surname","email","password"},
+     *       @OA\Property(property="name", type="string", format="text", example="Mücahit"),
+     *       @OA\Property(property="surname", type="string", format="text", example="Sendinç"),
+     *       @OA\Property(property="email", type="string", format="email", example="mucahit@dehasoft.com.tr"),
+     *       @OA\Property(property="password", type="string", format="password", example="123456789"),
+     *    ),
+     * ),
+     * @OA\Response(
+     *    response=200,
+     *    description="Kayıt başarılı",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="Kayıt yapıldı. Eposta adresi doğrulaması gönderildi."),
+     *        )
+     *     )
+     * )
      */
     public function register(Request $request){
         /**
@@ -152,7 +201,28 @@ class UserController extends Controller
     }
 
     /**
-     * Kullanıcı eposta adresini doğrulama
+     * @OA\Post(
+     * path="/api/activate-account",
+     * summary="Hesap Doğrula",
+     * description="Kullanıcı doğrulama",
+     * operationId="authActiveAccount",
+     * tags={"Üyelik"},
+     * @OA\RequestBody(
+     *    required=true,
+     *    description="EPosta ile kullanıcıya iletilen tokeni iletin",
+     *    @OA\JsonContent(
+     *       required={"token"},
+     *       @OA\Property(property="token", type="string", format="text", example="adfaghadfgdagadgdfagadgad"),
+     *    ),
+     * ),
+     * @OA\Response(
+     *    response=200,
+     *    description="Doğrulama başarılı",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="Doğrulama yapıldı."),
+     *        )
+     *     )
+     * )
      */
     public function email_verify(Request $request){
         $validation = Validator::make($request->all(),[
@@ -201,7 +271,29 @@ class UserController extends Controller
     }
 
     /**
-     * Kullanıcı yeni eposta doğrulama kodu
+     * @OA\Post(
+     * path="/api/resend-activation-code",
+     * summary="Hesap Doğrula Kodu Gönder",
+     * description="Kullanıcı doğrulama kodunu yeniden gönder",
+     * operationId="authResendActivationCode",
+     * security={{"deha_token":{}}},
+     * tags={"Üyelik"},
+     * @OA\RequestBody(
+     *    required=true,
+     *    description="EPosta adresini gönderdiğiniz kullanıcıya doğrulama gönderir",
+     *    @OA\JsonContent(
+     *       required={"email"},
+     *       @OA\Property(property="email", type="string", format="email", example="mucahit@dehasoft.com.tr"),
+     *    ),
+     * ),
+     * @OA\Response(
+     *    response=200,
+     *    description="Doğrulama kodu başarı ile gönderildi",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="Doğrulama kodu gönderildi."),
+     *        )
+     *     )
+     * )
      */
     public function new_email_verify_code(Request $request){
         if($request->get('user')->getStatus->name!='Onaysız'){
@@ -293,7 +385,30 @@ class UserController extends Controller
     }
 
     /**
-     * Kullanıcı çıkış
+     * @OA\Post(
+     * path="/api/logout",
+     * summary="Çıkış Yap",
+     * description="Güvenli çıkış gönderilen token yok edilir.",
+     * operationId="authLogOut",
+     * security={{"deha_token":{}}},
+     * tags={"Üyelik"},
+     * @OA\RequestBody(
+     *    required=true,
+     *    description="Token ve Tokentype gönderilir ve yok edilir.",
+     *    @OA\JsonContent(
+     *       required={"token","tokenType"},
+     *       @OA\Property(property="tokenType", type="string", format="text", example="gadfdhadjhadfhadfh"),
+     *       @OA\Property(property="token", type="string", format="text", example="gadfdhadjhadfhadfh"),
+     *    ),
+     * ),
+     * @OA\Response(
+     *    response=200,
+     *    description="Doğrulama kodu başarı ile gönderildi",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="Doğrulama kodu gönderildi."),
+     *        )
+     *     )
+     * )
      */
     public function logout(Request $request){
         $validation = Validator::make($request->all(), [
@@ -339,8 +454,30 @@ class UserController extends Controller
         }
     }
 
+    
     /**
-     * Kullanıcı şifremi unuttum
+     * @OA\Post(
+     * path="/api/forgot-password",
+     * summary="Şifremi Unuttum",
+     * description="Kullanıcı parolasını sıfırlamak için kullanılır.",
+     * operationId="authForgotPassword",
+     * tags={"Üyelik"},
+     * @OA\RequestBody(
+     *    required=true,
+     *    description="EPosta gönderilir.",
+     *    @OA\JsonContent(
+     *       required={"email"},
+     *       @OA\Property(property="email", type="string", format="email", example="mucahit@dehasoft.com.tr"),
+     *    ),
+     * ),
+     * @OA\Response(
+     *    response=200,
+     *    description="Doğrulama kodu başarı ile gönderildi",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="Doğrulama kodu gönderildi."),
+     *        )
+     *     )
+     * )
      */
     public function forgot_password(Request $request){
         $validation = Validator::make($request->all(), [
@@ -401,7 +538,30 @@ class UserController extends Controller
     }
 
     /**
-     * Kullanıcı şifre güncelleme
+     * @OA\Post(
+     * path="/api/reset-password",
+     * summary="Şifre Sıfırlama",
+     * description="Kullanıcı parolasını sıfırlamak için kullanılır.",
+     * operationId="authResetPassword",
+     * tags={"Üyelik"},
+     * @OA\RequestBody(
+     *    required=true,
+     *    description="EPosta ile gelen kod gönderilir.",
+     *    @OA\JsonContent(
+     *       required={"token","password","passwordConfirmation"},
+     *       @OA\Property(property="token", type="string", format="text", example="adfgdagadgfadgad"),
+     *       @OA\Property(property="password", type="string", format="password", example="adfgdagadgfadgad"),
+     *       @OA\Property(property="passwordConfirmation", type="string", format="password", example="adfgdagadgfadgad"),
+     *    ),
+     * ),
+     * @OA\Response(
+     *    response=200,
+     *    description="Doğrulama kodu başarı ile gönderildi",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="Doğrulama kodu gönderildi."),
+     *        )
+     *     )
+     * )
      */
     public function reset_password(Request $request){
         $validation = Validator::make($request->all(), [

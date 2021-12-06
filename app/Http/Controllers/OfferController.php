@@ -11,7 +11,30 @@ use Illuminate\Support\Facades\Validator;
 class OfferController extends Controller
 {
     /**
-     * Ürün kampanya tanımla
+     * @OA\Post(
+     * path="/api/seller/offer/product/add",
+     * summary="Ürüne Kampanya Tanımla",
+     * description="Var olan ürüne var olan bir kampanya tanımlaması yapılır.",
+     * operationId="offerProductAdd",
+     * tags={"Kampanya"},
+     * security={{"deha_token":{}}},
+     * @OA\RequestBody(
+     *    required=true,
+     *    description="Var olan ürüne var olan bir kampanya tanımlaması yapılır.",
+     *    @OA\JsonContent(
+     *       required={"product_id","discount_id"},
+     *          @OA\Property(property="discount_id", type="integer", example="Kampanya Id"),
+     *          @OA\Property(property="product_id", type="integer", example="Ürün Id"),
+     *    ),
+     * ),
+     * @OA\Response(
+     *    response=200,
+     *    description="Kampanya tanımlandı",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="Kampanya tanımlandı."),
+     *        )
+     *     )
+     * )
      */
     public function create_product_offer(Request $request){
         $validation=Validator::make($request->all(),[
@@ -46,7 +69,30 @@ class OfferController extends Controller
     }
 
     /**
-     * Kategori kampanya tanımla
+     * @OA\Post(
+     * path="/api/seller/offer/category/add",
+     * summary="Kategoriye Kampanya Tanımla",
+     * description="Var olan kategoriye var olan bir kampanya tanımlaması yapılır.",
+     * operationId="offerCategoryAdd",
+     * tags={"Kampanya"},
+     * security={{"deha_token":{}}},
+     * @OA\RequestBody(
+     *    required=true,
+     *    description="Var olan kategoriye var olan bir kampanya tanımlaması yapılır.",
+     *    @OA\JsonContent(
+     *       required={"category_id","discount_id"},
+     *          @OA\Property(property="discount_id", type="integer", example="Kampanya Id"),
+     *          @OA\Property(property="category_id", type="integer", example="Kategori Id"),
+     *    ),
+     * ),
+     * @OA\Response(
+     *    response=200,
+     *    description="Kampanya tanımlandı",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="Kampanya tanımlandı."),
+     *        )
+     *     )
+     * )
      */
     public function create_category_offer(Request $request){
         $validation=Validator::make($request->all(),[
@@ -81,7 +127,30 @@ class OfferController extends Controller
     }
 
     /**
-     * Kullanıcı kampanya tanımla
+     * @OA\Post(
+     * path="/api/seller/offer/user/add",
+     * summary="Kullanıcıya Kampanya Tanımla",
+     * description="Var olan kullanıcıya var olan bir kampanya tanımlaması yapılır.",
+     * operationId="offerUserAdd",
+     * tags={"Kampanya"},
+     * security={{"deha_token":{}}},
+     * @OA\RequestBody(
+     *    required=true,
+     *    description="Var olan kullanıcıya var olan bir kampanya tanımlaması yapılır.",
+     *    @OA\JsonContent(
+     *       required={"user_id","discount_id"},
+     *          @OA\Property(property="discount_id", type="integer", example="Kampanya Id"),
+     *          @OA\Property(property="user_id", type="integer", example="Kullanıcı Id"),
+     *    ),
+     * ),
+     * @OA\Response(
+     *    response=200,
+     *    description="Kampanya tanımlandı",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="Kampanya tanımlandı."),
+     *        )
+     *     )
+     * )
      */
     public function create_user_offer(Request $request){
         $validation=Validator::make($request->all(),[
@@ -116,7 +185,30 @@ class OfferController extends Controller
     }
 
     /**
-     * Ürün kampanya güncelle
+     * @OA\Post(
+     * path="/api/seller/offer/product/update",
+     * summary="Kategori Kampanya Güncelle",
+     * description="Var olan üründeki var olan bir kampanyayı günceller.",
+     * operationId="offerProductUpdate",
+     * tags={"Kampanya"},
+     * security={{"deha_token":{}}},
+     * @OA\RequestBody(
+     *    required=true,
+     *    description="Var olan üründeki var olan bir kampanyayı günceller.",
+     *    @OA\JsonContent(
+     *       required={"product_id","discount_id"},
+     *          @OA\Property(property="discount_id", type="integer", example="Kampanya Id"),
+     *          @OA\Property(property="product_id", type="integer", example="Ürün Id"),
+     *    ),
+     * ),
+     * @OA\Response(
+     *    response=200,
+     *    description="Kampanya tanımlandı",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="Kampanya tanımlandı."),
+     *        )
+     *     )
+     * )
      */
     public function update_product_offer(Request $request){
         $validation=Validator::make($request->all(),[
@@ -153,7 +245,30 @@ class OfferController extends Controller
     }
 
     /**
-     * Kategori kampanya güncelle
+     * @OA\Post(
+     * path="/api/seller/offer/category/update",
+     * summary="Kategoriye Kampanya Tanımla",
+     * description="Var olan kategorideki var olan bir kampanyayı günceller.",
+     * operationId="offerCategoryUpdate",
+     * tags={"Kampanya"},
+     * security={{"deha_token":{}}},
+     * @OA\RequestBody(
+     *    required=true,
+     *    description="Var olan kategorideki var olan bir kampanyayı günceller.",
+     *    @OA\JsonContent(
+     *       required={"category_id","discount_id"},
+     *          @OA\Property(property="discount_id", type="integer", example="Kampanya Id"),
+     *          @OA\Property(property="category_id", type="integer", example="Ürün Id"),
+     *    ),
+     * ),
+     * @OA\Response(
+     *    response=200,
+     *    description="Kampanya tanımlandı",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="Kampanya tanımlandı."),
+     *        )
+     *     )
+     * )
      */
     public function update_category_offer(Request $request){
         $validation=Validator::make($request->all(),[
@@ -190,7 +305,30 @@ class OfferController extends Controller
     }
 
     /**
-     * Kullanıcı kampanya güncelle
+     * @OA\Post(
+     * path="/api/seller/offer/user/update",
+     * summary="Kullanıcı Kampanya Tanımla",
+     * description="Var olan kullanıcıdaki var olan bir kampanyayı günceller.",
+     * operationId="offerUserUpdate",
+     * tags={"Kampanya"},
+     * security={{"deha_token":{}}},
+     * @OA\RequestBody(
+     *    required=true,
+     *    description="Var olan kullanıcıdaki var olan bir kampanyayı günceller.",
+     *    @OA\JsonContent(
+     *       required={"user_id","discount_id"},
+     *          @OA\Property(property="discount_id", type="integer", example="Kampanya Id"),
+     *          @OA\Property(property="user_id", type="integer", example="Ürün Id"),
+     *    ),
+     * ),
+     * @OA\Response(
+     *    response=200,
+     *    description="Kampanya tanımlandı",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="Kampanya tanımlandı."),
+     *        )
+     *     )
+     * )
      */
     public function update_user_offer(Request $request){
         $validation=Validator::make($request->all(),[
@@ -225,9 +363,31 @@ class OfferController extends Controller
         }
         return response()->json(['error' => true, 'message' => 'Teknik bir hata oluştu.'], 400);
     }
-    
+
     /**
-     * Ürün kampanya sil
+     * @OA\Post(
+     * path="/api/seller/offer/product/delete",
+     * summary="Ürün Kampanya Sil",
+     * description="Var olan üründeki var olan bir kampanyayı siler.",
+     * operationId="offerProductDelete",
+     * tags={"Kampanya"},
+     * security={{"deha_token":{}}},
+     * @OA\RequestBody(
+     *    required=true,
+     *    description="Var olan üründeki var olan bir kampanyayı siler.",
+     *    @OA\JsonContent(
+     *       required={"offer_id"},
+     *          @OA\Property(property="offer_id", type="integer", example="Kampanya Tanım Id"),
+     *    ),
+     * ),
+     * @OA\Response(
+     *    response=200,
+     *    description="Kampanya silindi.",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="Kampanya silindi."),
+     *        )
+     *     )
+     * )
      */
     public function delete_product_offer(Request $request){
         $validation=Validator::make($request->all(),[
@@ -261,7 +421,29 @@ class OfferController extends Controller
     }
 
     /**
-     * Kategori kampanya sil
+     * @OA\Post(
+     * path="/api/seller/offer/category/delete",
+     * summary="Kategori Kampanya Sil",
+     * description="Var olan kategorideki var olan bir kampanyayı siler.",
+     * operationId="offerCategoryDelete",
+     * tags={"Kampanya"},
+     * security={{"deha_token":{}}},
+     * @OA\RequestBody(
+     *    required=true,
+     *    description="Var olan kategorideki var olan bir kampanyayı siler.",
+     *    @OA\JsonContent(
+     *       required={"offer_id"},
+     *          @OA\Property(property="offer_id", type="integer", example="Kampanya Tanım Id"),
+     *    ),
+     * ),
+     * @OA\Response(
+     *    response=200,
+     *    description="Kampanya silindi.",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="Kampanya silindi."),
+     *        )
+     *     )
+     * )
      */
     public function delete_category_offer(Request $request){
         $validation=Validator::make($request->all(),[
@@ -295,8 +477,30 @@ class OfferController extends Controller
     }
 
     /**
-     * Ürün kampanya sil
-    */
+     * @OA\Post(
+     * path="/api/seller/offer/user/delete",
+     * summary="Kullanıcı Kampanya Sil",
+     * description="Var olan kullanıcıdaki var olan bir kampanyayı siler.",
+     * operationId="offerUserDelete",
+     * tags={"Kampanya"},
+     * security={{"deha_token":{}}},
+     * @OA\RequestBody(
+     *    required=true,
+     *    description="Var olan kullanıcıdaki var olan bir kampanyayı siler.",
+     *    @OA\JsonContent(
+     *       required={"offer_id"},
+     *          @OA\Property(property="offer_id", type="integer", example="Kampanya Tanım Id"),
+     *    ),
+     * ),
+     * @OA\Response(
+     *    response=200,
+     *    description="Kampanya silindi.",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="Kampanya silindi."),
+     *        )
+     *     )
+     * )
+     */
     public function delete_user_offer(Request $request){
         $validation=Validator::make($request->all(),[
             'offer_id'=>'required|numeric',

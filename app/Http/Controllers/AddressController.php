@@ -11,7 +11,21 @@ class AddressController extends Controller
 {
 
     /**
-     * Kullanıcı adreslerini listele
+     * @OA\GET(
+     * path="/api/user/address/get",
+     * summary="Adresleri getir",
+     * description="Kullanıcının kayıtlı adreslerini listeler.",
+     * operationId="userAddressGet",
+     * tags={"Kullanıcı Adres"},
+     * security={{"deha_token":{}}},
+     * @OA\Response(
+     *    response=200,
+     *    description="Kullanıcı adresleri başarı ile sorgulandı",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="Kullanıcı adresleri başarı ile sorgulandı"),
+     *        )
+     *     )
+     * )
      */
     public function get(Request $request){
         try {
@@ -48,7 +62,37 @@ class AddressController extends Controller
     }
 
     /**
-     * Kullanıcı adres güncelleme
+     * @OA\POST(
+     * path="/api/user/address/create",
+     * summary="Adres oluştur",
+     * description="Kullanıcı yeni adres tanımı.",
+     * operationId="userAddressCreate",
+     * tags={"Kullanıcı Adres"},
+     * security={{"deha_token":{}}},
+     * @OA\RequestBody(
+     *    required=true,
+     *    description="Yeni bilgilerle adres oluşturulur.",
+     *    @OA\JsonContent(
+     *       required={"name", "address", "city", "country", "street", "neighborhood", "postal_code", "phone", "mobile"},
+     *          @OA\Property(property="name", type="string", example="Adı Soyadı"),
+     *          @OA\Property(property="address", type="string", example="Adres"),
+     *          @OA\Property(property="city", type="string", example="Şehir"),
+     *          @OA\Property(property="country", type="string", example="Ülke"),
+     *          @OA\Property(property="street", type="string", example="Sokak"),
+     *          @OA\Property(property="neighborhood", type="string", example="Mahalle"),
+     *          @OA\Property(property="postal_code", type="string", example="Posta Kodu"),
+     *          @OA\Property(property="phone", type="string", example="Telefon"),
+     *          @OA\Property(property="mobile", type="string", example="Cep Telefonu"),
+     *    ),
+     * ),
+     * @OA\Response(
+     *    response=200,
+     *    description="Kullanıcı adresi başarı ile oluşturuldu",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="Kullanıcı adresi başarı ile oluşturuldu"),
+     *        )
+     *     )
+     * )
      */
     public function create(Request $request){
         $validation = Validator::make($request->all(), [
@@ -136,7 +180,29 @@ class AddressController extends Controller
     }
 
     /**
-     * Kullanıcı adres silme
+     * @OA\POST(
+     * path="/api/user/address/delete",
+     * summary="Adres sil",
+     * description="Kullanıcının kayıtlı adresini siler.",
+     * operationId="userAddressDelete",
+     * tags={"Kullanıcı Adres"},
+     * security={{"deha_token":{}}},
+     * @OA\RequestBody(
+     *    required=true,
+     *    description="Kullanıcının belirli adresini siler.",
+     *    @OA\JsonContent(
+     *       required={"address_id"},
+     *          @OA\Property(property="address_id", type="integer", example="1")
+     *    ),
+     * ),
+     * @OA\Response(
+     *    response=200,
+     *    description="Kullanıcı adresi başarı ile silindi",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="Kullanıcı adresi başarı ile silindi"),
+     *        )
+     *     )
+     * )
      */
     public function delete(Request $request){
         $validation = Validator::make($request->all(), [
@@ -177,9 +243,40 @@ class AddressController extends Controller
         ], 403);
     }
 
-    /*
-    * Kullanıcı adres güncelleme
-    */
+    /**
+     * @OA\POST(
+     * path="/api/user/address/update",
+     * summary="Adres güncelle",
+     * description="Kullanıcının belirli adresini günceller.",
+     * operationId="userAddressUpdate",
+     * tags={"Kullanıcı Adres"},
+     * security={{"deha_token":{}}},
+     * @OA\RequestBody(
+     *    required=true,
+     *    description="Kullanıcının adresini güncelle.",
+     *    @OA\JsonContent(
+     *       required={"address_id", "name", "address", "city", "country", "street", "neighborhood", "postal_code", "phone", "mobile"},
+     *          @OA\Property(property="address_id", type="integer", example="1"),
+     *          @OA\Property(property="name", type="string", example="Adres Adı"),
+     *          @OA\Property(property="address", type="string", example="Adres"),
+     *          @OA\Property(property="city", type="string", example="Şehir"),
+     *          @OA\Property(property="country", type="string", example="Ülke"),
+     *          @OA\Property(property="street", type="string", example="Sokak"),   
+     *          @OA\Property(property="neighborhood", type="string", example="Mahalle"),
+     *          @OA\Property(property="postal_code", type="string", example="Posta Kodu"),
+     *          @OA\Property(property="phone", type="string", example="Telefon"),
+     *          @OA\Property(property="mobile", type="string", example="Cep Telefonu"),
+     *    ),
+     * ),
+     * @OA\Response(
+     *    response=200,
+     *    description="Kullanıcı adresi başarı ile güncellendi",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="Kullanıcı adresi başarı ile güncellendi"),
+     *        )
+     *     )
+     * )
+     */
     public function update(Request $request){
         $validation = Validator::make($request->all(), [
             'address_id' => 'required|numeric',

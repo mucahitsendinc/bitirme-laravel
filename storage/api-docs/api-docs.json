@@ -1,0 +1,2622 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Dehasoft E-Ticaret Çözümü",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/user/address/get": {
+            "get": {
+                "tags": [
+                    "Kullanıcı Adres"
+                ],
+                "summary": "Adresleri getir",
+                "description": "Kullanıcının kayıtlı adreslerini listeler.",
+                "operationId": "userAddressGet",
+                "responses": {
+                    "200": {
+                        "description": "Kullanıcı adresleri başarı ile sorgulandı",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Kullanıcı adresleri başarı ile sorgulandı"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "deha_token": []
+                    }
+                ]
+            }
+        },
+        "/api/user/address/create": {
+            "post": {
+                "tags": [
+                    "Kullanıcı Adres"
+                ],
+                "summary": "Adres oluştur",
+                "description": "Kullanıcı yeni adres tanımı.",
+                "operationId": "userAddressCreate",
+                "requestBody": {
+                    "description": "Yeni bilgilerle adres oluşturulur.",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "address",
+                                    "city",
+                                    "country",
+                                    "street",
+                                    "neighborhood",
+                                    "postal_code",
+                                    "phone",
+                                    "mobile"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Adı Soyadı"
+                                    },
+                                    "address": {
+                                        "type": "string",
+                                        "example": "Adres"
+                                    },
+                                    "city": {
+                                        "type": "string",
+                                        "example": "Şehir"
+                                    },
+                                    "country": {
+                                        "type": "string",
+                                        "example": "Ülke"
+                                    },
+                                    "street": {
+                                        "type": "string",
+                                        "example": "Sokak"
+                                    },
+                                    "neighborhood": {
+                                        "type": "string",
+                                        "example": "Mahalle"
+                                    },
+                                    "postal_code": {
+                                        "type": "string",
+                                        "example": "Posta Kodu"
+                                    },
+                                    "phone": {
+                                        "type": "string",
+                                        "example": "Telefon"
+                                    },
+                                    "mobile": {
+                                        "type": "string",
+                                        "example": "Cep Telefonu"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Kullanıcı adresi başarı ile oluşturuldu",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Kullanıcı adresi başarı ile oluşturuldu"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "deha_token": []
+                    }
+                ]
+            }
+        },
+        "/api/user/address/delete": {
+            "post": {
+                "tags": [
+                    "Kullanıcı Adres"
+                ],
+                "summary": "Adres sil",
+                "description": "Kullanıcının kayıtlı adresini siler.",
+                "operationId": "userAddressDelete",
+                "requestBody": {
+                    "description": "Kullanıcının belirli adresini siler.",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "address_id"
+                                ],
+                                "properties": {
+                                    "address_id": {
+                                        "type": "integer",
+                                        "example": "1"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Kullanıcı adresi başarı ile silindi",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Kullanıcı adresi başarı ile silindi"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "deha_token": []
+                    }
+                ]
+            }
+        },
+        "/api/user/address/update": {
+            "post": {
+                "tags": [
+                    "Kullanıcı Adres"
+                ],
+                "summary": "Adres güncelle",
+                "description": "Kullanıcının belirli adresini günceller.",
+                "operationId": "userAddressUpdate",
+                "requestBody": {
+                    "description": "Kullanıcının adresini güncelle.",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "address_id",
+                                    "name",
+                                    "address",
+                                    "city",
+                                    "country",
+                                    "street",
+                                    "neighborhood",
+                                    "postal_code",
+                                    "phone",
+                                    "mobile"
+                                ],
+                                "properties": {
+                                    "address_id": {
+                                        "type": "integer",
+                                        "example": "1"
+                                    },
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Adres Adı"
+                                    },
+                                    "address": {
+                                        "type": "string",
+                                        "example": "Adres"
+                                    },
+                                    "city": {
+                                        "type": "string",
+                                        "example": "Şehir"
+                                    },
+                                    "country": {
+                                        "type": "string",
+                                        "example": "Ülke"
+                                    },
+                                    "street": {
+                                        "type": "string",
+                                        "example": "Sokak"
+                                    },
+                                    "neighborhood": {
+                                        "type": "string",
+                                        "example": "Mahalle"
+                                    },
+                                    "postal_code": {
+                                        "type": "string",
+                                        "example": "Posta Kodu"
+                                    },
+                                    "phone": {
+                                        "type": "string",
+                                        "example": "Telefon"
+                                    },
+                                    "mobile": {
+                                        "type": "string",
+                                        "example": "Cep Telefonu"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Kullanıcı adresi başarı ile güncellendi",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Kullanıcı adresi başarı ile güncellendi"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "deha_token": []
+                    }
+                ]
+            }
+        },
+        "/api/user/card/get": {
+            "get": {
+                "tags": [
+                    "Kullanıcı Kart"
+                ],
+                "summary": "Kartları getir",
+                "description": "Kullanıcının kayıtlı kartlarını listeler.",
+                "operationId": "userCardGet",
+                "requestBody": {
+                    "description": "Kartları listeler.",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": []
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Kullanıcı kartları başarı ile sorgulandı",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Kullanıcı kartları başarı ile sorgulandı"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "deha_token": []
+                    }
+                ]
+            }
+        },
+        "/api/user/card/create": {
+            "post": {
+                "tags": [
+                    "Kullanıcı Kart"
+                ],
+                "summary": "Kart Oluştur",
+                "description": "Kullanıcı kart kaydeder.",
+                "operationId": "userCardCreate",
+                "requestBody": {
+                    "description": "Kartları oluşturur.",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "card_number",
+                                    "card_expire",
+                                    "card_cvv",
+                                    "card_name"
+                                ],
+                                "properties": {
+                                    "card_number": {
+                                        "type": "string",
+                                        "example": "1234567890123456"
+                                    },
+                                    "card_expire": {
+                                        "type": "string",
+                                        "example": "12/20"
+                                    },
+                                    "card_cvv": {
+                                        "type": "string",
+                                        "example": "123"
+                                    },
+                                    "card_name": {
+                                        "type": "string",
+                                        "example": "Banka Kartım"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Kullanıcı kartı başarı ile oluşturuldu",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Kullanıcı kartı başarı ile oluşturuldu"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "deha_token": []
+                    }
+                ]
+            }
+        },
+        "/api/user/card/delete": {
+            "post": {
+                "tags": [
+                    "Kullanıcı Kart"
+                ],
+                "summary": "Kart Sil",
+                "description": "Kullanıcının kayıtlı kartı siler.",
+                "operationId": "userCardDelete",
+                "requestBody": {
+                    "description": "Kartı siler.",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "card_id"
+                                ],
+                                "properties": {
+                                    "card_id": {
+                                        "type": "integer",
+                                        "example": "1"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Kullanıcı kartı başarı ile güncellendi",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Kullanıcı kartı başarı ile güncellendi"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "deha_token": []
+                    }
+                ]
+            }
+        },
+        "/api/user/card/update": {
+            "post": {
+                "tags": [
+                    "Kullanıcı Kart"
+                ],
+                "summary": "Kart Güncelle",
+                "description": "Kullanıcının kayıtlı kartı günceller.",
+                "operationId": "userCardUpdate",
+                "requestBody": {
+                    "description": "Kartları günceller.",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": []
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Kullanıcı kartı başarı ile güncellendi",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Kullanıcı kartı başarı ile güncellendi"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "deha_token": []
+                    }
+                ]
+            }
+        },
+        "/api/user/cart/get": {
+            "get": {
+                "tags": [
+                    "Kullanıcı Sepet"
+                ],
+                "summary": "Sepeti Getir",
+                "description": "Kullanıcının sepetini listeler.",
+                "operationId": "userCartGet",
+                "requestBody": {
+                    "description": "Sepeti getirir.",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": []
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Kullanıcı sepeti başarı ile sorgulandı.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Kullanıcı sepeti başarı ile listelendi"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "deha_token": []
+                    }
+                ]
+            }
+        },
+        "/api/user/cart/add": {
+            "post": {
+                "tags": [
+                    "Kullanıcı Sepet"
+                ],
+                "summary": "Sepete Ekle",
+                "description": "Kullanıcının sepetine ekleme yapar.",
+                "operationId": "userCartAdd",
+                "requestBody": {
+                    "description": "Sepeti getirir.",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "products"
+                                ],
+                                "properties": {
+                                    "products": {
+                                        "type": "array",
+                                        "items": {
+                                            "properties": {
+                                                "product_id": {
+                                                    "type": "integer",
+                                                    "example": "1"
+                                                },
+                                                "quantity": {
+                                                    "type": "integer",
+                                                    "example": "1"
+                                                }
+                                            },
+                                            "type": "object",
+                                            "format": "object"
+                                        }
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Kullanıcı sepetine ürün eklendi.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Kullanıcı sepetine ürün eklendi."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "deha_token": []
+                    }
+                ]
+            }
+        },
+        "/api/user/cart/update": {
+            "post": {
+                "tags": [
+                    "Kullanıcı Sepet"
+                ],
+                "summary": "Sepeti Güncelleyerek Ekle",
+                "description": "Kullanıcının sepetine ekleme yapar, önceden sepette olanları yok eder.",
+                "operationId": "userCartUpdate",
+                "requestBody": {
+                    "description": "Sepeti Günceller.",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "products"
+                                ],
+                                "properties": {
+                                    "products": {
+                                        "type": "array",
+                                        "items": {
+                                            "properties": {
+                                                "product_id": {
+                                                    "type": "integer",
+                                                    "example": "1"
+                                                },
+                                                "quantity": {
+                                                    "type": "integer",
+                                                    "example": "1"
+                                                }
+                                            },
+                                            "type": "object",
+                                            "format": "object"
+                                        }
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Ürün sepete eklendi.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Ürün sepete eklendi."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "deha_token": []
+                    }
+                ]
+            }
+        },
+        "/api/user/cart/delete": {
+            "post": {
+                "tags": [
+                    "Kullanıcı Sepet"
+                ],
+                "summary": "Sepeti Sil",
+                "description": "Kullanıcının sepetini tamamen siler.",
+                "operationId": "userCartDelete",
+                "requestBody": {
+                    "description": "Sepeti Siler.",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": []
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Ürün sepete eklendi.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Ürün sepete eklendi."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "deha_token": []
+                    }
+                ]
+            }
+        },
+        "/api/user/cart/increment": {
+            "post": {
+                "tags": [
+                    "Kullanıcı Sepet"
+                ],
+                "summary": "Sepetteki Ürünü Arttır",
+                "description": "Kullanıcının sepetinde bulunan ürünü arttırır.",
+                "operationId": "userCartIncrement",
+                "requestBody": {
+                    "description": "Sepetteki ürünü arttırır.",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "product_id"
+                                ],
+                                "properties": {
+                                    "product_id": {
+                                        "description": "Ürün Id",
+                                        "type": "integer",
+                                        "example": "1"
+                                    },
+                                    "quantity": {
+                                        "description": "Ürün Adeti",
+                                        "type": "integer",
+                                        "example": "1"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Ürün arttırıldı.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Ürün arttırıldı."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "deha_token": []
+                    }
+                ]
+            }
+        },
+        "/api/user/cart/decrement": {
+            "post": {
+                "tags": [
+                    "Kullanıcı Sepet"
+                ],
+                "summary": "Sepetteki Ürünü Azalt",
+                "description": "Kullanıcının sepetinde bulunan ürünü azaltır.Quantity gönderilmezse 1 adet azaltılır.",
+                "operationId": "userCartIncrement",
+                "requestBody": {
+                    "description": "Sepetteki ürünü azaltır.",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "product_id"
+                                ],
+                                "properties": {
+                                    "product_id": {
+                                        "description": "Ürün Id",
+                                        "type": "integer",
+                                        "example": "1"
+                                    },
+                                    "quantity": {
+                                        "description": "Ürün Adeti",
+                                        "type": "integer",
+                                        "example": "1"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Ürün sepete azaltıldı.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Ürün sepetten azaltıldı."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "deha_token": []
+                    }
+                ]
+            }
+        },
+        "/api/user/cart/extraction": {
+            "post": {
+                "tags": [
+                    "Kullanıcı Sepet"
+                ],
+                "summary": "Sepetteki Ürünü Çıkart",
+                "description": "Kullanıcının sepetinde bulunan ürünü tamamen çıkartır.",
+                "operationId": "userCartExtraction",
+                "requestBody": {
+                    "description": "Sepetteki ürünü kaldırır.",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "product_id"
+                                ],
+                                "properties": {
+                                    "product_id": {
+                                        "description": "Ürün Id",
+                                        "type": "integer",
+                                        "example": "1"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Ürün sepetten kaldırıldı.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Ürün sepetten kaldırıldı."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "deha_token": []
+                    }
+                ]
+            }
+        },
+        "/api/seller/category/add": {
+            "post": {
+                "tags": [
+                    "Kategori"
+                ],
+                "summary": "Kategori oluştur",
+                "description": "Yeni bir kategori oluşturur, eğer parent_id gönderilmezse ana kategori gönderilirse, gönderilen parent_id'e göre eşleşen kategorinin alt kategorisi olur.",
+                "operationId": "sellerCategoryAdd",
+                "requestBody": {
+                    "description": "Yeni bir kategori oluşturur.",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "description": "Kategori adı",
+                                        "type": "string",
+                                        "example": "Elektronik"
+                                    },
+                                    "parent_id": {
+                                        "description": "Eğer parent_id gönderilmezse ana kategori gönderilirse, gönderilen parent_id'e göre eşleşen kategorinin alt kategorisi olur.",
+                                        "type": "integer",
+                                        "example": "1"
+                                    },
+                                    "icon_id": {
+                                        "description": "Kategori ikonu",
+                                        "type": "integer",
+                                        "example": "1"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "Elektronik kategorisi"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Kategori oluşturuldu.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Kategori oluşturuldu."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "deha_token": []
+                    }
+                ]
+            }
+        },
+        "/api/seller/category/update": {
+            "post": {
+                "tags": [
+                    "Kategori"
+                ],
+                "summary": "Kategori Güncelle",
+                "description": "Var olan bir kategoriyi günceller.",
+                "operationId": "sellerCategoryUpdate",
+                "requestBody": {
+                    "description": "Var olan bir kategoriyi günceller.",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "description": "Kategori adı",
+                                        "type": "string",
+                                        "example": "Elektronik"
+                                    },
+                                    "parent_id": {
+                                        "description": "Eğer parent_id gönderilmezse ana kategori gönderilirse, gönderilen parent_id'e göre eşleşen kategorinin alt kategorisi olur.",
+                                        "type": "integer",
+                                        "example": "1"
+                                    },
+                                    "icon_id": {
+                                        "description": "Kategori ikonu",
+                                        "type": "integer",
+                                        "example": "1"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "Elektronik kategorisi"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Kategori güncellendi.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Kategori güncellendi."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "deha_token": []
+                    }
+                ]
+            }
+        },
+        "/api/seller/category/delete": {
+            "post": {
+                "tags": [
+                    "Kategori"
+                ],
+                "summary": "Kategori Sil",
+                "description": "Var olan bir kategoriyi siler.",
+                "operationId": "sellerCategoryDelete",
+                "requestBody": {
+                    "description": "Var olan kategoriyi siler.",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "category_id"
+                                ],
+                                "properties": {
+                                    "category_id": {
+                                        "description": "Kategori Id",
+                                        "type": "integer",
+                                        "example": "1"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Kategori silindi.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Kategory silindi."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "deha_token": []
+                    }
+                ]
+            }
+        },
+        "/api/seller/discount/add": {
+            "post": {
+                "tags": [
+                    "Kampanya"
+                ],
+                "summary": "Kampanya Oluştur",
+                "description": "Genel kampanya oluştur, daha sonra ürün, kullanıcı veya kategoriye tanımlanabilir.",
+                "operationId": "discountAdd",
+                "requestBody": {
+                    "description": "Yeni kampanya oluşturulur.",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "percent"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Kampanya Adı"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "Açıklama"
+                                    },
+                                    "percent": {
+                                        "type": "integer",
+                                        "example": "10"
+                                    },
+                                    "start_date": {
+                                        "type": "string",
+                                        "example": "2019-01-01"
+                                    },
+                                    "end_date": {
+                                        "type": "string",
+                                        "example": "2019-01-01"
+                                    },
+                                    "coupon": {
+                                        "type": "string",
+                                        "example": "KUPON-KODU"
+                                    },
+                                    "max_uses": {
+                                        "type": "integer",
+                                        "example": "En fazla kullanım sayısı"
+                                    },
+                                    "max_uses_user": {
+                                        "type": "integer",
+                                        "example": "Kullanıcı için en fazla kullanım sayısı"
+                                    },
+                                    "max_discount_amount": {
+                                        "type": "integer",
+                                        "example": "En fazla indirim tutarı"
+                                    },
+                                    "max_discount_amount_user": {
+                                        "type": "integer",
+                                        "example": "Kullanıcı bazlı en fazla indirim tutarı"
+                                    },
+                                    "min_order_amount": {
+                                        "type": "integer",
+                                        "example": "İndirim için gerekli minimum tutar"
+                                    },
+                                    "active": {
+                                        "type": "boolean",
+                                        "example": "Oluşturulunca aktif olacak mı?"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Kampanya oluşturuldu.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Kampanya oluşturuldu."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "deha_token": []
+                    }
+                ]
+            }
+        },
+        "/api/seller/discount/update": {
+            "post": {
+                "tags": [
+                    "Kampanya"
+                ],
+                "summary": "Kampanya Güncelle",
+                "description": "Genel kampanyayı güncelle.",
+                "operationId": "discountUpdate",
+                "requestBody": {
+                    "description": "Var olan bir kampanyayı günceller. Göndermediğiniz alanlar silinir.",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "percent",
+                                    "discount_id"
+                                ],
+                                "properties": {
+                                    "discount_id": {
+                                        "type": "integer",
+                                        "example": "Kampanya Id"
+                                    },
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Kampanya Adı"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "Açıklama"
+                                    },
+                                    "percent": {
+                                        "type": "integer",
+                                        "example": "10"
+                                    },
+                                    "start_date": {
+                                        "type": "string",
+                                        "example": "2019-01-01"
+                                    },
+                                    "end_date": {
+                                        "type": "string",
+                                        "example": "2019-01-01"
+                                    },
+                                    "coupon": {
+                                        "type": "string",
+                                        "example": "KUPON-KODU"
+                                    },
+                                    "max_uses": {
+                                        "type": "integer",
+                                        "example": "En fazla kullanım sayısı"
+                                    },
+                                    "max_uses_user": {
+                                        "type": "integer",
+                                        "example": "Kullanıcı için en fazla kullanım sayısı"
+                                    },
+                                    "max_discount_amount": {
+                                        "type": "integer",
+                                        "example": "En fazla indirim tutarı"
+                                    },
+                                    "max_discount_amount_user": {
+                                        "type": "integer",
+                                        "example": "Kullanıcı bazlı en fazla indirim tutarı"
+                                    },
+                                    "min_order_amount": {
+                                        "type": "integer",
+                                        "example": "İndirim için gerekli minimum tutar"
+                                    },
+                                    "active": {
+                                        "type": "boolean",
+                                        "example": "Güncellenince aktif olacak mı?"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Kampanya güncellendi",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Kampanya güncellendi."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "deha_token": []
+                    }
+                ]
+            }
+        },
+        "/api/seller/discount/delete": {
+            "post": {
+                "tags": [
+                    "Kampanya"
+                ],
+                "summary": "Kampanya Sil",
+                "description": "Genel kampanyayı sil.",
+                "operationId": "discountDelete",
+                "requestBody": {
+                    "description": "Var olan bir kampanyayı siler.",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "percent",
+                                    "discount_id"
+                                ],
+                                "properties": {
+                                    "discount_id": {
+                                        "type": "integer",
+                                        "example": "Kampanya Id"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Kampanya silindi",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Kampanya silindi."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "deha_token": []
+                    }
+                ]
+            }
+        },
+        "/api/seller/offer/product/add": {
+            "post": {
+                "tags": [
+                    "Kampanya"
+                ],
+                "summary": "Ürüne Kampanya Tanımla",
+                "description": "Var olan ürüne var olan bir kampanya tanımlaması yapılır.",
+                "operationId": "offerProductAdd",
+                "requestBody": {
+                    "description": "Var olan ürüne var olan bir kampanya tanımlaması yapılır.",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "product_id",
+                                    "discount_id"
+                                ],
+                                "properties": {
+                                    "discount_id": {
+                                        "type": "integer",
+                                        "example": "Kampanya Id"
+                                    },
+                                    "product_id": {
+                                        "type": "integer",
+                                        "example": "Ürün Id"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Kampanya tanımlandı",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Kampanya tanımlandı."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "deha_token": []
+                    }
+                ]
+            }
+        },
+        "/api/seller/offer/category/add": {
+            "post": {
+                "tags": [
+                    "Kampanya"
+                ],
+                "summary": "Kategoriye Kampanya Tanımla",
+                "description": "Var olan kategoriye var olan bir kampanya tanımlaması yapılır.",
+                "operationId": "offerCategoryAdd",
+                "requestBody": {
+                    "description": "Var olan kategoriye var olan bir kampanya tanımlaması yapılır.",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "category_id",
+                                    "discount_id"
+                                ],
+                                "properties": {
+                                    "discount_id": {
+                                        "type": "integer",
+                                        "example": "Kampanya Id"
+                                    },
+                                    "category_id": {
+                                        "type": "integer",
+                                        "example": "Kategori Id"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Kampanya tanımlandı",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Kampanya tanımlandı."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "deha_token": []
+                    }
+                ]
+            }
+        },
+        "/api/seller/offer/user/add": {
+            "post": {
+                "tags": [
+                    "Kampanya"
+                ],
+                "summary": "Kullanıcıya Kampanya Tanımla",
+                "description": "Var olan kullanıcıya var olan bir kampanya tanımlaması yapılır.",
+                "operationId": "offerUserAdd",
+                "requestBody": {
+                    "description": "Var olan kullanıcıya var olan bir kampanya tanımlaması yapılır.",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "user_id",
+                                    "discount_id"
+                                ],
+                                "properties": {
+                                    "discount_id": {
+                                        "type": "integer",
+                                        "example": "Kampanya Id"
+                                    },
+                                    "user_id": {
+                                        "type": "integer",
+                                        "example": "Kullanıcı Id"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Kampanya tanımlandı",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Kampanya tanımlandı."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "deha_token": []
+                    }
+                ]
+            }
+        },
+        "/api/seller/offer/product/update": {
+            "post": {
+                "tags": [
+                    "Kampanya"
+                ],
+                "summary": "Kategori Kampanya Güncelle",
+                "description": "Var olan üründeki var olan bir kampanyayı günceller.",
+                "operationId": "offerProductUpdate",
+                "requestBody": {
+                    "description": "Var olan üründeki var olan bir kampanyayı günceller.",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "product_id",
+                                    "discount_id"
+                                ],
+                                "properties": {
+                                    "discount_id": {
+                                        "type": "integer",
+                                        "example": "Kampanya Id"
+                                    },
+                                    "product_id": {
+                                        "type": "integer",
+                                        "example": "Ürün Id"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Kampanya tanımlandı",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Kampanya tanımlandı."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "deha_token": []
+                    }
+                ]
+            }
+        },
+        "/api/seller/offer/category/update": {
+            "post": {
+                "tags": [
+                    "Kampanya"
+                ],
+                "summary": "Kategoriye Kampanya Tanımla",
+                "description": "Var olan kategorideki var olan bir kampanyayı günceller.",
+                "operationId": "offerCategoryUpdate",
+                "requestBody": {
+                    "description": "Var olan kategorideki var olan bir kampanyayı günceller.",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "category_id",
+                                    "discount_id"
+                                ],
+                                "properties": {
+                                    "discount_id": {
+                                        "type": "integer",
+                                        "example": "Kampanya Id"
+                                    },
+                                    "category_id": {
+                                        "type": "integer",
+                                        "example": "Ürün Id"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Kampanya tanımlandı",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Kampanya tanımlandı."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "deha_token": []
+                    }
+                ]
+            }
+        },
+        "/api/seller/offer/user/update": {
+            "post": {
+                "tags": [
+                    "Kampanya"
+                ],
+                "summary": "Kullanıcı Kampanya Tanımla",
+                "description": "Var olan kullanıcıdaki var olan bir kampanyayı günceller.",
+                "operationId": "offerUserUpdate",
+                "requestBody": {
+                    "description": "Var olan kullanıcıdaki var olan bir kampanyayı günceller.",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "user_id",
+                                    "discount_id"
+                                ],
+                                "properties": {
+                                    "discount_id": {
+                                        "type": "integer",
+                                        "example": "Kampanya Id"
+                                    },
+                                    "user_id": {
+                                        "type": "integer",
+                                        "example": "Ürün Id"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Kampanya tanımlandı",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Kampanya tanımlandı."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "deha_token": []
+                    }
+                ]
+            }
+        },
+        "/api/seller/offer/product/delete": {
+            "post": {
+                "tags": [
+                    "Kampanya"
+                ],
+                "summary": "Ürün Kampanya Sil",
+                "description": "Var olan üründeki var olan bir kampanyayı siler.",
+                "operationId": "offerProductDelete",
+                "requestBody": {
+                    "description": "Var olan üründeki var olan bir kampanyayı siler.",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "offer_id"
+                                ],
+                                "properties": {
+                                    "offer_id": {
+                                        "type": "integer",
+                                        "example": "Kampanya Tanım Id"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Kampanya silindi.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Kampanya silindi."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "deha_token": []
+                    }
+                ]
+            }
+        },
+        "/api/seller/offer/category/delete": {
+            "post": {
+                "tags": [
+                    "Kampanya"
+                ],
+                "summary": "Kategori Kampanya Sil",
+                "description": "Var olan kategorideki var olan bir kampanyayı siler.",
+                "operationId": "offerCategoryDelete",
+                "requestBody": {
+                    "description": "Var olan kategorideki var olan bir kampanyayı siler.",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "offer_id"
+                                ],
+                                "properties": {
+                                    "offer_id": {
+                                        "type": "integer",
+                                        "example": "Kampanya Tanım Id"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Kampanya silindi.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Kampanya silindi."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "deha_token": []
+                    }
+                ]
+            }
+        },
+        "/api/seller/offer/user/delete": {
+            "post": {
+                "tags": [
+                    "Kampanya"
+                ],
+                "summary": "Kullanıcı Kampanya Sil",
+                "description": "Var olan kullanıcıdaki var olan bir kampanyayı siler.",
+                "operationId": "offerUserDelete",
+                "requestBody": {
+                    "description": "Var olan kullanıcıdaki var olan bir kampanyayı siler.",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "offer_id"
+                                ],
+                                "properties": {
+                                    "offer_id": {
+                                        "type": "integer",
+                                        "example": "Kampanya Tanım Id"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Kampanya silindi.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Kampanya silindi."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "deha_token": []
+                    }
+                ]
+            }
+        },
+        "/api/products": {
+            "get": {
+                "tags": [
+                    "Ürünler"
+                ],
+                "summary": "Ürünleri Listele",
+                "description": "Tüm ürünleri belirlediğiniz koşula göre getirir.",
+                "operationId": "products",
+                "parameters": [
+                    {
+                        "name": "start",
+                        "in": "query",
+                        "description": "Başlangıç",
+                        "required": false
+                    },
+                    {
+                        "name": "end",
+                        "in": "query",
+                        "description": "Bitiş",
+                        "required": false
+                    },
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Ürün ismi",
+                        "required": false
+                    },
+                    {
+                        "name": "description",
+                        "in": "query",
+                        "description": "Ürün açıklaması",
+                        "required": false
+                    },
+                    {
+                        "name": "price",
+                        "in": "query",
+                        "description": "Ürün Fiyatı",
+                        "required": false
+                    },
+                    {
+                        "name": "stock",
+                        "in": "query",
+                        "description": "Ürün Sayısı",
+                        "required": false
+                    },
+                    {
+                        "name": "slug",
+                        "in": "query",
+                        "description": "Ürün Linki",
+                        "required": false
+                    },
+                    {
+                        "name": "allSearch",
+                        "in": "query",
+                        "description": "Tüm alanlarda arama",
+                        "required": false
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Ürün listelendi.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Ürün listelendi."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/products/{product_id}": {
+            "get": {
+                "tags": [
+                    "Ürünler"
+                ],
+                "summary": "Ürün Detayı",
+                "description": "Ürün detayını getir.",
+                "operationId": "productDetail",
+                "parameters": [
+                    {
+                        "name": "product_id",
+                        "in": "path",
+                        "description": "Ürün ID",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Ürün listelendi.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Ürün listelendi."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/discover": {
+            "get": {
+                "tags": [
+                    "Ürünler"
+                ],
+                "summary": "Ürün Keşfet",
+                "description": "Rastgele ürünleri getir.",
+                "operationId": "productDiscover",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Ürün ismi",
+                        "required": false
+                    },
+                    {
+                        "name": "description",
+                        "in": "query",
+                        "description": "Ürün açıklaması",
+                        "required": false
+                    },
+                    {
+                        "name": "price",
+                        "in": "query",
+                        "description": "Ürün Fiyatı",
+                        "required": false
+                    },
+                    {
+                        "name": "stock",
+                        "in": "query",
+                        "description": "Ürün Sayısı",
+                        "required": false
+                    },
+                    {
+                        "name": "slug",
+                        "in": "query",
+                        "description": "Ürün Linki",
+                        "required": false
+                    },
+                    {
+                        "name": "allSearch",
+                        "in": "query",
+                        "description": "Tüm alanlarda arama",
+                        "required": false
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Ürünler listelendi.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Ürünler listelendi."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/seller/product/add": {
+            "post": {
+                "tags": [
+                    "Ürünler"
+                ],
+                "summary": "Ürün Ekle",
+                "description": "Yeni ürün oluştur.",
+                "operationId": "productAdd",
+                "requestBody": {
+                    "description": "Yeni bir ürün oluşturur.",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "description",
+                                    "price",
+                                    "category_id"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Ürün Adı"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "Ürün Açıklaması"
+                                    },
+                                    "price": {
+                                        "type": "integer",
+                                        "example": "Ürün Fiyatı"
+                                    },
+                                    "category_id": {
+                                        "type": "integer",
+                                        "example": "Kategori ID"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Ürün oluşturuldu.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Ürün oluşturuldu."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "deha_token": []
+                    }
+                ]
+            }
+        },
+        "/api/seller/product/update": {
+            "post": {
+                "tags": [
+                    "Ürünler"
+                ],
+                "summary": "Ürün Güncelle",
+                "description": "Var olan bir ürünü günceller.",
+                "operationId": "productUpdate",
+                "requestBody": {
+                    "description": "Var olan bir ürünü günceller.",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "product_id",
+                                    "name",
+                                    "description",
+                                    "price",
+                                    "category_id"
+                                ],
+                                "properties": {
+                                    "product_id": {
+                                        "type": "integer",
+                                        "example": "Ürün ID"
+                                    },
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Ürün Adı"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "Ürün Açıklaması"
+                                    },
+                                    "price": {
+                                        "type": "integer",
+                                        "example": "Ürün Fiyatı"
+                                    },
+                                    "category_id": {
+                                        "type": "integer",
+                                        "example": "Kategori ID"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Ürün güncellendi.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Ürün güncellendi."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "deha_token": []
+                    }
+                ]
+            }
+        },
+        "/api/seller/product/delete": {
+            "post": {
+                "tags": [
+                    "Ürünler"
+                ],
+                "summary": "Ürün Sil",
+                "description": "Var olan bir ürünü siler.",
+                "operationId": "productDelete",
+                "requestBody": {
+                    "description": "Var olan bir ürünü siler.",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "product_id"
+                                ],
+                                "properties": {
+                                    "product_id": {
+                                        "type": "integer",
+                                        "example": "Ürün ID"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Ürün siler.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Ürün silindi."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "deha_token": []
+                    }
+                ]
+            }
+        },
+        "/api/login": {
+            "post": {
+                "tags": [
+                    "Üyelik"
+                ],
+                "summary": "Giriş Yap",
+                "description": "Kullanıcı girişi, eposta ve parola ile",
+                "operationId": "authLogin",
+                "requestBody": {
+                    "description": "Kullanıcı bilgilerini girin",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "mucahit@dehasoft.com.tr"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "123456789"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Başarılı giriş yapıldı",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Giriş yapıldı"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/register": {
+            "post": {
+                "tags": [
+                    "Üyelik"
+                ],
+                "summary": "Kayıt Ol",
+                "description": "Kullanıcı kaydı",
+                "operationId": "authRegister",
+                "requestBody": {
+                    "description": "Kullanıcı bilgilerini girin",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "surname",
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "format": "text",
+                                        "example": "Mücahit"
+                                    },
+                                    "surname": {
+                                        "type": "string",
+                                        "format": "text",
+                                        "example": "Sendinç"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "mucahit@dehasoft.com.tr"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "123456789"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Kayıt başarılı",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Kayıt yapıldı. Eposta adresi doğrulaması gönderildi."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/activate-account": {
+            "post": {
+                "tags": [
+                    "Üyelik"
+                ],
+                "summary": "Hesap Doğrula",
+                "description": "Kullanıcı doğrulama",
+                "operationId": "authActiveAccount",
+                "requestBody": {
+                    "description": "EPosta ile kullanıcıya iletilen tokeni iletin",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "token"
+                                ],
+                                "properties": {
+                                    "token": {
+                                        "type": "string",
+                                        "format": "text",
+                                        "example": "adfaghadfgdagadgdfagadgad"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Doğrulama başarılı",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Doğrulama yapıldı."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/resend-activation-code": {
+            "post": {
+                "tags": [
+                    "Üyelik"
+                ],
+                "summary": "Hesap Doğrula Kodu Gönder",
+                "description": "Kullanıcı doğrulama kodunu yeniden gönder",
+                "operationId": "authResendActivationCode",
+                "requestBody": {
+                    "description": "EPosta adresini gönderdiğiniz kullanıcıya doğrulama gönderir",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "mucahit@dehasoft.com.tr"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Doğrulama kodu başarı ile gönderildi",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Doğrulama kodu gönderildi."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "deha_token": []
+                    }
+                ]
+            }
+        },
+        "/api/logout": {
+            "post": {
+                "tags": [
+                    "Üyelik"
+                ],
+                "summary": "Çıkış Yap",
+                "description": "Güvenli çıkış gönderilen token yok edilir.",
+                "operationId": "authLogOut",
+                "requestBody": {
+                    "description": "Token ve Tokentype gönderilir ve yok edilir.",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "token",
+                                    "tokenType"
+                                ],
+                                "properties": {
+                                    "tokenType": {
+                                        "type": "string",
+                                        "format": "text",
+                                        "example": "gadfdhadjhadfhadfh"
+                                    },
+                                    "token": {
+                                        "type": "string",
+                                        "format": "text",
+                                        "example": "gadfdhadjhadfhadfh"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Doğrulama kodu başarı ile gönderildi",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Doğrulama kodu gönderildi."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "deha_token": []
+                    }
+                ]
+            }
+        },
+        "/api/forgot-password": {
+            "post": {
+                "tags": [
+                    "Üyelik"
+                ],
+                "summary": "Şifremi Unuttum",
+                "description": "Kullanıcı parolasını sıfırlamak için kullanılır.",
+                "operationId": "authForgotPassword",
+                "requestBody": {
+                    "description": "EPosta gönderilir.",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "mucahit@dehasoft.com.tr"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Doğrulama kodu başarı ile gönderildi",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Doğrulama kodu gönderildi."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/reset-password": {
+            "post": {
+                "tags": [
+                    "Üyelik"
+                ],
+                "summary": "Şifre Sıfırlama",
+                "description": "Kullanıcı parolasını sıfırlamak için kullanılır.",
+                "operationId": "authResetPassword",
+                "requestBody": {
+                    "description": "EPosta ile gelen kod gönderilir.",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "token",
+                                    "password",
+                                    "passwordConfirmation"
+                                ],
+                                "properties": {
+                                    "token": {
+                                        "type": "string",
+                                        "format": "text",
+                                        "example": "adfgdagadgfadgad"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "adfgdagadgfadgad"
+                                    },
+                                    "passwordConfirmation": {
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "adfgdagadgfadgad"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Doğrulama kodu başarı ile gönderildi",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Doğrulama kodu gönderildi."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "deha_token": {
+                "type": "apiKey",
+                "description": "Login işleminden dönen tokenType ve tokeni sırasıyla boşluk bırakarak giriniz.",
+                "name": "Authorization",
+                "in": "header"
+            }
+        }
+    },
+    "security": [
+        []
+    ]
+}
