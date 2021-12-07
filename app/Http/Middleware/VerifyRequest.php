@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-
+use App\Models\Setting;
 class VerifyRequest
 {
     /**
@@ -16,8 +16,12 @@ class VerifyRequest
      */
     public function handle(Request $request, Closure $next)
     {
-        if(env('APP_FRONT_SECURITY')==true &&$request->headers->get('referer')!=env('APP_FRONT_URL')){
-            return response()->json(['error'=>true,'message'=>'Servis kullanım için gerekli izinlere sahip değilsiniz.'],401);
+        $check = Setting::where('setting', 'front_security')->first();
+        if($check->option=='true' ){
+            $check=Setting::where('setting','front_url')->first();
+            if($check->option!=$request->headers->get('referer')){
+                return response()->json(['error' => true, 'message' => 'Servis kullanım için gerekli izinlere sahip değilsiniz.'], 401);
+            }
         }
         return $next($request);
     }

@@ -5,6 +5,8 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use App\Http\Controllers\StrangeController;
+use App\Models\Setting;
+
 class Strange
 {
     /**
@@ -16,7 +18,8 @@ class Strange
      */
     public function handle(Request $request, Closure $next)
     {
-        if(env('APP_STRANGE_SECURITY')==true){
+        $check=Setting::where('setting','strange_security')->first();
+        if($check->option=='true'){
             if(!StrangeController::check_attack($request)){
                 return response()->json([
                         'error'=>true,

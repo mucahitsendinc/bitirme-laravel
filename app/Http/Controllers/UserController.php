@@ -27,6 +27,32 @@ class UserController extends Controller
     public $forgot_prefix= "b6b717a2ebee";
 
     /**
+     * @OA\GET(
+     * path="/api/user/get",
+     * summary="Kullanıcı Bilgileri",
+     * description="Giriş yapmış kullanıcının bilgilerini getir",
+     * operationId="authUserInfo",
+     * tags={"Üyelik"},
+     * security={{"deha_token":{}}},
+     * @OA\Response(
+     *    response=200,
+     *    description="Bilgiler sorgulandı.",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="Bilgiler sorgulandı."),
+     *        )
+     *     )
+     * )
+     */
+    public function get(Request $request){
+        $user = $request->get('user');
+        if($user){
+            return response()->json(['error'=>false,'data'=>$user]);
+        }else{
+            return response()->json(['status'=>'error','message'=>'Kullanıcı bulunamadı.']);
+        }
+    }
+
+    /**
      * @OA\Post(
      * path="/api/login",
      * summary="Giriş Yap",

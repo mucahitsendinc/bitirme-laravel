@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Product;
 use App\Models\View;
+use App\Models\ProductBalance;
 use App\Http\Controllers\DataCrypter;
 
 class ProductController extends Controller
@@ -464,6 +465,14 @@ class ProductController extends Controller
             $product->category_id = $request->category_id;
             $product->slug = $slug;
             $product->save();
+
+            if(isset($request->vat) || isset($request->discount)){
+                $productBalance=new ProductBalance;
+                $productBalance->product_id=$product->id;
+                $productBalance->vat=isset($request->vat)?$request->vat:0;
+                $productBalance->discount=isset($request->discount)?$request->discount:0;
+                $productBalance->save();
+            }
             return response()->json([
                 'error' => false,
                 'message' => 'Ürün başarıyla eklendi.',
@@ -542,6 +551,21 @@ class ProductController extends Controller
             $product->category_id = $request->category_id;
             $product->slug = $slug;
             $product->save();
+            if (isset($request->vat) || isset($request->discount)) {
+                $check=ProductBalance::where('product_id',$product->id)->first();
+                if($check!=null){
+                    $check->vat=isset($request->vat)?$request->vat:0;
+                    $check->discount=isset($request->discount)?$request->discount:0;
+                    $check->save();
+                }else{
+                    $productBalance = new ProductBalance;
+                    $productBalance->product_id = $product->id;
+                    $productBalance->vat = isset($request->vat) ? $request->vat : 0;
+                    $productBalance->discount = isset($request->discount) ? $request->discount : 0;
+                    $productBalance->save();
+                }
+                
+            }
             return response()->json([
                 'error' => false,
                 'message' => 'Ürün başarıyla güncellendi.',

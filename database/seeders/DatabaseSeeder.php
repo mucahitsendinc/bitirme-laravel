@@ -168,5 +168,31 @@ class DatabaseSeeder extends Seeder
             ]
         ]);
 
+        \App\Models\Setting::insert([
+            ['setting' => 'name','option' => 'Dehasoft E-Ticaret Demo'],
+            ['setting'=> 'copyright', 'option' => 'Copyright © 2021 Dehasoft'],
+            ['setting'=> 'address', 'option' => 'Oruç Reis Mah. 6.Sokak No:16/A Giyimkent/Esenler'],
+            ['setting'=> 'phone', 'option' => '+90 212 535 04 74'],
+            ['setting'=> 'email', 'option' => 'contact@e-ticaret.dehasoft.com.tr'],
+            ['setting'=> 'site', 'option'=> 'https://dehasoft.com.tr'],
+            ['setting'=> 'front_security' , 'option'=> 'false'],
+            ['setting'=> 'strange_security', 'option'=>'false'],
+            ['setting'=> 'strange_security_level', 'option'=> 'hard'],
+            ['setting'=> 'front_url', 'option'=> 'https://e-ticaret.dehasoftc.om.tr'],
+            ['setting'=> 'image_driver', 'option'=>'imagekit'],
+            ['setting'=> 'imagekit_options', 'option'=> '{"public_key":"public_DgtfAgBqm0JM2CaDlYNbAdb4jNA=","urlEndpoint":"https://ik.imagekit.io/djw8ypcvuyq","private_key":"private_LMNaOb1AWN2Z+/KWmw3dxPUJDwI="}'],
+            ['setting'=>'notify_driver','option'=>'pusher'],
+            ['setting'=>'pusher_options','option'=>'{"app_id":"5a9b8f8b8f8b8f8b8f8b8f8b","app_key":"5a9b8f8b8f8b8f8b8f8b8f8b","app_secret":"5a9b8f8b8f8b8f8b8f8b8f8b","cluster":"eu","encrypted":"true"}'],
+            ['setting'=>'notify_options','option'=>'{"notify_url":"https://e-ticaret.dehasoftc.om.tr/notify"}'],
+            ['setting'=>'mail_driver','option'=>'smtp'],
+            ['setting'=>'mail_host','option'=>'mail.e-ticaret.dehasoft.com.tr'],
+            ['setting'=>'mail_port','option'=>'587'],
+            ['setting'=>'mail_username','option'=>'contact@e-ticaret.dehasoft.com.tr'],
+            ['setting'=>'mail_password','option'=> 'Ko4_ib14'],
+            ['setting'=>'mail_encryption','option'=>'tls'],
+            ['setting'=>'mail_from_address','option'=> 'contact@e-ticaret.dehasoft.com.tr']
+            
+        ]);
+
     }
 }

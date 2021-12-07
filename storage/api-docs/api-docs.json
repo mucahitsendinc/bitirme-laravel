@@ -2210,6 +2210,39 @@
                 ]
             }
         },
+        "/api/user/get": {
+            "get": {
+                "tags": [
+                    "Üyelik"
+                ],
+                "summary": "Kullanıcı Bilgileri",
+                "description": "Giriş yapmış kullanıcının bilgilerini getir",
+                "operationId": "authUserInfo",
+                "responses": {
+                    "200": {
+                        "description": "Bilgiler sorgulandı.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Bilgiler sorgulandı."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "deha_token": []
+                    }
+                ]
+            }
+        },
         "/api/login": {
             "post": {
                 "tags": [

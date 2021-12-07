@@ -51,6 +51,7 @@ Route::middleware(['verifyrequest'])->group(function(){
         
         Route::prefix('/user')->middleware(['active'])->group(function(){
 
+            Route::get('/get', [UserController::class, 'get']);
             /**
              * Adres işlemleri
              */

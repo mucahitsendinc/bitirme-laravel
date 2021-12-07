@@ -16,6 +16,7 @@ class CreateProductsTable extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('category_id');
+            $table->unsignedBigInteger('warranty_id')->nullable();
             $table->string('name');
             $table->string('slug')->unique();
             $table->text('description');
@@ -25,6 +26,7 @@ class CreateProductsTable extends Migration
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->foreign('category_id')->references('id')->on('categories');
+            $table->foreign('warranty_id')->references('id')->on('warranties')->onDelete('set null');
         });
     }
 
