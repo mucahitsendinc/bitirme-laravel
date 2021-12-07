@@ -3,38 +3,49 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use App\Models\Image;
 use App\Models\Icon;
 use App\Models\ProductImage;
 use App\Models\UserImage;
+use App\Models\Setting;
 
 class ImageController extends Controller
 {
-    public function get_user_image($id)
-    {
-        try {
-            $image = UserImage::find($id);
-            return response()->json([
-                'error' => false,
-                'message' => 'Resim başarı ile sorgulandı',
-                'id'=>$id,
-                'user_image' => [
-                    'id' => $image->id,
-                    'image' => $image->image,
-                    'imageType' => $image->type
-                ]
-            ], 200);
-        } catch (\Exception $ex) {
+
+    public $sizes=[
+        'height'=>500,
+        'width'=>500
+    ];
+
+
+    public function upload(Request $request){
+        $validation=Validator::make($request->all(),[
+            'image'=>'required|min:50|max:5000000'
+        ]);
+        if($validation->fails()){
+            $messages=[
+                'image' => ($validation->getMessageBag())->messages()['image'] ?? 'success'
+            ];
             return response()->json([
                 'error' => true,
-                'message' => 'Teknik bir h ata oluştu.',
-                'exception' => $ex->getMessage()
+                'message' => 'Bu işlem için gerekli bilgiler eksik.',
+                'validation' => array_filter($messages, function ($e) {
+                    if ($e != 'success') {
+                        return true;
+                    }
+                })
             ], 400);
         }
-        return response()->json([
-            'error' => true,
-            'message' => 'Teknik bir hata oluştu.'
-        ], 400);
+        $checkDriver=Setting::where('setting','image_driver')->first();
+        if($checkDriver->option=='imagekit'){
+            $this->upload_imagekit($request->image);
+        }
+    }
+
+    public function upload_imagekit($image){
+        $imagekit=new ImageKit();
+        $imagekit->upload($image);
     }
     
 }
