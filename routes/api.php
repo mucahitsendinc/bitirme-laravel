@@ -11,6 +11,8 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\DiscountController;
 use App\Http\Controllers\OfferController;
 use App\Http\Controllers\SellerController;
+use App\Http\Controllers\UnitController;
+use App\Http\Controllers\WarrantController;
 
 /*
 |--------------------------------------------------------------------------
@@ -114,6 +116,26 @@ Route::middleware(['verifyrequest'])->group(function(){
                 Route::post('/add', [DiscountController::class, 'create']);
                 Route::post('/update', [DiscountController::class, 'update']);
                 Route::post('/delete', [DiscountController::class, 'delete']);
+            });
+
+            /**
+             * Garanti işlemleri
+             */
+            Route::prefix('/warranty')->group(function(){
+                Route::post('/add', [OfferController::class, 'create']);
+                Route::post('/update', [OfferController::class, 'update']);
+                Route::post('/delete', [OfferController::class, 'delete']);
+                Route::get('/get',[WarrantController::class, 'get']);
+            });
+
+            /**
+             * Birim işlemleri
+             */
+            Route::prefix('/unit')->group(function () {
+                Route::post('/add', [UnitController::class, 'create']);
+                Route::post('/update', [UnitController::class, 'update']);
+                Route::post('/delete', [UnitController::class, 'delete']);
+                Route::get('/get', [UnitController::class, 'get']);
             });
 
             /**

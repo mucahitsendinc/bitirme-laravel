@@ -2049,9 +2049,37 @@
                                         "type": "integer",
                                         "example": "Ürün Fiyatı"
                                     },
+                                    "stock": {
+                                        "type": "integer",
+                                        "example": "Stok sayısı"
+                                    },
+                                    "barcode": {
+                                        "type": "string",
+                                        "example": "Barkodu"
+                                    },
+                                    "stockcode": {
+                                        "type": "string",
+                                        "example": "Stokkodu"
+                                    },
+                                    "vat": {
+                                        "type": "integer",
+                                        "example": "Kdv Oranı"
+                                    },
+                                    "discount": {
+                                        "type": "integer",
+                                        "example": "Iskonto Oranı"
+                                    },
                                     "category_id": {
                                         "type": "integer",
                                         "example": "Kategori ID"
+                                    },
+                                    "unit_id": {
+                                        "type": "integer",
+                                        "example": "Birim ID"
+                                    },
+                                    "warranty_id": {
+                                        "type": "integer",
+                                        "example": "Garanti ID"
                                     }
                                 },
                                 "type": "object"
@@ -2122,9 +2150,37 @@
                                         "type": "integer",
                                         "example": "Ürün Fiyatı"
                                     },
+                                    "stock": {
+                                        "type": "integer",
+                                        "example": "Stok sayısı"
+                                    },
+                                    "barcode": {
+                                        "type": "string",
+                                        "example": "Barkodu"
+                                    },
+                                    "stockcode": {
+                                        "type": "string",
+                                        "example": "Stokkodu"
+                                    },
+                                    "vat": {
+                                        "type": "integer",
+                                        "example": "Kdv Oranı"
+                                    },
+                                    "discount": {
+                                        "type": "integer",
+                                        "example": "Iskonto Oranı"
+                                    },
                                     "category_id": {
                                         "type": "integer",
                                         "example": "Kategori ID"
+                                    },
+                                    "unit_id": {
+                                        "type": "integer",
+                                        "example": "Birim ID"
+                                    },
+                                    "warranty_id": {
+                                        "type": "integer",
+                                        "example": "Garanti ID"
                                     }
                                 },
                                 "type": "object"
@@ -2195,6 +2251,213 @@
                                         "message": {
                                             "type": "string",
                                             "example": "Ürün silindi."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "deha_token": []
+                    }
+                ]
+            }
+        },
+        "/api/seller/unit/get": {
+            "get": {
+                "tags": [
+                    "Birim"
+                ],
+                "summary": "Birim Listesi",
+                "description": "Tanımlanan birim listesi.",
+                "operationId": "warrantyGet",
+                "responses": {
+                    "200": {
+                        "description": "Birim listelendi.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Birim listelendi."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "deha_token": []
+                    }
+                ]
+            }
+        },
+        "/api/seller/unit/add": {
+            "post": {
+                "tags": [
+                    "Birim"
+                ],
+                "summary": "Birim Oluştur",
+                "description": "Yeni birim tanımı oluştur.",
+                "operationId": "unitAdd",
+                "requestBody": {
+                    "description": "Yeni bir birim tanımlar.",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "symbol"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Birim"
+                                    },
+                                    "symbol": {
+                                        "type": "string",
+                                        "example": "Birim Sembolü"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Birim tanımı oluşturuldu.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Birim tanımıı oluşturuldu."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "deha_token": []
+                    }
+                ]
+            }
+        },
+        "/api/seller/unit/update": {
+            "post": {
+                "tags": [
+                    "Birim"
+                ],
+                "summary": "Birim Güncelle",
+                "description": "Var olan bir birim tanımını güncelle.",
+                "operationId": "unitUpdate",
+                "requestBody": {
+                    "description": "Var olan bir birim tanımını güncelle.",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "symbol",
+                                    "unit_id"
+                                ],
+                                "properties": {
+                                    "unit_id": {
+                                        "type": "integer",
+                                        "example": "Birim Tanım Id"
+                                    },
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Birim Adı (Ör:Adet,Kilogram,Metre,Dakika,...)"
+                                    },
+                                    "symbol": {
+                                        "type": "string",
+                                        "example": "Birim Sembolü (Ör:KG,M,DK,...)"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Birim tanımı güncellendi.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Birim tanımıı güncellendi."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "deha_token": []
+                    }
+                ]
+            }
+        },
+        "/api/seller/unit/delete": {
+            "post": {
+                "tags": [
+                    "Birim"
+                ],
+                "summary": "Birim Sil",
+                "description": "Var olan bir birim tanımını siler.",
+                "operationId": "unitDelete",
+                "requestBody": {
+                    "description": "Var olan bir birim tanımını siler.",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "unit_id"
+                                ],
+                                "properties": {
+                                    "unit_id": {
+                                        "type": "integer",
+                                        "example": "Birim Tanım Id"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Birim tanımı silindi.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Birim tanımıı silindi."
                                         }
                                     },
                                     "type": "object"
@@ -2636,6 +2899,211 @@
                         }
                     }
                 }
+            }
+        },
+        "/api/seller/warranty/get": {
+            "get": {
+                "tags": [
+                    "Garanti"
+                ],
+                "summary": "Garanti Listesi",
+                "description": "Tanımlanan garanti listesi.",
+                "operationId": "warrantyGet",
+                "responses": {
+                    "200": {
+                        "description": "Garanti listelendi.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Garanti listelendi."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "deha_token": []
+                    }
+                ]
+            }
+        },
+        "/api/seller/warranty/add": {
+            "post": {
+                "tags": [
+                    "Garanti"
+                ],
+                "summary": "Garanti Oluştur",
+                "description": "Yeni bir garanti oluştur.",
+                "operationId": "warrantyAdd",
+                "requestBody": {
+                    "description": "Yeni garanti tanımını oluşturur.",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Garanti adı"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "Garanti Açıklaması"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Garanti tanımı oluşturuldu.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Garanti tanımı oluşturuldu."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "deha_token": []
+                    }
+                ]
+            }
+        },
+        "/api/seller/warranty/update": {
+            "post": {
+                "tags": [
+                    "Garanti"
+                ],
+                "summary": "Garanti Güncelle",
+                "description": "Var olan garanti tanımını günceller.",
+                "operationId": "warrantyUpdate",
+                "requestBody": {
+                    "description": "Var olan garanti tanımını günceller.",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "warranty_id",
+                                    "name"
+                                ],
+                                "properties": {
+                                    "warranty_id": {
+                                        "type": "integer",
+                                        "example": "Garanti Id"
+                                    },
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Garanti adı"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "Garanti Açıklaması"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Garanti tanımı güncellendi",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Garanti tanımı güncellendi."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "deha_token": []
+                    }
+                ]
+            }
+        },
+        "/api/seller/warranty/delete": {
+            "post": {
+                "tags": [
+                    "Garanti"
+                ],
+                "summary": "Garanti Sil",
+                "description": "Var olan garanti tanımını siler.",
+                "operationId": "warrantyDelete",
+                "requestBody": {
+                    "description": "Var olan garanti tanımını siler.",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "warranty_id"
+                                ],
+                                "properties": {
+                                    "warranty_id": {
+                                        "type": "integer",
+                                        "example": "Garanti Id"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Garanti tanımı silindi.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Garanti tanımı silindi."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "deha_token": []
+                    }
+                ]
             }
         }
     },

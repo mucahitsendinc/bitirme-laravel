@@ -22,6 +22,25 @@ class DatabaseSeeder extends Seeder
             ['id' => 5, 'name' => 'Yönetici', 'admin' => 1, 'seller' => 1, 'customer' => 1],
         ]);
 
+        \App\Models\Warranty::insert([
+            ['name'=>'3 aylık garanti', 'description'=>'3 ay boyunca ücretsiz destek'],
+            ['name'=>'6 aylık garanti', 'description'=>'6 ay boyunca ücretsiz destek'],
+            ['name'=>'9 aylık garanti', 'description'=>'9 ay boyunca ücretsiz destek'],
+            ['name'=>'12 aylık garanti','description'=> '12 ay boyunca ücretsiz destek'],
+            ['name'=>'24 aylık garanti','description'=> '24 ay boyunca ücretsiz destek'],
+            ['name'=>'36 aylık garanti','description'=> '36 ay boyunca ücretsiz destek']
+        ]);
+
+        \App\Models\Unit::insert([
+            ['name' => 'Adet','symbol'=>'Adet'],
+            ['name' => 'Kilogram','symbol'=>'KG'],
+            ['name' => 'Litre','symbol'=>'LT'],
+            ['name' => 'Metre', 'symbol' => 'M'],
+            ['name' => 'Saniye', 'symbol' => 'S'],
+            ['name' => 'Megabyte','symbol'=>'Mb'],
+            ['name'=>'Amper' , 'symbol'=>'A']
+        ]);
+
         \App\Models\User::insert([
             [
                 'id' => 1,
@@ -78,12 +97,12 @@ class DatabaseSeeder extends Seeder
         ]);
 
         \App\Models\Product::insert([
-            ['id' => 1, 'stock' => 55, 'price' => 12.34, 'description' => 'lorem ipsum sit dollar felan nokta test test aciklama test içerik açıklaması e ticaret dehasoft test açıklama metni lorem ipsum ', 'name' => 'Çark', 'slug' => 'cark', 'category_id' => 8],
-            ['id' => 2, 'stock' => 55, 'price' => 5255.3686, 'description' => 'lorem ipsum sit dollar felan nokta test test aciklama test içerik açıklaması e ticaret dehasoft test açıklama metni lorem ipsum ', 'name' => 'Kırmızı Çark', 'slug' => 'kirmizi-cark',  'category_id' => 8],
-            ['id' => 3, 'stock' => 55, 'price' => 945193.00, 'description' => 'lorem ipsum sit dollar felan nokta test test aciklama test içerik açıklaması e ticaret dehasoft test açıklama metni lorem ipsum ', 'name' => 'Sarı Çark', 'slug' => 'sari-cark',  'category_id' => 8],
-            ['id' => 4, 'stock' => 55, 'price' => 33.00, 'description' => 'lorem ipsum sit dollar felan nokta test test aciklama test içerik açıklaması e ticaret dehasoft test açıklama metni lorem ipsum ', 'name' => 'Mavi Çark', 'slug' => 'mavi-cark',  'category_id' => 8],
-            ['id' => 5, 'stock' => 55, 'price' => 85.99, 'description' => 'lorem ipsum sit dollar felan nokta test test aciklama test içerik açıklaması e ticaret dehasoft test açıklama metni lorem ipsum ', 'name' => 'Yeşil Çark', 'slug' => 'yesil-cark',  'category_id' => 8],
-            ['id' => 6, 'stock' => 55, 'price' => 99.99, 'description' => 'lorem ipsum sit dollar felan nokta test test aciklama test içerik açıklaması e ticaret dehasoft test açıklama metni lorem ipsum ', 'name' => 'Turuncu Çark', 'slug' => 'turuncu-cark', 'category_id' => 8],
+            ['id' => 1,'warranty_id'=>1,'unit_id'=>1, 'stock' => 55, 'price' => 12.34, 'description' => 'lorem ipsum sit dollar felan nokta test test aciklama test içerik açıklaması e ticaret dehasoft test açıklama metni lorem ipsum ', 'name' => 'Çark', 'slug' => 'cark', 'category_id' => 8],
+            ['id' => 2,'warranty_id'=>2,'unit_id'=>1, 'stock' => 55, 'price' => 5255.3686, 'description' => 'lorem ipsum sit dollar felan nokta test test aciklama test içerik açıklaması e ticaret dehasoft test açıklama metni lorem ipsum ', 'name' => 'Kırmızı Çark', 'slug' => 'kirmizi-cark',  'category_id' => 8],
+            ['id' => 3,'warranty_id'=>3,'unit_id'=>1, 'stock' => 55, 'price' => 945193.00, 'description' => 'lorem ipsum sit dollar felan nokta test test aciklama test içerik açıklaması e ticaret dehasoft test açıklama metni lorem ipsum ', 'name' => 'Sarı Çark', 'slug' => 'sari-cark',  'category_id' => 8],
+            ['id' => 4,'warranty_id'=>4,'unit_id'=>1, 'stock' => 55, 'price' => 33.00, 'description' => 'lorem ipsum sit dollar felan nokta test test aciklama test içerik açıklaması e ticaret dehasoft test açıklama metni lorem ipsum ', 'name' => 'Mavi Çark', 'slug' => 'mavi-cark',  'category_id' => 8],
+            ['id' => 5,'warranty_id'=>5,'unit_id'=>1, 'stock' => 55, 'price' => 85.99, 'description' => 'lorem ipsum sit dollar felan nokta test test aciklama test içerik açıklaması e ticaret dehasoft test açıklama metni lorem ipsum ', 'name' => 'Yeşil Çark', 'slug' => 'yesil-cark',  'category_id' => 8],
+            ['id' => 6,'warranty_id'=>6,'unit_id'=>1, 'stock' => 55, 'price' => 99.99, 'description' => 'lorem ipsum sit dollar felan nokta test test aciklama test içerik açıklaması e ticaret dehasoft test açıklama metni lorem ipsum ', 'name' => 'Turuncu Çark', 'slug' => 'turuncu-cark', 'category_id' => 8],
         ]);
 
         \App\Models\ProductImage::insert([
@@ -193,6 +212,8 @@ class DatabaseSeeder extends Seeder
             ['setting'=>'mail_from_address','option'=> 'contact@e-ticaret.dehasoft.com.tr']
             
         ]);
+
+        
 
     }
 }

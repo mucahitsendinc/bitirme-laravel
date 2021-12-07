@@ -416,7 +416,14 @@ class ProductController extends Controller
      *          @OA\Property(property="name", type="string", example="Ürün Adı"),
      *          @OA\Property(property="description", type="string", example="Ürün Açıklaması"),
      *          @OA\Property(property="price", type="integer", example="Ürün Fiyatı"),
+     *          @OA\Property(property="stock", type="integer", example="Stok sayısı"),
+     *          @OA\Property(property="barcode", type="string", example="Barkodu"),
+     *          @OA\Property(property="stockcode", type="string", example="Stokkodu"),
+     *          @OA\Property(property="vat", type="integer", example="Kdv Oranı"),
+     *          @OA\Property(property="discount", type="integer", example="Iskonto Oranı"),
      *          @OA\Property(property="category_id", type="integer", example="Kategori ID"),
+     *          @OA\Property(property="unit_id", type="integer", example="Birim ID"),
+     *          @OA\Property(property="warranty_id", type="integer", example="Garanti ID"),
      *    ),
      * ),
      * @OA\Response(
@@ -464,6 +471,10 @@ class ProductController extends Controller
             $product->stock = floor(intval($request->stock)) ?? 0;
             $product->category_id = $request->category_id;
             $product->slug = $slug;
+            $product->warranty_id = $request->warranty_id ?? null;
+            $product->unit_id = $request->unit_id ?? null;
+            $product->barcode = $request->barcode ?? null;
+            $product->stockcode = $request->stockcode ?? null;
             $product->save();
 
             if(isset($request->vat) || isset($request->discount)){
@@ -500,7 +511,14 @@ class ProductController extends Controller
      *          @OA\Property(property="name", type="string", example="Ürün Adı"),
      *          @OA\Property(property="description", type="string", example="Ürün Açıklaması"),
      *          @OA\Property(property="price", type="integer", example="Ürün Fiyatı"),
+     *          @OA\Property(property="stock", type="integer", example="Stok sayısı"),
+     *          @OA\Property(property="barcode", type="string", example="Barkodu"),
+     *          @OA\Property(property="stockcode", type="string", example="Stokkodu"),
+     *          @OA\Property(property="vat", type="integer", example="Kdv Oranı"),
+     *          @OA\Property(property="discount", type="integer", example="Iskonto Oranı"),
      *          @OA\Property(property="category_id", type="integer", example="Kategori ID"),
+     *          @OA\Property(property="unit_id", type="integer", example="Birim ID"),
+     *          @OA\Property(property="warranty_id", type="integer", example="Garanti ID"),
      *    ),
      * ),
      * @OA\Response(
@@ -550,6 +568,11 @@ class ProductController extends Controller
             $product->stock = floor(intval($request->stock??0));
             $product->category_id = $request->category_id;
             $product->slug = $slug;
+            $product->barcode = $request->barcode ?? null;
+            $product->stockcode = $request->stockcode ?? null;
+            $product->warranty_id = $request->warranty_id ?? null;
+            $product->unit_id = $request->unit_id ?? null;
+            
             $product->save();
             if (isset($request->vat) || isset($request->discount)) {
                 $check=ProductBalance::where('product_id',$product->id)->first();
