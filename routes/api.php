@@ -9,6 +9,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\DiscountController;
+use App\Http\Controllers\ImageController;
 use App\Http\Controllers\OfferController;
 use App\Http\Controllers\SellerController;
 use App\Http\Controllers\UnitController;
@@ -90,6 +91,15 @@ Route::middleware(['verifyrequest'])->group(function(){
          * Satıcı,Yönetici itekleri için
          */ 
         Route::prefix('/seller')->middleware(['seller'])->group(function () {
+
+            /**
+             * Resim işlemleri
+             */
+            Route::prefix('/image')->group(function(){
+                Route::post('/add', [ImageController::class, 'upload']);
+                Route::post('/delete', [ImageController::class, 'delete_image']);
+                Route::get('/get', [ImageController::class, 'get_image']);
+            });
 
             /**
              * Ürün işlemleri

@@ -11,12 +11,7 @@ use Illuminate\Routing\Controller as BaseController;
  * @OA\Info(
  *    title="Dehasoft E-Ticaret Çözümü",
  *    version="1.0.0",
- * @OA\SecurityScheme(
- *    securityScheme="API Key Auth",
- *    type="apiKey",
- *    in="header",
- *    name="Authorization",
- *  )
+ * 
  * )
  * 
  */

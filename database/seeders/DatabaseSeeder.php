@@ -188,7 +188,11 @@ class DatabaseSeeder extends Seeder
         ]);
 
         \App\Models\Setting::insert([
-            ['setting' => 'name','option' => 'Dehasoft E-Ticaret Demo'],
+            ['setting'=> 'site_name', 'option' => 'DehaSoft'],
+            ['setting'=> 'site_description', 'option' => 'DehaSoft'],
+            ['setting'=> 'site_keywords', 'option' => 'DehaSoft'],
+            ['setting'=> 'site_email', 'option' => 'info@dehasoft.com.tr'],
+            ['setting' =>'name','option' => 'Dehasoft E-Ticaret Demo'],
             ['setting'=> 'copyright', 'option' => 'Copyright © 2021 Dehasoft'],
             ['setting'=> 'address', 'option' => 'Oruç Reis Mah. 6.Sokak No:16/A Giyimkent/Esenler'],
             ['setting'=> 'phone', 'option' => '+90 212 535 04 74'],

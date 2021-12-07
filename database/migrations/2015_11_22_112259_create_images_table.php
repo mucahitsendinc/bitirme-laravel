@@ -18,6 +18,11 @@ class CreateImagesTable extends Migration
             $table->string('name')->nullable();
             $table->string('type')->default('url');
             $table->longText('path');
+            $table->string('fileID')->nullable();
+            $table->string('thumbnailUrl')->nullable();
+            $table->bigInteger('size')->nullable();
+            $table->bigInteger('width')->nullable();
+            $table->bigInteger('height')->nullable();
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP'));
         });

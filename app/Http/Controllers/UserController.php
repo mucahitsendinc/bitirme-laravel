@@ -17,6 +17,11 @@ class UserController extends Controller
 {
 
     /**
+     * Dakika cinsinden oturum süresi
+     */
+    public $session_time = 60*60*60;
+
+    /**
      * Dakika cinsinden eposta tekrarlama süresi
      */
     public $email_repeat_time=5;
@@ -94,7 +99,7 @@ class UserController extends Controller
                     'email'=>$request->email,
                     'time'=>date('Y-m-d H:i:s')
                 ];
-                $token=$crypt->crypt_router(strval(json_encode($data)),true,'encode',3600);
+                $token=$crypt->crypt_router(strval(json_encode($data)),true,'encode',$this->session_time*60);
                 $save=UserToken::where('user_id',$get->id)->update([
                     'prefix'=>md5(env('APP_NAME')),
                     'token'=>$token
