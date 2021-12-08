@@ -9,6 +9,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\DiscountController;
+use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\OfferController;
 use App\Http\Controllers\SellerController;
@@ -93,18 +94,48 @@ Route::middleware(['verifyrequest'])->group(function(){
         Route::prefix('/seller')->middleware(['seller'])->group(function () {
 
             /**
-             * Resim işlemleri
+             * Fotoğraf işlemleri
              */
             Route::prefix('/image')->group(function(){
                 Route::post('/add', [ImageController::class, 'upload']);
-                Route::post('/delete', [ImageController::class, 'delete_image']);
-                Route::get('/get', [ImageController::class, 'get_image']);
+                Route::post('/delete', [ImageController::class, 'delete']);
+                Route::get('/get', [ImageController::class, 'get']);
+            });
+
+            /**
+             * Galeri işlemleri
+             */
+            Route::prefix('/gallery')->group(function(){
+
+                Route::post('/add', [GalleryController::class, 'create']);
+                Route::post('/update', [GalleryController::class, 'update']);
+                Route::post('/delete', [GalleryController::class, 'delete']);
+                Route::get('/get', [GalleryController::class, 'get']);
+
+                /**
+                 * Galeri fotoğraf işlemleri
+                 */
+                Route::prefix('/image')->group(function(){
+                    Route::post('/add', [GalleryController::class, 'image_add']);
+                    Route::post('/delete', [GalleryController::class, 'image_delete']);
+                });
+
             });
 
             /**
              * Ürün işlemleri
              */
             Route::prefix('/product')->group(function(){
+
+                /**
+                 * Ürün fotoğraf işlemleri
+                 */
+                Route::prefix('/image')->group(function(){
+                    Route::post('/add', [ImageController::class, 'upload_product_image']);
+                    Route::post('/delete', [ImageController::class, 'delete_product_image']);
+                    Route::get('/get', [ImageController::class, 'get_product_images']);
+                });
+
                 Route::post('/add', [ProductController::class, 'create']);
                 Route::post('/update', [ProductController::class, 'update']);
                 Route::post('/delete', [ProductController::class, 'delete']);

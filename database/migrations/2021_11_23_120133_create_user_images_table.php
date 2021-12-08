@@ -15,13 +15,14 @@ class CreateUserImagesTable extends Migration
     {
         Schema::create('user_images', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->nullable();
-            $table->string('type')->default('url');
-            $table->longText('path');
+            $table->unsignedBigInteger('uploaded_user_id');
             $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('image_id');
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('uploaded_user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('image_id')->references('id')->on('images')->onDelete('cascade');
         });
     }
 

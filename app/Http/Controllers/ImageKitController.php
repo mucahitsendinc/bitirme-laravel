@@ -56,4 +56,24 @@ class ImageKitController extends Controller
         
 
     }
+
+    public function delete_imagekit($image_id){
+        try {
+            $settings = json_decode(Setting::where('setting', 'imagekit_options')->first()->option);
+            $imageKit = new ImageKit(
+                $settings->public_key,
+                $settings->private_key,
+                $settings->urlEndpoint
+            );
+            $result = $imageKit->deleteFile($image_id);
+            if (empty($result->err)) {
+                return ['error' => 'false', 'message' => 'Fotoğraf silindi'];
+            }else{
+                return ['error' => 'true', 'message' => $result->err];
+            }
+        } catch (\Throwable $th) {
+            return ['error'=>'true','message'=>$th->getMessage()];
+        }
+    }
+    
 }

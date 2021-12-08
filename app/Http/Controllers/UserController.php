@@ -51,7 +51,18 @@ class UserController extends Controller
     public function get(Request $request){
         $user = $request->get('user');
         if($user){
-            return response()->json(['error'=>false,'data'=>$user]);
+            return response()->json(['error'=>false,'user'=>[
+                'id'=>$user->id,
+                'name'=>$user->name,
+                'surname' => $user->surname,
+                'email'=>$user->email,
+                'phone'=>$user->phone,
+                'address'=>$user->address,
+                'city'=>$user->city,
+                'country'=>$user->country,
+                'postal_code'=>$user->postal_code,
+                'birthday'=>$user->birthday,
+            ]]);
         }else{
             return response()->json(['status'=>'error','message'=>'Kullanıcı bulunamadı.']);
         }

@@ -15,6 +15,9 @@ class CreateImagesTable extends Migration
     {
         Schema::create('images', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('gallery_id')->nullable();
+            $table->unsignedBigInteger('image_driver_id');
+            $table->unsignedBigInteger('uploaded_user_id');
             $table->string('name')->nullable();
             $table->string('type')->default('url');
             $table->longText('path');
@@ -25,6 +28,9 @@ class CreateImagesTable extends Migration
             $table->bigInteger('height')->nullable();
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->foreign('gallery_id')->references('id')->on('galleries')->onDelete('cascade');
+            $table->foreign('image_driver_id')->references('id')->on('image_drivers')->onDelete('cascade');
+            $table->foreign('uploaded_user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

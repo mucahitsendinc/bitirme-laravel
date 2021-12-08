@@ -82,6 +82,7 @@ class UnitController extends Controller
         if($validation->fails()){
             $messages = [
                 'name' => ($validation->getMessageBag())->messages()['name'] ?? 'success',
+                'symbol' => ($validation->getMessageBag())->messages()['symbol'] ?? 'success',
             ];
             return response()->json([
                 'error' => true,
@@ -152,6 +153,8 @@ class UnitController extends Controller
         if($validation->fails()){
             $messages = [
                 'name' => ($validation->getMessageBag())->messages()['name'] ?? 'success',
+                'symbol' => ($validation->getMessageBag())->messages()['symbol'] ?? 'success',
+                'unit_id' => ($validation->getMessageBag())->messages()['unit_id'] ?? 'success',
             ];
             return response()->json([
                 'error' => true,
@@ -164,7 +167,7 @@ class UnitController extends Controller
             ], 400);
         }
         try {
-            $unit = Unit::find($request->id);
+            $unit = Unit::find($request->unit_id);
             $unit->name = $request->name;
             $unit->symbol = $request->symbol??null;
             $unit->save();

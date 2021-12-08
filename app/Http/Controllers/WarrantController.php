@@ -161,7 +161,7 @@ class WarrantController extends Controller
             ], 401);
         }
         try {
-            $warranty=Warranty::find($request->id);
+            $warranty=Warranty::find($request->warranty_id);
             $warranty->name=$request->name;
             $warranty->description=$request->description??null;
             $warranty->save();
