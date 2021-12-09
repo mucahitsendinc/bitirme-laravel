@@ -883,6 +883,42 @@
                 ]
             }
         },
+        "/api/categories": {
+            "get": {
+                "tags": [
+                    "Kategori"
+                ],
+                "summary": "Kategori Listele",
+                "description": "Var olan kategorileri listeler.",
+                "operationId": "getCategories",
+                "parameters": [
+                    {
+                        "name": "count",
+                        "in": "query",
+                        "description": "Sayfa numarası",
+                        "required": false
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Kategori oluşturuldu.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Kategori listelendi."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/api/seller/category/add": {
             "post": {
                 "tags": [

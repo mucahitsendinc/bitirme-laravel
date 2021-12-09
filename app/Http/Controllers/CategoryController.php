@@ -8,6 +8,56 @@ use App\Models\Category;
 
 class CategoryController extends Controller
 {
+
+    /**
+     * @OA\GET(
+     * path="/api/categories",
+     * summary="Kategori Listele",
+     * description="Var olan kategorileri listeler.",
+     * operationId="getCategories",
+     * tags={"Kategori"},
+     * @OA\Parameter(
+     *  name="count",
+     *  in="query",
+     *  description="Sayfa numarası",
+     *  required=false,
+     * ),
+     * @OA\Response(
+     *    response=200,
+     *    description="Kategori oluşturuldu.",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="Kategori listelendi."),
+     *        )
+     *     )
+     * )
+     */
+    public function get(Request $request){
+        try {
+
+            if(isset($request->count)){
+                $categories = Category::where('parent_id',null)->orderBy('id', 'desc')->limit($request->count)->get(['id','name','slug','image_id']);
+            }else{
+                $categories = Category::where('parent_id',null)->orderBy('id', 'desc')->get(['id','name','slug','image_id']);
+            }
+            $newCategories = [];
+            foreach ($categories as $key => $value) {
+                $newCategories[$key]['id'] = $value->id;
+                $newCategories[$key]['name'] = $value->name;
+                $newCategories[$key]['slug'] = $value->slug;
+                $newCategories[$key]['image_id'] = $value->image_id;
+                $newCategories[$key]['sub_categories'] = Category::where('parent_id',$value->id)->orderBy('id', 'desc')->get(['id','name','slug','image_id']);
+            }
+            return response()->json([
+                'error' => false,
+                'message' => 'Kategori listelendi.',
+                'categories' => $newCategories
+            ], 200);
+        } catch (\Exception $ex) {
+            return response()->json(['error'=>true,'message'=>'Teknik bir hata oluştu','exception' => $ex->getMessage()], 400);
+        }
+        return response()->json(['error' => true, 'message' => 'Teknik bir hata oluştu', 'exception' => $ex->getMessage()], 400);
+    }
+
     /**
      * @OA\POST(
      * path="/api/seller/category/add",

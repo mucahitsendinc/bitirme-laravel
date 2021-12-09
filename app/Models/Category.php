@@ -12,4 +12,6 @@ class Category extends Model
     public function getDiscounts(){
         return $this->hasMany('App\Models\CategoryOffer', 'category_id', 'id');
     }
+
+    
 }
