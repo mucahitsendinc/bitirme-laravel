@@ -24,7 +24,7 @@ class CategoryController extends Controller
      * ),
      * @OA\Response(
      *    response=200,
-     *    description="Kategori oluşturuldu.",
+     *    description="Kategori listelendi.",
      *    @OA\JsonContent(
      *       @OA\Property(property="message", type="string", example="Kategori listelendi."),
      *        )
