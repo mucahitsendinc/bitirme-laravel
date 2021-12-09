@@ -26,7 +26,7 @@ use App\Http\Controllers\WarrantController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::middleware(['verifyrequest'])->group(function(){
+Route::middleware(['verifyrequest','cors'])->group(function(){
 
     /**
      * Oturum açılmadan atılan yabancı istekler
