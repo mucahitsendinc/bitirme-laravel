@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class ProductImage extends Model
 {
     use HasFactory;
+
+    public function getImage(){
+        return $this->hasOne('App\Models\Image', 'id', 'image_id');
+    }
 }

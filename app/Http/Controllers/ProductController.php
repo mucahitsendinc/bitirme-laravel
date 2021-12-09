@@ -100,8 +100,8 @@ class ProductController extends Controller
                 ->get();
             $response = [];
             foreach ($products as $key => $value) {
-                $type = $value->getFirstImage['type'] ?? 'url';
-                $path = $value->getFirstImage['path'] ?? '';
+                $type = $value->getFirstImage->getImage['type'] ?? 'url';
+                $path = $value->getFirstImage->getImage['path'] ?? '';
                 $discountPrice = 0;
                 $discounts = [];
                 $list = $value->getDiscounts;
@@ -191,8 +191,9 @@ class ProductController extends Controller
                     'message' => 'Ürün bulunamadı.'
                 ], 404);
             }
-            $type = $product->getFirstImage['type'] ?? 'url';
-            $path = $product->getFirstImage['path'] ?? '';
+            
+            $type = $product->getFirstImage->getImage['type'] ?? 'url';
+            $path = $product->getFirstImage->getImage['path'] ?? '';
             $discountPrice = 0;
             $discounts = [];
             $list = $product->getDiscounts;
@@ -354,8 +355,8 @@ class ProductController extends Controller
                             ->get();
         $response=[];
         foreach ($products as $key => $value) {
-            $type = $value->getFirstImage['type']??'url';
-            $path = $value->getFirstImage['path']??'';
+            $type = $value->getFirstImage->getImage['type']??'url';
+            $path = $value->getFirstImage->getImage['path']??'';
             $discountPrice = 0;
             $discounts=[];
             $list=$value->getDiscounts;

@@ -210,6 +210,13 @@ class ImageController extends Controller
                     $save->gallery_id = $request->gallery_id??null;
                     $save->uploaded_user_id = $request->get('user')->id;
                     $save->save();
+                    if(isset($request->product_id)){;
+                        $product = new ProductImage();
+                        $product->image_id = $save->id;
+                        $product->product_id = $request->product_id;
+                        $product->save();
+
+                    }
                     return response()->json([
                         'error' => false,
                         'message' => 'Fotoğraf yüklendi.',
@@ -237,6 +244,12 @@ class ImageController extends Controller
                     $save->gallery_id = $request->gallery_id??null;
                     $save->uploaded_user_id = $request->get('user')->id;
                     $save->save();
+                    if (isset($request->product_id)) {;
+                        $product = new ProductImage();
+                        $product->image_id = $save->id;
+                        $product->product_id = $request->product_id;
+                        $product->save();
+                    }
                     return response()->json([
                         'error' => false,
                         'message' => 'Fotoğraf yüklendi.',
@@ -285,6 +298,8 @@ class ImageController extends Controller
      * )
      */
     public function delete(Request $request){
+        
+        
         $validation=Validator::make($request->all(),[
             'image'=>'required|integer'
         ]);
@@ -304,7 +319,7 @@ class ImageController extends Controller
             ], 400);
         }
         try {
-            $checkDriver = Setting::where('setting', 'image_driver')->first();
+            $checkDriver = (Image::find($request->image))->getDriver->name;
             if ($checkDriver->option == 'imagekit') {
                 $imageKit = new ImageKitController();
                 $delete=Image::find($request->image);
@@ -339,6 +354,13 @@ class ImageController extends Controller
                         'exception' => $response['message']
                     ], 400);
                 }
+            }else{
+                $delete = Image::find($request->image);
+                $delete->delete();
+                return response()->json([
+                    'error' => false,
+                    'message' => 'Fotoğraf silindi.'
+                ], 200);
             }
         } catch (\Exception $ex) {
             return response()->json([

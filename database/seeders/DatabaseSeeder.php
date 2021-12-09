@@ -64,18 +64,6 @@ class DatabaseSeeder extends Seeder
             ]
         ]);
 
-        \App\Models\UserImage::insert([
-            [
-                'id' => 1,
-                'image_driver_id'=>1,
-                'uploaded_user_id'=>1,
-                'name' => 'test_image',
-                'type' => 'url',
-                'user_id'=>1,
-                'path' => 'https://png.pngtree.com/png-vector/20191129/ourmid/pngtree-office-checklist-icon-business-checklist-survey-test-icon-png-image_2047566.jpg'
-            ]
-        ]);
-
         \App\Models\UserIp::insert([
             ['id' => 1, 'user_id' => 1, 'register_ip' => 'admin ']
         ]);
@@ -106,6 +94,13 @@ class DatabaseSeeder extends Seeder
             ],
         ]);
 
+        \App\Models\UserImage::insert([
+            [
+                'image_id' => 1,
+                'user_id' => 1,
+            ]
+        ]);
+
         \App\Models\Category::insert([
             ['id' => 1,  'image_id' => 1, 'slug' => 'kisisel-bakim', 'name' => 'Kişisel Bakım', 'parent_id' => null],
             ['id' => 2,  'image_id' => 1, 'slug' => 'saglik', 'name' => 'Sağlık', 'parent_id' => null],
@@ -130,11 +125,7 @@ class DatabaseSeeder extends Seeder
             [
                 'id' => 1,
                 'product_id'=>1,
-                'image_driver_id'=>1,
-                'uploaded_user_id'=>1,
-                'name' => 'test_image',
-                'type' => 'url',
-                'path' => 'https://png.pngtree.com/png-vector/20191129/ourmid/pngtree-office-checklist-icon-business-checklist-survey-test-icon-png-image_2047566.jpg'
+                'image_id'=>1,
             ]
         ]);
 
