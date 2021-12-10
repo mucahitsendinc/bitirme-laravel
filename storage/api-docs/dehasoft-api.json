@@ -901,7 +901,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Kategori oluşturuldu.",
+                        "description": "Kategori listelendi.",
                         "content": {
                             "application/json": {
                                 "schema": {
