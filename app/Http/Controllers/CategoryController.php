@@ -22,14 +22,6 @@ class CategoryController extends Controller
      *  description="Sayfa numarası",
      *  required=false,
      * ),
-     * @OA\Response(
-     *    response=200,
-     *    description="Kategori listelendi.",
-     *    @OA\JsonContent(
-     *       @OA\Property(property="message", type="string", example="Kategori listelendi."),
-     *        )
-     *     )
-     * )
      */
     public function get(Request $request){
         try {
@@ -77,14 +69,6 @@ class CategoryController extends Controller
      *          @OA\Property(property="description", type="string", example="Elektronik kategorisi"),
      *    ),
      * ),
-     * @OA\Response(
-     *    response=200,
-     *    description="Kategori oluşturuldu.",
-     *    @OA\JsonContent(
-     *       @OA\Property(property="message", type="string", example="Kategori oluşturuldu."),
-     *        )
-     *     )
-     * )
      */
     public function create(Request $request){
         $validation = Validator::make($request->all(), [
@@ -145,14 +129,6 @@ class CategoryController extends Controller
      *          @OA\Property(property="description", type="string", example="Elektronik kategorisi"),
      *    ),
      * ),
-     * @OA\Response(
-     *    response=200,
-     *    description="Kategori güncellendi.",
-     *    @OA\JsonContent(
-     *       @OA\Property(property="message", type="string", example="Kategori güncellendi."),
-     *        )
-     *     )
-     * )
      */
     public function update(Request $request){
         $validation = Validator::make($request->all(), [
@@ -209,14 +185,6 @@ class CategoryController extends Controller
      *          @OA\Property(property="category_id", type="integer", example="1" , description="Kategori Id"),
      *    ),
      * ),
-     * @OA\Response(
-     *    response=200,
-     *    description="Kategori silindi.",
-     *    @OA\JsonContent(
-     *       @OA\Property(property="message", type="string", example="Kategory silindi."),
-     *        )
-     *     )
-     * )
      */
     public function delete(Request $request){
         $validation=Validator::make($request->all(),[

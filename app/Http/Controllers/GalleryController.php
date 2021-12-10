@@ -22,14 +22,6 @@ class GalleryController extends Controller
      *    description="Galeri Id",
      *    required=false,
      * ),
-     * @OA\Response(
-     *    response=200,
-     *    description="Galeriler listelendi.",
-     *    @OA\JsonContent(
-     *       @OA\Property(property="message", type="string", example="Galeriler listelendi."),
-     *        )
-     *     )
-     * )
      */
     public function get(Request $request)
     {
@@ -87,14 +79,6 @@ class GalleryController extends Controller
      *          @OA\Property(property="description", type="string", example="Galeri açıklaması"),
      *    ),
      * ),
-     * @OA\Response(
-     *    response=200,
-     *    description="Galeri tanımı oluşturuldu.",
-     *    @OA\JsonContent(
-     *       @OA\Property(property="message", type="string", example="Galeri tanımıı oluşturuldu."),
-     *        )
-     *     )
-     * )
      */
     public function create(Request $request)
     {
@@ -156,14 +140,6 @@ class GalleryController extends Controller
      *          @OA\Property(property="description", type="string", example="Galeri açıklaması"),
      *    ),
      * ),
-     * @OA\Response(
-     *    response=200,
-     *    description="Galeri tanımı güncellendi.",
-     *    @OA\JsonContent(
-     *       @OA\Property(property="message", type="string", example="Galeri tanımıı güncellendi."),
-     *        )
-     *     )
-     * )
      */
     public function update(Request $request)
     {
@@ -225,14 +201,6 @@ class GalleryController extends Controller
      *          @OA\Property(property="gallery_id", type="integer", example="Galeri Tanım Id"),
      *    ),
      * ),
-     * @OA\Response(
-     *    response=200,
-     *    description="Galeri tanımı silindi.",
-     *    @OA\JsonContent(
-     *       @OA\Property(property="message", type="string", example="Galeri tanımıı silindi."),
-     *        )
-     *     )
-     * )
      */
     public function delete(Request $request)
     {
@@ -290,14 +258,6 @@ class GalleryController extends Controller
      *          @OA\Property(property="image_id", type="integer", example="Resim Id"),
      *    ),
      * ),
-     * @OA\Response(
-     *    response=200,
-     *    description="Resim başarıyla galeriye eklendi.",
-     *    @OA\JsonContent(
-     *       @OA\Property(property="message", type="string", example="Resim başarıyla galeriye eklendi."),
-     *        )
-     *     )
-     * )
      */
     public function image_add(Request $request){
         $validation=Validator::make($request->all(),[

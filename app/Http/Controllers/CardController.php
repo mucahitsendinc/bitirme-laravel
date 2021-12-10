@@ -26,14 +26,6 @@ class CardController extends Controller
      *       required={},
      *    ),
      * ),
-     * @OA\Response(
-     *    response=200,
-     *    description="Kullanıcı kartları başarı ile sorgulandı",
-     *    @OA\JsonContent(
-     *       @OA\Property(property="message", type="string", example="Kullanıcı kartları başarı ile sorgulandı"),
-     *        )
-     *     )
-     * )
      */
     public function get(Request $request){
         try {
@@ -84,14 +76,6 @@ class CardController extends Controller
      *          @OA\Property(property="card_name", type="string", example="Banka Kartım"),
      *    ),
      * ),
-     * @OA\Response(
-     *    response=200,
-     *    description="Kullanıcı kartı başarı ile oluşturuldu",
-     *    @OA\JsonContent(
-     *       @OA\Property(property="message", type="string", example="Kullanıcı kartı başarı ile oluşturuldu"),
-     *        )
-     *     )
-     * )
      */
     public function create(Request $request){
         $validation = Validator::make($request->all(), [
@@ -242,14 +226,6 @@ class CardController extends Controller
      *       required={},
      *    ),
      * ),
-     * @OA\Response(
-     *    response=200,
-     *    description="Kullanıcı kartı başarı ile güncellendi",
-     *    @OA\JsonContent(
-     *       @OA\Property(property="message", type="string", example="Kullanıcı kartı başarı ile güncellendi"),
-     *        )
-     *     )
-     * )
      */
     public function update(Request $request){
         $validation=Validator::make($request->all(),[
