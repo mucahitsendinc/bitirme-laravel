@@ -29,6 +29,14 @@ class ImageController extends Controller
      *    name="image_id",
      *    description="Image Id",
      * ),
+     * @OA\Response(
+     *    response=200,
+     *    description="Genel alandaki fotoğraflar başarı ile sorgulandı.",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="Genel alandaki fotoğraflar başarı ile sorgulandı."),
+     *        )
+     *     )
+     * )
      */
     public function get(Request $request){
         try {
@@ -86,6 +94,14 @@ class ImageController extends Controller
      *    name="image_id",
      *    description="Image Id",
      * ),
+     * @OA\Response(
+     *    response=200,
+     *    description="Ürün fotoğrafları başarı ile sorgulandı.",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="Ürün fotoğrafları başarı ile sorgulandı."),
+     *        )
+     *     )
+     * )
      */
     public function get_product_images(Request $request){
         try {
@@ -147,6 +163,14 @@ class ImageController extends Controller
      *          @OA\Property(property="image", type="text", example="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAABmJLR0QA/wD/AP+gvaeTAAAAm0lEQVQYlYXQTwpBYRSG8d8nAxmIkIGSAQMZYR+KbcjQEGVqGXZgL8r4llK24N/Ad0tceYfvOT1P5wSvtDDGFffY5ZDHHglUsUDwnRBn1RzaKGUspSmhHTCK6uYP9QlJPpZDrPDIUG+Q/CPWcHgnDrDOIG5RxjFEbQcN3CLxjCl26KMHRSxR+aDN0cUM9fR3BUziK1J9DZd4w/YJ6R8dgNmw0QoAAAAASUVORK5CYII="),
      *    ),
      * ),
+     * @OA\Response(
+     *    response=200,
+     *    description="Fotoğraf yüklendi.",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="Fotoğraf yüklendi."),
+     *        )
+     *     )
+     * )
      */
     public function upload(Request $request){
         $validation=Validator::make($request->all(),[
@@ -264,6 +288,14 @@ class ImageController extends Controller
      *          @OA\Property(property="image", type="integer", example="Image Id"),
      *    ),
      * ),
+     * @OA\Response(
+     *    response=200,
+     *    description="Fotoğraf silindi.",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="Fotoğraf silindi."),
+     *        )
+     *     )
+     * )
      */
     public function delete(Request $request){
         

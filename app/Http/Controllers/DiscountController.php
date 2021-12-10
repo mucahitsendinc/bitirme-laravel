@@ -35,6 +35,14 @@ class DiscountController extends Controller
      *          @OA\Property(property="active", type="boolean", example="Oluşturulunca aktif olacak mı?"),
      *    ),
      * ),
+     * @OA\Response(
+     *    response=200,
+     *    description="Kampanya oluşturuldu.",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="Kampanya oluşturuldu."),
+     *        )
+     *     )
+     * )
      */
     public function create(Request $request){
         $validation = Validator::make($request->all(), [
@@ -110,6 +118,14 @@ class DiscountController extends Controller
      *          
      *    ),
      * ),
+     * @OA\Response(
+     *    response=200,
+     *    description="Kampanya güncellendi",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="Kampanya güncellendi."),
+     *        )
+     *     )
+     * )
      */
     public function update(Request $request){
         $validation = Validator::make($request->all(), [
@@ -176,6 +192,14 @@ class DiscountController extends Controller
      *          
      *    ),
      * ),
+     * @OA\Response(
+     *    response=200,
+     *    description="Kampanya silindi",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="Kampanya silindi."),
+     *        )
+     *     )
+     * )
      */
     public function delete(Request $request){
         $validation = Validator::make($request->all(), [

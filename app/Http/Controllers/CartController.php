@@ -26,6 +26,14 @@ class CartController extends Controller
      *       required={},
      *    ),
      * ),
+     * @OA\Response(
+     *    response=200,
+     *    description="Kullanıcı sepeti başarı ile sorgulandı.",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="Kullanıcı sepeti başarı ile listelendi"),
+     *        )
+     *     )
+     * )
      */
     public function get(Request $request){
         try {
@@ -118,6 +126,14 @@ class CartController extends Controller
      *              
      *    ),
      * ),
+     * @OA\Response(
+     *    response=200,
+     *    description="Kullanıcı sepetine ürün eklendi.",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="Kullanıcı sepetine ürün eklendi."),
+     *        )
+     *     )
+     * )
      */
     public function add(Request $request){
         $validation=Validator::make($request->all(),[
@@ -223,6 +239,14 @@ class CartController extends Controller
      *              
      *    ),
      * ),
+     * @OA\Response(
+     *    response=200,
+     *    description="Ürün sepete eklendi.",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="Ürün sepete eklendi."),
+     *        )
+     *     )
+     * )
      */
     public function update(Request $request){
         $validation=Validator::make($request->all(),[
@@ -324,6 +348,14 @@ class CartController extends Controller
      *       required={},
      *    ),
      * ),
+     * @OA\Response(
+     *    response=200,
+     *    description="Ürün sepete eklendi.",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="Ürün sepete eklendi."),
+     *        )
+     *     )
+     * )
      */
     public function delete(Request $request){
         try {
@@ -363,6 +395,14 @@ class CartController extends Controller
      *          @OA\Property(property="quantity", type="integer", example="1" , description="Ürün Adeti"),
      *    ),
      * ),
+     * @OA\Response(
+     *    response=200,
+     *    description="Ürün arttırıldı.",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="Ürün arttırıldı."),
+     *        )
+     *     )
+     * )
      */
     public function increment(Request $request){
         $validation=Validator::make($request->all(),[
@@ -447,6 +487,14 @@ class CartController extends Controller
      *          @OA\Property(property="quantity", type="integer", example="1" , description="Ürün Adeti"),
      *    ),
      * ),
+     * @OA\Response(
+     *    response=200,
+     *    description="Ürün sepete azaltıldı.",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="Ürün sepetten azaltıldı."),
+     *        )
+     *     )
+     * )
      */
     public function decrement(Request $request){
         $validation=Validator::make($request->all(),[
@@ -530,6 +578,14 @@ class CartController extends Controller
      *          @OA\Property(property="product_id", type="integer", example="1" , description="Ürün Id")
      *    ),
      * ),
+     * @OA\Response(
+     *    response=200,
+     *    description="Ürün sepetten kaldırıldı.",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="Ürün sepetten kaldırıldı."),
+     *        )
+     *     )
+     * )
      */
     public function extraction(Request $request){
         $validation=Validator::make($request->all(),[
