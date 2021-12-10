@@ -77,14 +77,6 @@ class AddressController extends Controller
      *          @OA\Property(property="mobile", type="string", example="Cep Telefonu"),
      *    ),
      * ),
-     * @OA\Response(
-     *    response=200,
-     *    description="Kullanıcı adresi başarı ile oluşturuldu",
-     *    @OA\JsonContent(
-     *       @OA\Property(property="message", type="string", example="Kullanıcı adresi başarı ile oluşturuldu"),
-     *        )
-     *     )
-     * )
      */
     public function create(Request $request){
         $validation = Validator::make($request->all(), [
@@ -187,14 +179,6 @@ class AddressController extends Controller
      *          @OA\Property(property="address_id", type="integer", example="1")
      *    ),
      * ),
-     * @OA\Response(
-     *    response=200,
-     *    description="Kullanıcı adresi başarı ile silindi",
-     *    @OA\JsonContent(
-     *       @OA\Property(property="message", type="string", example="Kullanıcı adresi başarı ile silindi"),
-     *        )
-     *     )
-     * )
      */
     public function delete(Request $request){
         $validation = Validator::make($request->all(), [
@@ -260,14 +244,6 @@ class AddressController extends Controller
      *          @OA\Property(property="mobile", type="string", example="Cep Telefonu"),
      *    ),
      * ),
-     * @OA\Response(
-     *    response=200,
-     *    description="Kullanıcı adresi başarı ile güncellendi",
-     *    @OA\JsonContent(
-     *       @OA\Property(property="message", type="string", example="Kullanıcı adresi başarı ile güncellendi"),
-     *        )
-     *     )
-     * )
      */
     public function update(Request $request){
         $validation = Validator::make($request->all(), [
