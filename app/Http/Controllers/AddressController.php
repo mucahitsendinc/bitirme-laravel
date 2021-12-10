@@ -18,14 +18,6 @@ class AddressController extends Controller
      * operationId="userAddressGet",
      * tags={"Kullanıcı Adres"},
      * security={{"deha_token":{}}},
-     * @OA\Response(
-     *    response=200,
-     *    description="Kullanıcı adresleri başarı ile sorgulandı",
-     *    @OA\JsonContent(
-     *       @OA\Property(property="message", type="string", example="Kullanıcı adresleri başarı ile sorgulandı"),
-     *        )
-     *     )
-     * )
      */
     public function get(Request $request){
         try {
