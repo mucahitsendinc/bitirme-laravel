@@ -115,16 +115,23 @@ class UserController extends Controller
                     'prefix'=>md5(env('APP_NAME')),
                     'token'=>$token
                 ]);
+                $user=[
+                    'name'=>$get->name,
+                    'surname'=>$get->surname,
+                    'email'=>$get->email,
+                    'status'=>$get->getStatus->name
+                ];
                 if($save){
-                    return response()->json(['error'=>false,'message'=>'Giriş işlemi başarı ile gerçekleşti.','token'=>$token,'tokenType'=>md5(env('APP_NAME'))],200);
+                    return response()->json(['error'=>false,'message'=>'Giriş işlemi başarı ile gerçekleşti.','user'=>$user,'token'=>$token,'tokenType'=>md5(env('APP_NAME'))],200);
                 }else{
                     $insert=UserToken::insert([
                         'user_id'=>$get->id,
                         'prefix'=>md5(env('APP_NAME')),
-                        'token'=>$token
+                        'token'=>$token,
+                        
                     ]);
                     if($insert){
-                        return response()->json(['error'=>false,'message'=>'Giriş işlemi başarı ile gerçekleşti.','token'=>$token,'tokenType'=>md5(env('APP_NAME'))],200);
+                        return response()->json(['error'=>false,'message'=>'Giriş işlemi başarı ile gerçekleşti.', 'user' => $user,'token'=>$token,'tokenType'=>md5(env('APP_NAME'))],200);
                     }
                 }
             }
