@@ -499,17 +499,6 @@
                 "summary": "Sepeti Getir",
                 "description": "Kullanıcının sepetini listeler.",
                 "operationId": "userCartGet",
-                "requestBody": {
-                    "description": "Sepeti getirir.",
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "required": []
-                            }
-                        }
-                    }
-                },
                 "responses": {
                     "200": {
                         "description": "Kullanıcı sepeti başarı ile sorgulandı.",

@@ -19,13 +19,6 @@ class CartController extends Controller
      * operationId="userCartGet",
      * tags={"Kullanıcı Sepet"},
      * security={{"deha_token":{}}},
-     * @OA\RequestBody(
-     *    required=true,
-     *    description="Sepeti getirir.",
-     *    @OA\JsonContent(
-     *       required={},
-     *    ),
-     * ),
      * @OA\Response(
      *    response=200,
      *    description="Kullanıcı sepeti başarı ile sorgulandı.",
@@ -117,13 +110,13 @@ class CartController extends Controller
      *    description="Sepeti getirir.",
      *    @OA\JsonContent(
      *       required={"products"},
-     *          @OA\Property(property="products", type="array", 
-     *              @OA\Items(type="object", format="object", 
+     *          @OA\Property(property="products", type="array",
+     *              @OA\Items(type="object", format="object",
      *                      @OA\Property(property="product_id", type="integer", example="1"),
      *                      @OA\Property(property="quantity", type="integer", example="1"),
      *                  ),
      *              ),
-     *              
+     *
      *    ),
      * ),
      * @OA\Response(
@@ -153,7 +146,7 @@ class CartController extends Controller
                 })
             ],400);
         }
-        
+
         try {
             $products = $request->products;
             $user_id= $request->get('user')->id;
@@ -230,13 +223,13 @@ class CartController extends Controller
      *    description="Sepeti Günceller.",
      *    @OA\JsonContent(
      *       required={"products"},
-     *          @OA\Property(property="products", type="array", 
-     *              @OA\Items(type="object", format="object", 
+     *          @OA\Property(property="products", type="array",
+     *              @OA\Items(type="object", format="object",
      *                      @OA\Property(property="product_id", type="integer", example="1"),
      *                      @OA\Property(property="quantity", type="integer", example="1"),
      *                  ),
      *              ),
-     *              
+     *
      *    ),
      * ),
      * @OA\Response(
@@ -438,7 +431,7 @@ class CartController extends Controller
                     'message'=>'Ürün bulunamadı',
                 ],400);
             }
-            
+
             $newQuantity= $checkProduct->quantity + ($request->quantity ?? 1);
             $stockCheck = Product::find($request->product_id);
             if ($newQuantity > $stockCheck->stock) {
@@ -449,7 +442,7 @@ class CartController extends Controller
             }
             $checkProduct->quantity= $newQuantity;
             $checkProduct->save();
-            
+
             return response()->json([
                 'error'=>false,
                 'message'=>'Ürün sepete eklendi',
@@ -542,7 +535,7 @@ class CartController extends Controller
             }
             $checkProduct->quantity= $newQuantity;
             $checkProduct->save();
-            
+
             return response()->json([
                 'error'=>false,
                 'message'=>'Ürün sepetten '.($request->quantity ?? 1).' azaltıldı',
@@ -622,7 +615,7 @@ class CartController extends Controller
                 ],400);
             }
             $checkProduct->delete();
-            
+
             return response()->json([
                 'error'=>false,
                 'message'=>'Ürün sepetten silindi',
