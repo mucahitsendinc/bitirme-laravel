@@ -31,6 +31,14 @@ class CartController extends Controller
     public function get(Request $request){
         try {
             $cart = ShoppingSession::where('user_id', $request->get('user')->id)->first();
+            if($cart==null){
+                return response()->json([
+                    'error' => false,
+                    'message' => 'Sepet başarı ile sorgulandı.',
+                    'total' =>0,
+                    'cart' => []
+                ], 200);
+            }
             $cartItems = [];
             $total=0;
             foreach ($cart->getCart as $key => $value) {
@@ -53,18 +61,21 @@ class CartController extends Controller
                         'description' => $current->description,
                     ]);
                 }
-                $list = $value->getCategory->getDiscounts;
-                for ($i = 0; $i < count($list); $i++) {
-                    $current = $list[$i]->getDiscount;
-                    $newdiscount = $value->price * $current->percent / 100;
-                    $discountPrice += $newdiscount;
-                    array_push($discounts, [
-                        'id' => "category-" . $current->id,
-                        'discount' => $current->percent,
-                        'name' => $current->name,
-                        'description' => $current->description,
-                    ]);
+                if($value->getCategory!=null){
+                    $list = $value->getCategory->getDiscounts;
+                    for ($i = 0; $i < count($list); $i++) {
+                        $current = $list[$i]->getDiscount;
+                        $newdiscount = $value->price * $current->percent / 100;
+                        $discountPrice += $newdiscount;
+                        array_push($discounts, [
+                            'id' => "category-" . $current->id,
+                            'discount' => $current->percent,
+                            'name' => $current->name,
+                            'description' => $current->description,
+                        ]);
+                    }
                 }
+
                 array_push($cartItems, [
                     'id' => $product->id,
                     'name' => $product->name,
@@ -334,18 +345,11 @@ class CartController extends Controller
      * operationId="userCartDelete",
      * tags={"Kullanıcı Sepet"},
      * security={{"deha_token":{}}},
-     * @OA\RequestBody(
-     *    required=true,
-     *    description="Sepeti Siler.",
-     *    @OA\JsonContent(
-     *       required={},
-     *    ),
-     * ),
      * @OA\Response(
      *    response=200,
-     *    description="Ürün sepete eklendi.",
+     *    description="Kullanıcının sepeti silindi.",
      *    @OA\JsonContent(
-     *       @OA\Property(property="message", type="string", example="Ürün sepete eklendi."),
+     *       @OA\Property(property="message", type="string", example="Sepet silindi."),
      *        )
      *     )
      * )
@@ -468,7 +472,7 @@ class CartController extends Controller
      * path="/api/user/cart/decrement",
      * summary="Sepetteki Ürünü Azalt",
      * description="Kullanıcının sepetinde bulunan ürünü azaltır.Quantity gönderilmezse 1 adet azaltılır.",
-     * operationId="userCartIncrement",
+     * operationId="userCartDecrement",
      * tags={"Kullanıcı Sepet"},
      * security={{"deha_token":{}}},
      * @OA\RequestBody(

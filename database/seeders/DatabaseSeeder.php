@@ -108,18 +108,20 @@ class DatabaseSeeder extends Seeder
             ['id' => 4,  'image_id' => 1, 'slug' => 'eglence', 'name' => 'Eğlence', 'parent_id' => null],
             ['id' => 5,  'image_id' => 1, 'slug' => 'parfum', 'name' => 'Parfüm', 'parent_id' => 1],
             ['id' => 6,  'image_id' => 1, 'slug' => 'agri-kesici', 'name' => 'Ağrı Kesici', 'parent_id' => 2],
-            ['id' => 7,  'image_id' => 1, 'slug' => 'elbise', 'name' => 'Elbise', 'parent_id' => 3],
-            ['id' => 8,  'image_id' => 1, 'slug' => 'stres-carki', 'name' => 'Stres Çarkı', 'parent_id' => 4]
+            ['id' => 7,  'image_id' => 1, 'slug' => 'elbise', 'name' => 'Elbise', 'parent_id' => 1],
+            ['id' => 8,  'image_id' => 1, 'slug' => 'stres-carki', 'name' => 'Stres Çarkı', 'parent_id' => 2]
         ]);
+
 
         \App\Models\Product::insert([
             ['id' => 1,'warranty_id'=>1,'unit_id'=>1, 'stock' => 55, 'price' => 12.34, 'description' => 'lorem ipsum sit dollar felan nokta test test aciklama test içerik açıklaması e ticaret dehasoft test açıklama metni lorem ipsum ', 'name' => 'Çark', 'slug' => 'cark', 'category_id' => 8],
-            ['id' => 2,'warranty_id'=>2,'unit_id'=>1, 'stock' => 55, 'price' => 5255.3686, 'description' => 'lorem ipsum sit dollar felan nokta test test aciklama test içerik açıklaması e ticaret dehasoft test açıklama metni lorem ipsum ', 'name' => 'Kırmızı Çark', 'slug' => 'kirmizi-cark',  'category_id' => 8],
-            ['id' => 3,'warranty_id'=>3,'unit_id'=>1, 'stock' => 55, 'price' => 945193.00, 'description' => 'lorem ipsum sit dollar felan nokta test test aciklama test içerik açıklaması e ticaret dehasoft test açıklama metni lorem ipsum ', 'name' => 'Sarı Çark', 'slug' => 'sari-cark',  'category_id' => 8],
+            ['id' => 2,'warranty_id'=>2,'unit_id'=>1, 'stock' => 55, 'price' => 5255.36, 'description' => 'lorem ipsum sit dollar felan nokta test test aciklama test içerik açıklaması e ticaret dehasoft test açıklama metni lorem ipsum ', 'name' => 'Kırmızı Çark', 'slug' => 'kirmizi-cark',  'category_id' => 8],
+            ['id' => 3,'warranty_id'=>3,'unit_id'=>1, 'stock' => 55, 'price' => 9193.00, 'description' => 'lorem ipsum sit dollar felan nokta test test aciklama test içerik açıklaması e ticaret dehasoft test açıklama metni lorem ipsum ', 'name' => 'Sarı Çark', 'slug' => 'sari-cark',  'category_id' => 8],
             ['id' => 4,'warranty_id'=>4,'unit_id'=>1, 'stock' => 55, 'price' => 33.00, 'description' => 'lorem ipsum sit dollar felan nokta test test aciklama test içerik açıklaması e ticaret dehasoft test açıklama metni lorem ipsum ', 'name' => 'Mavi Çark', 'slug' => 'mavi-cark',  'category_id' => 8],
             ['id' => 5,'warranty_id'=>5,'unit_id'=>1, 'stock' => 55, 'price' => 85.99, 'description' => 'lorem ipsum sit dollar felan nokta test test aciklama test içerik açıklaması e ticaret dehasoft test açıklama metni lorem ipsum ', 'name' => 'Yeşil Çark', 'slug' => 'yesil-cark',  'category_id' => 8],
             ['id' => 6,'warranty_id'=>6,'unit_id'=>1, 'stock' => 55, 'price' => 99.99, 'description' => 'lorem ipsum sit dollar felan nokta test test aciklama test içerik açıklaması e ticaret dehasoft test açıklama metni lorem ipsum ', 'name' => 'Turuncu Çark', 'slug' => 'turuncu-cark', 'category_id' => 8],
-        ]);
+       ]);
+        \App\Models\Product::factory()->count(2200)->create();
 
         \App\Models\ProductImage::insert([
             [
@@ -168,7 +170,7 @@ class DatabaseSeeder extends Seeder
                 'min_order_amount' => 300
             ]
         ]);
-        
+
         \App\Models\ProductOffer::insert([
             [
                 'id' => 1,
@@ -228,10 +230,10 @@ class DatabaseSeeder extends Seeder
             ['setting'=>'mail_password','option'=> 'Ko4_ib14'],
             ['setting'=>'mail_encryption','option'=>'tls'],
             ['setting'=>'mail_from_address','option'=> 'contact@e-ticaret.dehasoft.com.tr']
-            
+
         ]);
 
-        
+
 
     }
 }

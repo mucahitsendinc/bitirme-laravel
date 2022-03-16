@@ -664,27 +664,16 @@
                 "summary": "Sepeti Sil",
                 "description": "Kullanıcının sepetini tamamen siler.",
                 "operationId": "userCartDelete",
-                "requestBody": {
-                    "description": "Sepeti Siler.",
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "required": []
-                            }
-                        }
-                    }
-                },
                 "responses": {
                     "200": {
-                        "description": "Ürün sepete eklendi.",
+                        "description": "Kullanıcının sepeti silindi.",
                         "content": {
                             "application/json": {
                                 "schema": {
                                     "properties": {
                                         "message": {
                                             "type": "string",
-                                            "example": "Ürün sepete eklendi."
+                                            "example": "Sepet silindi."
                                         }
                                     },
                                     "type": "object"
@@ -766,7 +755,7 @@
                 ],
                 "summary": "Sepetteki Ürünü Azalt",
                 "description": "Kullanıcının sepetinde bulunan ürünü azaltır.Quantity gönderilmezse 1 adet azaltılır.",
-                "operationId": "userCartIncrement",
+                "operationId": "userCartDecrement",
                 "requestBody": {
                     "description": "Sepetteki ürünü azaltır.",
                     "required": true,

@@ -86,12 +86,12 @@ class ProductController extends Controller
                 $request->slug = $request->allSearch;
             }
             $products = Product::with('getDiscounts')
-            ->where('active', 1)
+                ->where('active', 1)
                 ->where('stock', '>', 0)
                 ->where('id', '>=', $request->start ?? 1)
                 ->where('id', '<=', $request->end ?? 20)
                 ->where(function ($query) use ($request) {
-                    $query->where('name', 'like', '%' . ($request->name ?? '') . '%')
+                    $query->orWhere('name', 'like', '%' . ($request->name ?? '') . '%')
                         ->orWhere('description', 'like', '%' . ($request->description ?? '') . '%')
                         ->orWhere('slug', 'like', '%' . ($request->slug ?? '') . '%')
                         ->orWhere('price', 'like', '%' . ($request->price ?? '') . '%')
@@ -191,7 +191,7 @@ class ProductController extends Controller
                     'message' => 'Ürün bulunamadı.'
                 ], 404);
             }
-            
+
             $type = $product->getFirstImage->getImage['type'] ?? 'url';
             $path = $product->getFirstImage->getImage['path'] ?? '';
             $discountPrice = 0;
@@ -222,7 +222,7 @@ class ProductController extends Controller
             }
             $checkView=View::where('product_id',$product->id)
             ->where('url', $request->fullUrl())
-            ->where(function($query) use($request){ 
+            ->where(function($query) use($request){
                 $query
                 ->where('user_id',($request->get('user')->id??-1))
                 ->orWhere('ip', $request->ip());
@@ -242,7 +242,7 @@ class ProductController extends Controller
                 $checkView->count = $checkView->count + 1;
                 $checkView->save();
             }
-            
+
             return response()->json([
                 'error' => false,
                 'message' => 'Ürün başarı ile sorgulandı.',
@@ -360,7 +360,7 @@ class ProductController extends Controller
             $discountPrice = 0;
             $discounts=[];
             $list=$value->getDiscounts;
-            for ($i=0; $i < count($list); $i++) { 
+            for ($i=0; $i < count($list); $i++) {
                 $current= $list[$i]->getDiscount;
                 $newdiscount=$value->price*$current->percent/100;
                 $discountPrice+= $newdiscount;
@@ -573,7 +573,7 @@ class ProductController extends Controller
             $product->stockcode = $request->stockcode ?? null;
             $product->warranty_id = $request->warranty_id ?? null;
             $product->unit_id = $request->unit_id ?? null;
-            
+
             $product->save();
             if (isset($request->vat) || isset($request->discount)) {
                 $check=ProductBalance::where('product_id',$product->id)->first();
@@ -588,7 +588,7 @@ class ProductController extends Controller
                     $productBalance->discount = isset($request->discount) ? $request->discount : 0;
                     $productBalance->save();
                 }
-                
+
             }
             return response()->json([
                 'error' => false,
