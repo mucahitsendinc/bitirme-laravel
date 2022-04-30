@@ -59,8 +59,8 @@ class DatabaseSeeder extends Seeder
                 'surname' => 'Admin',
                 'code' => DataCrypter::md5R(uniqid()),
                 'status_id' => 5,
-                'email' => 'mucahit@dehasoft.com.tr',
-                'password' => DataCrypter::md5R('123456789')
+                'email' => 'm@s',
+                'password' => DataCrypter::md5R('1')
             ]
         ]);
 
@@ -121,7 +121,7 @@ class DatabaseSeeder extends Seeder
             ['id' => 5,'warranty_id'=>5,'unit_id'=>1, 'stock' => 55, 'price' => 85.99, 'description' => 'lorem ipsum sit dollar felan nokta test test aciklama test içerik açıklaması e ticaret dehasoft test açıklama metni lorem ipsum ', 'name' => 'Yeşil Çark', 'slug' => 'yesil-cark',  'category_id' => 8],
             ['id' => 6,'warranty_id'=>6,'unit_id'=>1, 'stock' => 55, 'price' => 99.99, 'description' => 'lorem ipsum sit dollar felan nokta test test aciklama test içerik açıklaması e ticaret dehasoft test açıklama metni lorem ipsum ', 'name' => 'Turuncu Çark', 'slug' => 'turuncu-cark', 'category_id' => 8],
        ]);
-        \App\Models\Product::factory()->count(2200)->create();
+        \App\Models\Product::factory()->count(20000)->create();
 
         \App\Models\ProductImage::insert([
             [
@@ -204,6 +204,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         \App\Models\Setting::insert([
+            ['setting'=> 'package', 'option' => 'b2b'],
             ['setting'=> 'site_name', 'option' => 'DehaSoft'],
             ['setting'=> 'site_description', 'option' => 'DehaSoft'],
             ['setting'=> 'site_keywords', 'option' => 'DehaSoft'],
@@ -230,7 +231,18 @@ class DatabaseSeeder extends Seeder
             ['setting'=>'mail_password','option'=> 'Ko4_ib14'],
             ['setting'=>'mail_encryption','option'=>'tls'],
             ['setting'=>'mail_from_address','option'=> 'contact@e-ticaret.dehasoft.com.tr']
+        ]);
 
+        \App\Models\Route::insert([
+            ['label'=>'Home','auth'=>'true','path'=>'/'],
+            ['label'=>'Authentication/Logout','auth'=>'true','path'=>'/cikis-yap'],
+            ['label'=>'Authentication/Login','auth'=>'false','path'=>'/giris-yap'],
+            ['label'=>'Authentication/Register','auth'=>'disable','path'=>'/kayit-ol'],
+            ['label'=>'Cart','auth'=>'true','path'=>'/sepetim'],
+            ['label'=>'Discover','auth'=>'true','path'=>'/kesfet'],
+            ['label'=>'NewProducts','auth'=>'true','path'=>'/yeni-urunler'],
+            ['label'=>'Product','auth'=>'true','path'=>'/urun/:slug'],
+            ['label'=>'Category','auth'=>'true','path'=>'/kategori/:slug'],
         ]);
 
 

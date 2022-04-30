@@ -9,6 +9,7 @@ class Product extends Model
 {
     use HasFactory;
 
+    public $sortable =['created_at','price'];
 
     public function getCategory()
     {

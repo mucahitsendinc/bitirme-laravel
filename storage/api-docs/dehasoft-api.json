@@ -1812,6 +1812,39 @@
                 ]
             }
         },
+        "/api/routes": {
+            "get": {
+                "tags": [
+                    "Arayüz"
+                ],
+                "summary": "Arayüz için gerekli rotalar.",
+                "description": "Ön yüz için kullanılacak rotalar.",
+                "operationId": "routesGet",
+                "responses": {
+                    "200": {
+                        "description": "Rotalar başarı ile sorgulandı.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Önyüz rotaları başarı ile sorgulandı."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "deha_token": []
+                    }
+                ]
+            }
+        },
         "/api/seller/offer/product/add": {
             "post": {
                 "tags": [
@@ -2329,15 +2362,9 @@
                 "operationId": "products",
                 "parameters": [
                     {
-                        "name": "start",
+                        "name": "page",
                         "in": "query",
-                        "description": "Başlangıç",
-                        "required": false
-                    },
-                    {
-                        "name": "end",
-                        "in": "query",
-                        "description": "Bitiş",
+                        "description": "Sayfa",
                         "required": false
                     },
                     {
@@ -2375,6 +2402,18 @@
                         "in": "query",
                         "description": "Tüm alanlarda arama",
                         "required": false
+                    },
+                    {
+                        "name": "category",
+                        "in": "query",
+                        "description": "Kategori URL",
+                        "required": false
+                    },
+                    {
+                        "name": "sort",
+                        "in": "query",
+                        "description": "Sıralama (1-2-3-4)",
+                        "required": false
                     }
                 ],
                 "responses": {
@@ -2394,7 +2433,12 @@
                             }
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "deha_token": []
+                    }
+                ]
             }
         },
         "/api/products/{product_id}": {

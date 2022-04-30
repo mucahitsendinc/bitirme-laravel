@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Product;
@@ -19,17 +20,18 @@ class ProductController extends Controller
      * description="Tüm ürünleri belirlediğiniz koşula göre getirir.",
      * operationId="products",
      * tags={"Ürünler"},
+     * security={{"deha_token":{}}},
      * @OA\Parameter(
      *    required=false,
      *    in="query",
-     *    name="start",
-     *    description="Başlangıç",
+     *    name="page",
+     *    description="Sayfa",
      * ),
      * @OA\Parameter(
      *    required=false,
      *    in="query",
-     *    name="end",
-     *    description="Bitiş",
+     *    name="size",
+     *    description="Sayfa başına sayı",
      * ),
      * @OA\Parameter(
      *    required=false,
@@ -67,6 +69,18 @@ class ProductController extends Controller
      *    name="allSearch",
      *    description="Tüm alanlarda arama",
      * ),
+     * @OA\Parameter(
+     *    required=false,
+     *    in="query",
+     *    name="category",
+     *    description="Kategori URL",
+     * ),
+     * @OA\Parameter(
+     *    required=false,
+     *    in="query",
+     *    name="sort",
+     *    description="Sıralama (1-2-3-4)",
+     * ),
      * @OA\Response(
      *    response=200,
      *    description="Ürün listelendi.",
@@ -77,7 +91,24 @@ class ProductController extends Controller
      * )
      */
     public function get(Request $request){
+
         try{
+
+            if(isset($request->category)){
+                $categoryDetail=(Category::where('slug',$request->category)->first(['id','name']));
+                $category=(object)[
+                    'id'=>$categoryDetail->id,
+                    'operator'=>'=',
+                    'name'=>$categoryDetail->name
+                ];
+            }else{
+                $category=(object)[
+                    'id'=>0,
+                    'operator'=>'>',
+                    'name'=>''
+                ];
+            }
+
             if (isset($request->allSearch)) {
                 $request->name = $request->allSearch;
                 $request->price = $request->allSearch;
@@ -85,19 +116,51 @@ class ProductController extends Controller
                 $request->description = $request->allSearch;
                 $request->slug = $request->allSearch;
             }
-            $products = Product::with('getDiscounts')
-                ->where('active', 1)
-                ->where('stock', '>', 0)
-                ->where('id', '>=', $request->start ?? 1)
-                ->where('id', '<=', $request->end ?? 20)
-                ->where(function ($query) use ($request) {
-                    $query->orWhere('name', 'like', '%' . ($request->name ?? '') . '%')
-                        ->orWhere('description', 'like', '%' . ($request->description ?? '') . '%')
-                        ->orWhere('slug', 'like', '%' . ($request->slug ?? '') . '%')
-                        ->orWhere('price', 'like', '%' . ($request->price ?? '') . '%')
-                        ->orWhere('stock', 'like', '%' . ($request->stock ?? '') . '%');
-                })
-                ->get();
+
+
+            if(!isset($request->sort)){
+                $products = Product::with('getDiscounts')
+                    ->where('active', 1)
+                    ->where('stock', '>', 0)
+                    ->where('category_id',$category->operator,$category->id)
+                    ->where(function ($query) use ($request) {
+                        $query->orWhere('name', 'like', '%' . ($request->name ?? '') . '%')
+                            ->orWhere('description', 'like', '%' . ($request->description ?? '') . '%')
+                            ->orWhere('slug', 'like', '%' . ($request->slug ?? '') . '%')
+                            ->orWhere('price', 'like', '%' . ($request->price ?? '') . '%')
+                            ->orWhere('stock', 'like', '%' . ($request->stock ?? '') . '%');
+                    })
+                    ->paginate($request->size??8);
+            }else if($request->sort==1 || $request->sort==2){
+                $products = Product::with('getDiscounts')
+                    ->where('active', 1)
+                    ->where('stock', '>', 0)
+                    ->where('category_id',$category->operator,$category->id)
+                    ->where(function ($query) use ($request) {
+                        $query->orWhere('name', 'like', '%' . ($request->name ?? '') . '%')
+                            ->orWhere('description', 'like', '%' . ($request->description ?? '') . '%')
+                            ->orWhere('slug', 'like', '%' . ($request->slug ?? '') . '%')
+                            ->orWhere('price', 'like', '%' . ($request->price ?? '') . '%')
+                            ->orWhere('stock', 'like', '%' . ($request->stock ?? '') . '%');
+                    })
+                    ->orderBy('created_at',$request->sort==1 ? 'desc' : 'asc')
+                    ->paginate($request->size??8);
+            }else if($request->sort==3 || $request->sort==4){
+                $products = Product::with('getDiscounts')
+                    ->where('active', 1)
+                    ->where('stock', '>', 0)
+                    ->where('category_id',$category->operator,$category->id)
+                    ->where(function ($query) use ($request) {
+                        $query->orWhere('name', 'like', '%' . ($request->name ?? '') . '%')
+                            ->orWhere('description', 'like', '%' . ($request->description ?? '') . '%')
+                            ->orWhere('slug', 'like', '%' . ($request->slug ?? '') . '%')
+                            ->orWhere('price', 'like', '%' . ($request->price ?? '') . '%')
+                            ->orWhere('stock', 'like', '%' . ($request->stock ?? '') . '%');
+                    })
+                    ->orderBy('price',$request->sort==3 ? 'desc' : 'asc')
+                    ->paginate($request->size??8);
+            }
+
             $response = [];
             foreach ($products as $key => $value) {
                 $type = $value->getFirstImage->getImage['type'] ?? 'url';
@@ -128,7 +191,7 @@ class ProductController extends Controller
                         'description' => $current->description,
                     ]);
                 }
-                array_push($response, [
+                $push=[
                     'product_id' => $value->id,
                     'name' => $value->name,
                     'price' => $value->price,
@@ -138,7 +201,12 @@ class ProductController extends Controller
                     'discountPrice' => $discountPrice,
                     'imageType' => $type,
                     'image' => $path
-                ]);
+                ];
+                if(isset($request->category)){
+                    $push['category']=$category->name;
+                }
+                array_push($response, $push);
+
             }
             return response()->json([
                 'error' => false,
@@ -153,6 +221,13 @@ class ProductController extends Controller
             ], 400);
         }
     }
+
+
+
+
+
+
+
 
     /**
      * @OA\GET(

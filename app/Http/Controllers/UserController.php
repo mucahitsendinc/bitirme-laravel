@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\CustomController;
+use App\Http\Controllers\MainController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\User;
@@ -98,7 +99,7 @@ class UserController extends Controller
             'email' => 'required|email|min:5|max:35',
             'password' => 'required|min:6|max:100',
         ]);
-        if($validation->fails()){
+        if($validation->fails() && env('APP_DEBUG')==false){
             return response()->json(['error'=>true,'message'=>'Kullanıcı adı veya şifre hatalı'],400);
         }
         try {
@@ -122,16 +123,16 @@ class UserController extends Controller
                     'status'=>$get->getStatus->name
                 ];
                 if($save){
-                    return response()->json(['error'=>false,'message'=>'Giriş işlemi başarı ile gerçekleşti.','user'=>$user,'token'=>$token,'tokenType'=>md5(env('APP_NAME'))],200);
+                    return response()->json(['error'=>false,'message'=>'Giriş işlemi başarı ile gerçekleşti.','user'=>$user,'token'=>$token,'tokenType'=>md5(env('APP_NAME')),'routes'=>MainController::getAllRoutes()],200);
                 }else{
                     $insert=UserToken::insert([
                         'user_id'=>$get->id,
                         'prefix'=>md5(env('APP_NAME')),
                         'token'=>$token,
-                        
+
                     ]);
                     if($insert){
-                        return response()->json(['error'=>false,'message'=>'Giriş işlemi başarı ile gerçekleşti.', 'user' => $user,'token'=>$token,'tokenType'=>md5(env('APP_NAME'))],200);
+                        return response()->json(['error'=>false,'message'=>'Giriş işlemi başarı ile gerçekleşti.', 'user' => $user,'token'=>$token,'tokenType'=>md5(env('APP_NAME')),'routes'=>MainController::getAllRoutes()],200);
                     }
                 }
             }
@@ -232,7 +233,7 @@ class UserController extends Controller
                         'message' => 'Kayıt başarı ile oluşturuldu. Aktivasyon eposta adresinize gönderilemedi, giriş yaparak tekrar doğrulama kodu talep ediniz.',
                     ], 204);
                 }
-                
+
             }
         }catch (\Exception $ex){
             return response()->json([
@@ -297,7 +298,7 @@ class UserController extends Controller
                     'error'=>false,
                     'message'=>'Doğrulama işleminiz başarı ile tamamlandı.',
                 ],200);
-                
+
             }else if($user){
                 UserIp::where('user_id',$user->id)->update([
                     'last_unsuccessful_request_ip'=>$request->ip(),
@@ -363,7 +364,7 @@ class UserController extends Controller
             if($user){
                 $lastUpdate=(string)$user->updated_at;
                 $expire=strtotime($lastUpdate)+(60*$this->email_repeat_time);
-                
+
                 if(time()<$expire){
                     return response()->json([
                         'error'=>true,
@@ -503,7 +504,7 @@ class UserController extends Controller
         }
     }
 
-    
+
     /**
      * @OA\Post(
      * path="/api/forgot-password",
@@ -582,7 +583,7 @@ class UserController extends Controller
             ],403);
         }
 
-        
+
 
     }
 

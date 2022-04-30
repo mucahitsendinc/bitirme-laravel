@@ -15,6 +15,7 @@ use App\Http\Controllers\OfferController;
 use App\Http\Controllers\SellerController;
 use App\Http\Controllers\UnitController;
 use App\Http\Controllers\WarrantController;
+use App\Http\Controllers\MainController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,17 +34,25 @@ Route::middleware(['verifyrequest'])->group(function(){
      */
 
     Route::middleware(['strange'])->group(function(){
+
+        Route::get('routes',[MainController::class,'getRoutes'])->middleware('mode');
+
         Route::post('register', [UserController::class, 'register']);
         Route::post('activate-account', [UserController::class, 'email_verify']);
+
         Route::post('login', [UserController::class, 'login']);
         Route::post('logout', [UserController::class, 'logout']);
+
         Route::post('forgot-password', [UserController::class, 'forgot_password']);
         Route::post('reset-password', [UserController::class, 'reset_password']);
 
-        Route::get('products',[ProductController::class, 'get']);
-        Route::get('categories',[CategoryController::class, 'get']);
-        Route::get('products/{id}',[ProductController::class, 'detail']);
-        Route::get('discover',[ProductController::class, 'discover']);
+        Route::middleware(['mode','auth'])->group(function(){
+            Route::get('products',[ProductController::class, 'get']);
+            Route::get('categories',[CategoryController::class, 'get']);
+            Route::get('products/{id}',[ProductController::class, 'detail']);
+            Route::get('discover',[ProductController::class, 'discover']);
+        });
+
     });
 
     /**
@@ -53,7 +62,7 @@ Route::middleware(['verifyrequest'])->group(function(){
     Route::middleware(['auth'])->group(function(){
 
         Route::post('resend-activation-code', [UserController::class, 'new_email_verify_code']);
-        
+
         Route::prefix('/user')->middleware(['active'])->group(function(){
 
             Route::get('/get', [UserController::class, 'get']);
@@ -91,7 +100,7 @@ Route::middleware(['verifyrequest'])->group(function(){
 
         /**
          * Satıcı,Yönetici itekleri için
-         */ 
+         */
         Route::prefix('/seller')->middleware(['seller'])->group(function () {
 
             /**
@@ -184,7 +193,7 @@ Route::middleware(['verifyrequest'])->group(function(){
              * Kampanya işlemleri
             */
             Route::prefix('/offer')->group(function(){
-                
+
                 Route::prefix('/user')->group(function(){
                     Route::post('/add', [OfferController::class, 'create_user_offer']);
                     Route::post('/update', [OfferController::class, 'update_user_offer']);
@@ -202,7 +211,7 @@ Route::middleware(['verifyrequest'])->group(function(){
                     Route::post('/update', [OfferController::class, 'update_category_offer']);
                     Route::post('/delete', [OfferController::class, 'delete_category_offer']);
                 });
-                
+
             });
         });
 

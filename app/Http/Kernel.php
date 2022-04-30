@@ -69,5 +69,6 @@ class Kernel extends HttpKernel
         'auth' => \App\Http\Middleware\VerifyAuthenticate::class,
         'seller' => \App\Http\Middleware\Seller::class,
         'active' => \App\Http\Middleware\ActiveAccount::class,
+        'mode' => \App\Http\Middleware\Mode::class,
     ];
 }

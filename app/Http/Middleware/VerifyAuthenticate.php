@@ -19,6 +19,9 @@ class VerifyAuthenticate
     public function handle(Request $request, Closure $next)
     {
         try {
+            if($request->get('mode')!=null && $request->get('mode')!='b2b'){
+                return $next($request);
+            }
             $token = $request->header('Authorization') ?? '';
             if ($token != '') {
                 $plodes = explode(' ', $token);
