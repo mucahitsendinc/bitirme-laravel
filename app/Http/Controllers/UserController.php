@@ -184,7 +184,7 @@ class UserController extends Controller
             'name' => 'required|min:5|max:25',
             'surname' => 'required|min:5|max:25',
             'email' => 'required|email|min:5|max:35',
-            'password' => 'required|regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\x])(?=.*[!$=+?#*&%]).*$/|min:6',
+            'password' => 'required|min:6',
         ]);
 
         if($validation->fails()){

@@ -2368,6 +2368,12 @@
                         "required": false
                     },
                     {
+                        "name": "size",
+                        "in": "query",
+                        "description": "Sayfa başına sayı",
+                        "required": false
+                    },
+                    {
                         "name": "name",
                         "in": "query",
                         "description": "Ürün ismi",
