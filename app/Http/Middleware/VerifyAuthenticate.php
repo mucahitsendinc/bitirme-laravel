@@ -38,7 +38,7 @@ class VerifyAuthenticate
                 }
             }
         } catch (\Exception $ex) {
-            return response()->json(['error' => true,'message'=>'Bu işlem için oturum açmanız gerekmektedir.'], 401);
+            return response()->json(['error' => true,'message'=>'Bu işlem için oturum açmanız gerekmektedir.','exception'=>$ex->getMessage()], 401);
         }
         return response()->json(['error' => true, 'message' => 'Bu işlem için oturum açmanız gerekmektedir.'], 401);
     }
