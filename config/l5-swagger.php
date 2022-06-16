@@ -5,7 +5,7 @@ return [
     'documentations' => [
         'default' => [
             'api' => [
-                'title' => 'Dehasoft E-Ticaret API Dökümantasyonu',
+                'title' => 'MUCAHIT E-Ticaret API Dökümantasyonu',
             ],
 
             'routes' => [
@@ -23,12 +23,12 @@ return [
                 /*
                  * File name of the generated json documentation file
                 */
-                'docs_json' => 'dehasoft-api.json',
+                'docs_json' => 'eticaret-api.json',
 
                 /*
                  * File name of the generated YAML documentation file
                 */
-                'docs_yaml' => 'dehasoft-api.yaml',
+                'docs_yaml' => 'eticaret-api.yaml',
 
                 /*
                 * Set this to `json` or `yaml` to determine which documentation file to use in UI

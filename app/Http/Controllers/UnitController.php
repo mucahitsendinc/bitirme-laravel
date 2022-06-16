@@ -218,6 +218,7 @@ class UnitController extends Controller
         $validation=Validator::make($request->all(),[
             'unit_id' => 'required|numeric'
         ]);
+
         if($validation->fails()){
             $messages = [
                 'unit_id' => ($validation->getMessageBag())->messages()['unit_id'] ?? 'success',
@@ -234,7 +235,9 @@ class UnitController extends Controller
         }
         try {
             $unit = Unit::find($request->unit_id);
-            $unit->delete();
+            if($unit!=null){
+                $unit->delete();
+            }
             return response()->json([
                 'error' => false,
                 'message' => 'Birim başarıyla silindi.'

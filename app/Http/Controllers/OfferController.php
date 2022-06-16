@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Validator;
 
 class OfferController extends Controller
 {
+
     /**
      * @OA\Post(
      * path="/api/seller/offer/product/add",
@@ -406,7 +407,7 @@ class OfferController extends Controller
                     }
                 })
             ], 400);
-        }  
+        }
         try {
             $product_offer = ProductOffer::where('id',$request->offer_id)->first();
             if($product_offer){
@@ -462,7 +463,7 @@ class OfferController extends Controller
                     }
                 })
             ], 400);
-        }  
+        }
         try {
             $category_offer = CategoryOffer::where('id',$request->offer_id)->first();
             if($category_offer){

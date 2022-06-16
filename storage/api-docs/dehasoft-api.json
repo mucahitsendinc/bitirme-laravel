@@ -1,7 +1,7 @@
 {
     "openapi": "3.0.0",
     "info": {
-        "title": "Dehasoft E-Ticaret Çözümü",
+        "title": "Mücahit E-Ticaret Çözümü",
         "version": "1.0.0"
     },
     "paths": {
@@ -925,8 +925,8 @@
                                         "type": "integer",
                                         "example": "1"
                                     },
-                                    "icon_id": {
-                                        "description": "Kategori ikonu",
+                                    "image_id": {
+                                        "description": "Kategori görseli",
                                         "type": "integer",
                                         "example": "1"
                                     },
@@ -993,8 +993,8 @@
                                         "type": "integer",
                                         "example": "1"
                                     },
-                                    "icon_id": {
-                                        "description": "Kategori ikonu",
+                                    "image_id": {
+                                        "description": "Kategori görseli",
                                         "type": "integer",
                                         "example": "1"
                                     },
@@ -1085,6 +1085,34 @@
                         "deha_token": []
                     }
                 ]
+            }
+        },
+        "/api/seller/discount/get": {
+            "get": {
+                "tags": [
+                    "Kampanya"
+                ],
+                "summary": "İndirimleri Listele",
+                "description": "Var olan indirimleri listeler.",
+                "operationId": "getDiscounts",
+                "responses": {
+                    "200": {
+                        "description": "İndirimler listelendi.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "İndirimler listelendi."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
             }
         },
         "/api/seller/discount/add": {

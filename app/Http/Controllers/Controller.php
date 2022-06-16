@@ -9,7 +9,7 @@ use Illuminate\Routing\Controller as BaseController;
 
 /**
  * @OA\Info(
- *    title="Dehasoft E-Ticaret Çözümü",
+ *    title="MUCAHIT E-Ticaret ",
  *    version="1.0.0",
  * 
  * )

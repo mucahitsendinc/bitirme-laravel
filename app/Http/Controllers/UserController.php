@@ -424,8 +424,8 @@ class UserController extends Controller
                 'name' => $name,
                 'surname' => $surname
             ], function ($message) use ($data) {
-                $message->from($data['sender'], 'Kayıt işlemi tamamlama - Dehasoft E-Ticaret');
-                $message->subject("Kayıt işlemi tamamlama - Dehasoft E-Ticaret");
+                $message->from($data['sender'], 'Kayıt işlemi tamamlama - MUCAHIT E-Ticaret');
+                $message->subject("Kayıt işlemi tamamlama - MUCAHIT E-Ticaret");
                 $message->to($data['email']);
             });
             return true;

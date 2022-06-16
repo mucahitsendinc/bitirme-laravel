@@ -164,6 +164,7 @@ Route::middleware(['verifyrequest'])->group(function(){
              * İndirim işlemleri
              */
             Route::prefix('/discount')->group(function(){
+                Route::get('/get', [DiscountController::class, 'get']);
                 Route::post('/add', [DiscountController::class, 'create']);
                 Route::post('/update', [DiscountController::class, 'update']);
                 Route::post('/delete', [DiscountController::class, 'delete']);
@@ -173,9 +174,9 @@ Route::middleware(['verifyrequest'])->group(function(){
              * Garanti işlemleri
              */
             Route::prefix('/warranty')->group(function(){
-                Route::post('/add', [OfferController::class, 'create']);
-                Route::post('/update', [OfferController::class, 'update']);
-                Route::post('/delete', [OfferController::class, 'delete']);
+                Route::post('/add', [WarrantController::class, 'create']);
+                Route::post('/update', [WarrantController::class, 'update']);
+                Route::post('/delete', [WarrantController::class, 'delete']);
                 Route::get('/get',[WarrantController::class, 'get']);
             });
 

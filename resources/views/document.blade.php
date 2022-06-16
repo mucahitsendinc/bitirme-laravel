@@ -6,9 +6,9 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, shrink-to-fit=no">
   <link href="{{asset('assets/images/favicon.png')}}" rel="icon" />
-  <title>Dökümantasyon | Dehasoft E-Ticaret</title>
-  <meta name="description" content="Dehasoft yazılım firmasının e-ticaret ürün dökümantasyonudur.">
-  <meta name="author" content="dehasoft.com.tr">
+  <title>Dökümantasyon | Mücahit E-Ticaret</title>
+  <meta name="description" content="mucahit yazılım firmasının e-ticaret ürün dökümantasyonudur.">
+  <meta name="author" content="mucahit.com.tr">
   <link rel="stylesheet" type="text/css" href="{{asset('assets/vendor/bootstrap/css/bootstrap.min.css')}}" />
   <link rel="stylesheet" type="text/css" href="{{asset('assets/vendor/font-awesome/css/all.min.css')}}" />
   <link rel="stylesheet" type="text/css" href="{{asset('assets/vendor/magnific-popup/magnific-popup.min.css')}}" />
@@ -38,7 +38,7 @@
       <nav class="primary-menu navbar navbar-expand-lg navbar-dropdown-dark">
         <div class="container-fluid">
           <button id="sidebarCollapse" class="navbar-toggler d-block d-md-none" type="button"><span></span><span class="w-75"></span><span class="w-50"></span></button>
-          <a class="logo ml-md-3" href="https://dehasoft.com.tr" title="Dehasoft"> <img height="75" src="{{asset('assets/images/logo.png')}}" alt="Dehasoft" /> </a>
+          <a class="logo ml-md-3" href="https://mucahit.com.tr" title="mucahit"> <img height="75" src="{{asset('assets/images/logo.png')}}" alt="mucahit" /> </a>
           <span class="text-2 ml-2">v1.0</span>
           <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#header-nav"><span></span><span></span><span></span></button>
 
@@ -60,13 +60,13 @@
                 </ul>
               </li>
               <li><a target="_blank" href="https://themeforest.net/user/harnishdesign/portfolio?ref=HarnishDesign">Other Template</a></li> -->
-              <li><a target="_blank" href="mailto:destek@dehasoft.com.tr">Yardım Merkezi</a></li>
+              <li><a target="_blank" href="mailto:destek@mucahit.com.tr">Yardım Merkezi</a></li>
             </ul>
           </div>
           <ul class="social-icons social-icons-sm ml-lg-2 mr-2">
-            <li class="social-icons-linkedin"><a data-toggle="tooltip" href="https://www.linkedin.com/company/dehasoft" target="_blank" title="" data-original-title="Linkedin"><i class="fab fa-linkedin"></i></a></li>
-            <!-- <li class="social-icons-facebook"><a data-toggle="tooltip" href="mailto:destek@dehasoft.com.tr" target="_blank" title="" data-original-title="Email"><i class="fa fa-envelope"></i></a></li> -->
-            <li class="social-icons-dribbble"><a data-toggle="tooltip" href="https://dehasoft.com.tr" target="_blank" title="" data-original-title="Web"><i class="fab fa-dribbble"></i></a></li>
+            <li class="social-icons-linkedin"><a data-toggle="tooltip" href="https://www.linkedin.com/company/mucahit" target="_blank" title="" data-original-title="Linkedin"><i class="fab fa-linkedin"></i></a></li>
+            <!-- <li class="social-icons-facebook"><a data-toggle="tooltip" href="mailto:destek@mucahit.com.tr" target="_blank" title="" data-original-title="Email"><i class="fa fa-envelope"></i></a></li> -->
+            <li class="social-icons-dribbble"><a data-toggle="tooltip" href="https://mucahit.com.tr" target="_blank" title="" data-original-title="Web"><i class="fab fa-dribbble"></i></a></li>
           </ul>
         </div>
       </nav>
@@ -117,14 +117,14 @@
 
           <section id="idocs_start">
             <h1>Dökümantasyon</h1>
-            <h3>Dehasoft E-Ticaret Çözümü</h3>
+            <h3>Mücahit E-Ticaret Çözümü</h3>
             <p class="lead">Paketinize uygun dökümantasyon ve düzenleme işlemlerini gerçekleştirebilmek için bu dökümanı inceleyebilirsiniz.</p>
             <hr>
             <div class="row">
               <div class="col-sm-6 col-lg-4">
                 <ul class="list-unstyled">
                   <li><strong>Versiyon:</strong> 1.0</li>
-                  <li><strong>Yayıncı:</strong> <a href="https://dehasoft.com.tr" target="_blank">Dehasoft</a></li>
+                  <li><strong>Yayıncı:</strong> <a href="https://mucahit.com.tr" target="_blank">mucahit</a></li>
                 </ul>
               </div>
               <div class="col-sm-6 col-lg-4">
@@ -134,7 +134,7 @@
                 </ul>
               </div>
             </div>
-            <p class="alert alert-info">Eğer bir problem ile karşılaşırsanız yardım merkezi adımlarını takip ederek bizlere iletebilirsiniz.<a target="_blank" href="mailto:destek@dehasoft.com.tr">Yardım Merkezi</a></p>
+            <p class="alert alert-info">Eğer bir problem ile karşılaşırsanız yardım merkezi adımlarını takip ederek bizlere iletebilirsiniz.<a target="_blank" href="mailto:destek@mucahit.com.tr">Yardım Merkezi</a></p>
           </section>
 
           <hr class="divider">
@@ -143,7 +143,7 @@
             <h2>Fiyatlandırma</h2>
             <p class="lead">Size uygun paket ve fiyatlar:</p>
             <ul>
-              <li>Dehasoft e-ticaret çözümü kullanım koşullarını satın aldığınız takdirde kabul etmiş sayılırsınız.</li>
+              <li>Mücahit e-ticaret çözümü kullanım koşullarını satın aldığınız takdirde kabul etmiş sayılırsınız.</li>
             </ul>
             <h3 class="text-center">Aktif bir paket bulunamadı</h3>
           </section>
@@ -528,12 +528,12 @@
     <footer id="footer" class="section bg-dark footer-text-light">
       <div class="container">
         <ul class="social-icons social-icons-lg social-icons-muted justify-content-center mb-3">
-          <li><a data-toggle="tooltip" href="https://www.linkedin.com/company/dehasoft" target="_blank" title="" data-original-title="Linkedin"><i class="fab fa-linkedin"></i></a></li>
-          <li><a data-toggle="tooltip" href="https://dehasoft.com.tr" target="_blank" title="" data-original-title="Web"><i class="fab fa-dribbble"></i></a></li>
-          <li><a data-toggle="tooltip" href="https://github.com/dehasoft-tr" target="_blank" title="" data-original-title="GitHub"><i class="fab fa-github"></i></a></li>
+          <li><a data-toggle="tooltip" href="https://www.linkedin.com/company/mucahit" target="_blank" title="" data-original-title="Linkedin"><i class="fab fa-linkedin"></i></a></li>
+          <li><a data-toggle="tooltip" href="https://mucahit.com.tr" target="_blank" title="" data-original-title="Web"><i class="fab fa-dribbble"></i></a></li>
+          <li><a data-toggle="tooltip" href="https://github.com/mucahit-tr" target="_blank" title="" data-original-title="GitHub"><i class="fab fa-github"></i></a></li>
         </ul>
         <p class="text-center"> 2021 &copy; Tüm hakları saklıdır.</p>
-        <p class="text-2 text-center mb-0">Powered by <a class="btn-link" target="_blank" href="https://dehasoft.com.tr">Dehasoft</a></p>
+        <p class="text-2 text-center mb-0">Powered by <a class="btn-link" target="_blank" href="https://mucahit.com.tr">mucahit</a></p>
       </div>
     </footer>
     <!-- Footer end -->

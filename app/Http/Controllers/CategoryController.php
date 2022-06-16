@@ -73,7 +73,7 @@ class CategoryController extends Controller
      *       required={"name"},
      *          @OA\Property(property="name", type="string", example="Elektronik" , description="Kategori adı"),
      *          @OA\Property(property="parent_id", type="integer", example="1", description="Eğer parent_id gönderilmezse ana kategori gönderilirse, gönderilen parent_id'e göre eşleşen kategorinin alt kategorisi olur."),
-     *          @OA\Property(property="icon_id", type="integer", example="1", description="Kategori ikonu"),
+     *          @OA\Property(property="image_id", type="integer", example="1", description="Kategori görseli"),
      *          @OA\Property(property="description", type="string", example="Elektronik kategorisi"),
      *    ),
      * ),
@@ -112,7 +112,6 @@ class CategoryController extends Controller
             $category = new Category;
             $category->name = $request->name;
             $category->parent_id = $request->parent_id ?? null;
-            $category->icon_id = $request->icon_id ?? null;
             $category->image_id = $request->image_id ?? null;
             $category->slug = $slug;
             $category->save();
@@ -141,7 +140,7 @@ class CategoryController extends Controller
      *       required={"name"},
      *          @OA\Property(property="name", type="string", example="Elektronik" , description="Kategori adı"),
      *          @OA\Property(property="parent_id", type="integer", example="1", description="Eğer parent_id gönderilmezse ana kategori gönderilirse, gönderilen parent_id'e göre eşleşen kategorinin alt kategorisi olur."),
-     *          @OA\Property(property="icon_id", type="integer", example="1", description="Kategori ikonu"),
+     *          @OA\Property(property="image_id", type="integer", example="1", description="Kategori görseli"),
      *          @OA\Property(property="description", type="string", example="Elektronik kategorisi"),
      *    ),
      * ),
@@ -180,7 +179,6 @@ class CategoryController extends Controller
             $category = Category::find($request->id);
             $category->name = $request->name;
             $category->parent_id = $request->parent_id ?? null;
-            $category->icon_id = $request->icon_id ?? null;
             $category->image_id = $request->image_id ?? null;
             $category->slug = $slug;
             $category->save();

@@ -17,7 +17,7 @@ class DataCrypter extends Controller
      *
      */
 
-    public $explode_key="@Dehasoft@";
+    public $explode_key="@Mucahit@";
     public $access_time=31556926;  //seconds
 
     public $method="aes-128-cbc";
@@ -187,7 +187,6 @@ class DataCrypter extends Controller
         $key = hash('sha256', $key);
         $iv = substr(hash('sha256', $secret), 0, 16);
         if ($string != "" && gettype($string) == "string") {
-            //$string = $string . '@DehaSoft@' . strtotime('+' . env('ACCESS_TIME') . ' seconds');
 
             $output = openssl_encrypt($string, $method, $key, 0, $iv);
 

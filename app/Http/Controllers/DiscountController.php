@@ -9,6 +9,36 @@ use App\Models\Discount;
 class DiscountController extends Controller
 {
     /**
+     * @OA\GET(
+     * path="/api/seller/discount/get",
+     * summary="İndirimleri Listele",
+     * description="Var olan indirimleri listeler.",
+     * operationId="getDiscounts",
+     * tags={"Kampanya"},
+     * @OA\Response(
+     *    response=200,
+     *    description="İndirimler listelendi.",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="İndirimler listelendi."),
+     *        )
+     *     )
+     * )
+     */
+    public function get(Request $request){
+        try {
+            return response()->json([
+                'error' => false,
+                'message' => 'İndirimler listelendi.',
+
+                'discounts' => Discount::all()
+            ], 200);
+        } catch (\Exception $ex) {
+            return response()->json(['error'=>true,'message'=>'Teknik bir hata oluştu','exception' => $ex->getMessage()], 400);
+        }
+        return response()->json(['error' => true, 'message' => 'Teknik bir hata oluştu', 'exception' => $ex->getMessage()], 400);
+    }
+
+    /**
      * @OA\Post(
      * path="/api/seller/discount/add",
      * summary="Kampanya Oluştur",
@@ -115,7 +145,7 @@ class DiscountController extends Controller
      *          @OA\Property(property="max_discount_amount_user", type="integer", example="Kullanıcı bazlı en fazla indirim tutarı"),
      *          @OA\Property(property="min_order_amount", type="integer", example="İndirim için gerekli minimum tutar"),
      *          @OA\Property(property="active", type="boolean", example="Güncellenince aktif olacak mı?"),
-     *          
+     *
      *    ),
      * ),
      * @OA\Response(
@@ -189,7 +219,7 @@ class DiscountController extends Controller
      *    @OA\JsonContent(
      *       required={"name","percent","discount_id"},
      *          @OA\Property(property="discount_id", type="integer", example="Kampanya Id"),
-     *          
+     *
      *    ),
      * ),
      * @OA\Response(

@@ -114,14 +114,14 @@ class DatabaseSeeder extends Seeder
 
 
         \App\Models\Product::insert([
-            ['id' => 1,'warranty_id'=>1,'unit_id'=>1, 'stock' => 55, 'price' => 12.34, 'description' => 'lorem ipsum sit dollar felan nokta test test aciklama test içerik açıklaması e ticaret dehasoft test açıklama metni lorem ipsum ', 'name' => 'Çark', 'slug' => 'cark', 'category_id' => 8],
-            ['id' => 2,'warranty_id'=>2,'unit_id'=>1, 'stock' => 55, 'price' => 5255.36, 'description' => 'lorem ipsum sit dollar felan nokta test test aciklama test içerik açıklaması e ticaret dehasoft test açıklama metni lorem ipsum ', 'name' => 'Kırmızı Çark', 'slug' => 'kirmizi-cark',  'category_id' => 8],
-            ['id' => 3,'warranty_id'=>3,'unit_id'=>1, 'stock' => 55, 'price' => 9193.00, 'description' => 'lorem ipsum sit dollar felan nokta test test aciklama test içerik açıklaması e ticaret dehasoft test açıklama metni lorem ipsum ', 'name' => 'Sarı Çark', 'slug' => 'sari-cark',  'category_id' => 8],
-            ['id' => 4,'warranty_id'=>4,'unit_id'=>1, 'stock' => 55, 'price' => 33.00, 'description' => 'lorem ipsum sit dollar felan nokta test test aciklama test içerik açıklaması e ticaret dehasoft test açıklama metni lorem ipsum ', 'name' => 'Mavi Çark', 'slug' => 'mavi-cark',  'category_id' => 8],
-            ['id' => 5,'warranty_id'=>5,'unit_id'=>1, 'stock' => 55, 'price' => 85.99, 'description' => 'lorem ipsum sit dollar felan nokta test test aciklama test içerik açıklaması e ticaret dehasoft test açıklama metni lorem ipsum ', 'name' => 'Yeşil Çark', 'slug' => 'yesil-cark',  'category_id' => 8],
-            ['id' => 6,'warranty_id'=>6,'unit_id'=>1, 'stock' => 55, 'price' => 99.99, 'description' => 'lorem ipsum sit dollar felan nokta test test aciklama test içerik açıklaması e ticaret dehasoft test açıklama metni lorem ipsum ', 'name' => 'Turuncu Çark', 'slug' => 'turuncu-cark', 'category_id' => 8],
+            ['id' => 1,'warranty_id'=>1,'unit_id'=>1, 'stock' => 55, 'price' => 12.34, 'description' => 'lorem ipsum sit dollar felan nokta test test aciklama test içerik açıklaması e ticaret mucahit test açıklama metni lorem ipsum ', 'name' => 'Çark', 'slug' => 'cark', 'category_id' => 8],
+            ['id' => 2,'warranty_id'=>2,'unit_id'=>1, 'stock' => 55, 'price' => 5255.36, 'description' => 'lorem ipsum sit dollar felan nokta test test aciklama test içerik açıklaması e ticaret mucahit test açıklama metni lorem ipsum ', 'name' => 'Kırmızı Çark', 'slug' => 'kirmizi-cark',  'category_id' => 8],
+            ['id' => 3,'warranty_id'=>3,'unit_id'=>1, 'stock' => 55, 'price' => 9193.00, 'description' => 'lorem ipsum sit dollar felan nokta test test aciklama test içerik açıklaması e ticaret mucahit test açıklama metni lorem ipsum ', 'name' => 'Sarı Çark', 'slug' => 'sari-cark',  'category_id' => 8],
+            ['id' => 4,'warranty_id'=>4,'unit_id'=>1, 'stock' => 55, 'price' => 33.00, 'description' => 'lorem ipsum sit dollar felan nokta test test aciklama test içerik açıklaması e ticaret mucahit test açıklama metni lorem ipsum ', 'name' => 'Mavi Çark', 'slug' => 'mavi-cark',  'category_id' => 8],
+            ['id' => 5,'warranty_id'=>5,'unit_id'=>1, 'stock' => 55, 'price' => 85.99, 'description' => 'lorem ipsum sit dollar felan nokta test test aciklama test içerik açıklaması e ticaret mucahit test açıklama metni lorem ipsum ', 'name' => 'Yeşil Çark', 'slug' => 'yesil-cark',  'category_id' => 8],
+            ['id' => 6,'warranty_id'=>6,'unit_id'=>1, 'stock' => 55, 'price' => 99.99, 'description' => 'lorem ipsum sit dollar felan nokta test test aciklama test içerik açıklaması e ticaret mucahit test açıklama metni lorem ipsum ', 'name' => 'Turuncu Çark', 'slug' => 'turuncu-cark', 'category_id' => 8],
        ]);
-        \App\Models\Product::factory()->count(20000)->create();
+        \App\Models\Product::factory()->count(200)->create();
 
         \App\Models\ProductImage::insert([
             [
@@ -137,8 +137,8 @@ class DatabaseSeeder extends Seeder
                 'name' => 'test_discount',
                 'description' => 'test discount description',
                 'percent'=>10,
-                'start_date' => '2021-02-02 22:34:00',
-                'end_date' => '2021-12-12 22:34:00',
+                'start_date' => '2022-02-02 22:34:00',
+                'end_date' => '2022-12-12 22:34:00',
                 'coupon' => 'TEST-COUPON',
                 'max_uses'=>10,
                 'max_discount_amount'=>100,
@@ -149,8 +149,8 @@ class DatabaseSeeder extends Seeder
                 'name' => 'test_discount2',
                 'description' => 'test discount description2',
                 'percent' => 20,
-                'start_date' => '2021-02-02 22:34:00',
-                'end_date' => '2021-12-12 22:34:00',
+                'start_date' => '2022-02-02 22:34:00',
+                'end_date' => '2022-12-12 22:34:00',
                 'coupon' => 'TEST-COUPON2',
                 'max_uses' => 10,
                 'max_discount_amount' => 100,
@@ -161,8 +161,8 @@ class DatabaseSeeder extends Seeder
                 'name' => 'test_discount3',
                 'description' => 'test discount description3',
                 'percent' => 30,
-                'start_date' => '2021-02-02 22:34:00',
-                'end_date' => '2021-12-12 22:34:00',
+                'start_date' => '2022-02-02 22:34:00',
+                'end_date' => '2022-12-12 22:34:00',
                 'coupon' => 'TEST-COUPON3',
                 'max_uses' => 30,
                 'max_discount_amount' => 300,
@@ -205,32 +205,32 @@ class DatabaseSeeder extends Seeder
 
         \App\Models\Setting::insert([
             ['setting'=> 'package', 'option' => 'b2b'],
-            ['setting'=> 'site_name', 'option' => 'DehaSoft'],
-            ['setting'=> 'site_description', 'option' => 'DehaSoft'],
-            ['setting'=> 'site_keywords', 'option' => 'DehaSoft'],
-            ['setting'=> 'site_email', 'option' => 'info@dehasoft.com.tr'],
-            ['setting' =>'name','option' => 'Dehasoft E-Ticaret Demo'],
-            ['setting'=> 'copyright', 'option' => 'Copyright © 2021 Dehasoft'],
+            ['setting'=> 'site_name', 'option' => 'mucahit'],
+            ['setting'=> 'site_description', 'option' => 'mucahit'],
+            ['setting'=> 'site_keywords', 'option' => 'mucahit'],
+            ['setting'=> 'site_email', 'option' => 'info@mucahit.mucahit'],
+            ['setting' =>'name','option' => 'mucahit E-Ticaret Demo'],
+            ['setting'=> 'copyright', 'option' => 'Copyright © 2022 mucahit'],
             ['setting'=> 'address', 'option' => 'Oruç Reis Mah. 6.Sokak No:16/A Giyimkent/Esenler'],
             ['setting'=> 'phone', 'option' => '+90 212 535 04 74'],
-            ['setting'=> 'email', 'option' => 'contact@e-ticaret.dehasoft.com.tr'],
-            ['setting'=> 'site', 'option'=> 'https://dehasoft.com.tr'],
+            ['setting'=> 'email', 'option' => 'contact@mucahit.mucahit'],
+            ['setting'=> 'site', 'option'=> 'https://mucahit.mucahit'],
             ['setting'=> 'front_security' , 'option'=> 'false'],
             ['setting'=> 'strange_security', 'option'=>'false'],
             ['setting'=> 'strange_security_level', 'option'=> 'hard'],
-            ['setting'=> 'front_url', 'option'=> 'https://e-ticaret.dehasoftc.om.tr'],
+            ['setting'=> 'front_url', 'option'=> 'https://mucahit.mucahit'],
             ['setting'=> 'image_driver', 'option'=>'imagekit'],
             ['setting'=> 'imagekit_options', 'option'=> '{"public_key":"public_DgtfAgBqm0JM2CaDlYNbAdb4jNA=","urlEndpoint":"https://ik.imagekit.io/djw8ypcvuyq","private_key":"private_LMNaOb1AWN2Z+/KWmw3dxPUJDwI="}'],
             ['setting'=>'notify_driver','option'=>'pusher'],
             ['setting'=>'pusher_options','option'=>'{"app_id":"5a9b8f8b8f8b8f8b8f8b8f8b","app_key":"5a9b8f8b8f8b8f8b8f8b8f8b","app_secret":"5a9b8f8b8f8b8f8b8f8b8f8b","cluster":"eu","encrypted":"true"}'],
-            ['setting'=>'notify_options','option'=>'{"notify_url":"https://e-ticaret.dehasoftc.om.tr/notify"}'],
+            ['setting'=>'notify_options','option'=>'{"notify_url":"https://mucahit.mucahit/notify"}'],
             ['setting'=>'mail_driver','option'=>'smtp'],
-            ['setting'=>'mail_host','option'=>'mail.e-ticaret.dehasoft.com.tr'],
+            ['setting'=>'mail_host','option'=>'mail.mucahit.mucahit'],
             ['setting'=>'mail_port','option'=>'587'],
-            ['setting'=>'mail_username','option'=>'contact@e-ticaret.dehasoft.com.tr'],
+            ['setting'=>'mail_username','option'=>'contact@mucahit.mucahit'],
             ['setting'=>'mail_password','option'=> 'Ko4_ib14'],
             ['setting'=>'mail_encryption','option'=>'tls'],
-            ['setting'=>'mail_from_address','option'=> 'contact@e-ticaret.dehasoft.com.tr']
+            ['setting'=>'mail_from_address','option'=> 'contact@mucahit.mucahit']
         ]);
 
         \App\Models\Route::insert([
